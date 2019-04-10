@@ -125,6 +125,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \item [\textbf{Flags}]
     \item Zero
     \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -151,6 +153,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \item [\textbf{Flags}]
     \item Zero
     \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -175,7 +179,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
-    \item Zero
     \item Negitive
     \item Error
 \end{itemize}
@@ -203,6 +206,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \item [\textbf{Flags}]
     \item Zero
     \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -229,6 +234,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \item [\textbf{Flags}]
     \item Zero
     \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -238,7 +245,7 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \caption*{FLR}
 \begin{tabular}{llllll}
 ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{FLR} & \multicolumn{1}{c|}{01010} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the floor of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  ⌊Rj⌋} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{FLR} & \multicolumn{1}{c|}{01010} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the floor of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\lfloor$ Rj$\rfloor$ } & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -264,7 +271,7 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \caption*{CEL}
 \begin{tabular}{llllll}
 ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{CEL} & \multicolumn{1}{c|}{01011} & \multicolumn{1}{c|}{R} & \DescEntry{Seting Ri to the ceil of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  ⌈Rj⌉} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{CEL} & \multicolumn{1}{c|}{01011} & \multicolumn{1}{c|}{R} & \DescEntry{Seting Ri to the ceil of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\lceil$ Rj$\rceil$ } & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -307,6 +314,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \item [\textbf{Flags}]
     \item Zero
     \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -332,7 +341,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
     \item Zero
-    \item Negitive
     \item Error
 \end{itemize}
 
@@ -411,6 +419,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \item [\textbf{Flags}]
     \item Zero
     \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -435,8 +445,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
-    \item Zero
-    \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -462,7 +472,8 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
     \item Zero
-    \item Negitive
+    \item Overflow
+    \item Carry
     \item Error
 \end{itemize}
 
@@ -487,8 +498,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
-    \item Zero
-    \item Negitive
     \item Error
 \end{itemize}
 
@@ -514,7 +523,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
     \item Zero
-    \item Negitive
     \item Error
 \end{itemize}
 
@@ -539,7 +547,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
-    \item Zero
     \item Negitive
     \item Error
 \end{itemize}
@@ -565,8 +572,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
-    \item Zero
-    \item Negitive
     \item Error
 \end{itemize}
 
@@ -591,8 +596,6 @@ ASM & opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{7mm}
     \item [\textbf{Flags}]
-    \item Zero
-    \item Negitive
     \item Error
 \end{itemize}
 
