@@ -1,0 +1,7 @@
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 5a5a0f3fee454548a2368b3fdc3bcab3 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot ADD_tb_behav xil_defaultlib.ADD_tb -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+ERROR: [XSIM 43-4187] File "/wrk/xhdhdnobkup2/mounicav/xsimsource/xsim_HEAD/data/vhdl/src/ieee_2008/float_pkg.vhdl" Line 45 : The "Vhdl 2008 Package Instantiation Declaration" is not supported yet for simulation.

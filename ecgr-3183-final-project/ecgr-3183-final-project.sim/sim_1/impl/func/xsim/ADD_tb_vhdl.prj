@@ -1,0 +1,12 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"ADD_tb_func_impl.vhd" \
+
+vhdl ieee  \
+"../../../../../../../Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../../../ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd" \
+
+# Do not sort compile order
+nosort

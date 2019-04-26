@@ -1,0 +1,41 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd" into library xil_defaultlib
+ERROR: [VRFC 10-149] 'std_logic_1164' is not compiled in library ieee [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:14]
+ERROR: [VRFC 10-213] Registering Dependencies Error: The primary unit 'std_logic_1164' could not be found during restore
+ERROR: [VRFC 10-147] unisim.vcomponents failed to restore
+ERROR: [VRFC 10-149] 'vcomponents' is not compiled in library unisim [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:16]
+INFO: [VRFC 10-307] analyzing entity ADD
+ERROR: [VRFC 10-91] std_logic_vector is not declared [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:19]
+ERROR: [VRFC 10-91] std_logic_vector is not declared [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:20]
+ERROR: [VRFC 10-91] std_logic_vector is not declared [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:21]
+ERROR: [VRFC 10-91] std_logic is not declared [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:22]
+ERROR: [VRFC 10-91] std_logic is not declared [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:23]
+ERROR: [VRFC 10-1504] unit add ignored due to previous errors [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd:17]
+INFO: [VRFC 10-240] VHDL file D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.sim/sim_1/synth/func/xsim/ADD_tb_func_synth.vhd ignored due to errors
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd" into library ieee
+ERROR: [VRFC 10-149] 'std_logic_1164' is not compiled in library ieee [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:14]
+ERROR: [VRFC 10-149] 'numeric_std' is not compiled in library ieee [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:15]
+ERROR: [VRFC 10-213] Registering Dependencies Error: The primary unit 'std_logic_1164' could not be found during restore
+ERROR: [VRFC 10-147] ieee_proposed.fixed_pkg failed to restore
+ERROR: [VRFC 10-149] 'fixed_pkg' is not compiled in library ieee_proposed [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:16]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:36]
+ERROR: [VRFC 10-91] std_logic is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:47]
+ERROR: [VRFC 10-2101] index constraint cannot apply to non array type float [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:55]
+ERROR: [VRFC 10-2101] index constraint cannot apply to non array type float [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:68]
+ERROR: [VRFC 10-2101] index constraint cannot apply to non array type float [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:81]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:129]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:137]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:145]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:153]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:161]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:169]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:178]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:186]
+ERROR: [VRFC 10-91] round_type is not declared [D:/Xilinx/Vivado/2018.2/scripts/rt/data/float_pkg_c.vhd:195]
+INFO: [#UNDEF] Sorry, too many errors..
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd" into library xil_defaultlib
+ERROR: [VRFC 10-149] 'std_logic_1164' is not compiled in library ieee [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd:23]
+ERROR: [VRFC 10-149] 'numeric_std' is not compiled in library ieee [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd:27]
+ERROR: [VRFC 10-149] 'float_pkg' is not compiled in library ieee [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd:28]
+INFO: [VRFC 10-307] analyzing entity ADD_tb
+ERROR: [VRFC 10-1504] unit add_tb ignored due to previous errors [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd:35]
+INFO: [VRFC 10-240] VHDL file D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ADD_tb.vhd ignored due to errors
