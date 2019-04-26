@@ -1,2 +1,6 @@
 Documentation/.directory
 SingleCycle.cache
+SingleCycle/SingleCycle.runs/.jobs/vrs_config_*.xml
+*.js
+SingleCycle/SingleCycle.sim
+SingleCycle/SingleCycle.runs
