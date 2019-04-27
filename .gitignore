@@ -1,6 +1,6 @@
 Documentation/.directory
-SingleCycle.cache
-SingleCycle/SingleCycle.runs/.jobs/vrs_config_*.xml
+SingleCycle/vhdl/.cache
+SingleCycle/vhdl/SingleCycle.runs/.jobs/vrs_config_*.xml
 *.js
-SingleCycle/SingleCycle.sim
-SingleCycle/SingleCycle.runs
+SingleCycle/vhdl/SingleCycle.sim
+SingleCycle/vhdl/SingleCycle.runs
