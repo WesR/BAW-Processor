@@ -34,12 +34,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity ALU is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           ALUop : in STD_LOGIC_VECTOR (3 downto 0);
+           ALUop : in STD_LOGIC_VECTOR (7 downto 0);
+           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0);
-           c : out STD_LOGIC;
-           v : out STD_LOGIC;
-           n : out STD_LOGIC;
-           z : out STD_LOGIC);
+           C : out STD_LOGIC;
+           V : out STD_LOGIC;
+           E : out STD_LOGIC;
+           N : out STD_LOGIC;
+           Z : out STD_LOGIC);
 end ALU;
 
 architecture Behavioral of ALU is

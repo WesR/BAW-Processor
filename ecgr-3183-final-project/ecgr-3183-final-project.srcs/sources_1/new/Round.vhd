@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/13/2019 05:35:31 PM
+-- Create Date: 04/28/2019 12:34:33 AM
 -- Design Name: 
--- Module Name: SQRT - Behavioral
+-- Module Name: Round - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,19 +31,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity SQRT is
-    Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
-           inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           result : out STD_LOGIC_VECTOR (31 downto 0);
-           CY : out STD_LOGIC;
-           OV : out STD_LOGIC;
-           CMPLX : out STD_LOGIC);
-end SQRT;
+entity Round is
+    Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
+           clock : in STD_LOGIC;
+           output : out STD_LOGIC_VECTOR (31 downto 0));
+end Round;
 
-architecture Behavioral of SQRT is
+architecture Behavioral of Round is
 
 begin
 
-   
+process(clock)
+begin
+    if rising_edge(clock) then
+        output <= input;
+    end if;
+end process;
 
 end Behavioral;

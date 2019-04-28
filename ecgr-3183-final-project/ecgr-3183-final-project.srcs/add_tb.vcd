@@ -1,0 +1,90 @@
+$date
+  Sat Apr 27 18:25:42 2019
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module textio $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module fixed_float_types $end
+$upscope $end
+$scope module math_real $end
+$upscope $end
+$scope module add_tb $end
+$var reg 32 ! inputa[31:0] $end
+$var reg 32 " inputb[31:0] $end
+$var reg 32 # result[31:0] $end
+$var reg 1 $ cy $end
+$var reg 1 % ov $end
+$var reg 1 & clk $end
+$scope module add_test $end
+$var reg 32 ' inputa[31:0] $end
+$var reg 32 ( inputb[31:0] $end
+$var reg 1 ) clock $end
+$var reg 32 * result[31:0] $end
+$var reg 1 + cy $end
+$var reg 1 , ov $end
+$var reg 32 - output_bus[31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU !
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU "
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU #
+U$
+U%
+0&
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU '
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU (
+0)
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU *
+U+
+U,
+bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -
+#10000000
+b01000010001010100000000000000000 !
+b01000001100101000000000000000000 "
+bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX #
+1&
+b01000010001010100000000000000000 '
+b01000001100101000000000000000000 (
+1)
+bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX *
+b01000010011101000000000000000000 -
+#20000000
+0&
+0)
+#30000000
+b01000010011101000000000000000000 #
+1&
+1)
+b01000010011101000000000000000000 *
+#40000000
+0&
+0)
+#50000000
+1&
+1)
+#60000000
+0&
+0)
+#70000000
+1&
+1)
+#80000000
+0&
+0)
+#90000000
+1&
+1)
+#100000000

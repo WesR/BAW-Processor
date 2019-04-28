@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 04/13/2019 05:37:45 PM
 -- Design Name: 
--- Module Name: FABS - Behavioral
+-- Module Name: Fabs - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,15 +31,23 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity FABS is
+entity Fabs is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
+           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0));
-end FABS;
+end Fabs;
 
-architecture Behavioral of FABS is
+architecture Behavioral of Fabs is
 
 begin
 
+process
+begin
+   if rising_edge(clock) then
+       result(31) <= '0';
+       result(30 downto 0) <= inputA(30 downto 0);
+   end if;
+end process;
 
 end Behavioral;
