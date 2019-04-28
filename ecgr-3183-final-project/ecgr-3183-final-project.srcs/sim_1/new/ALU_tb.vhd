@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/13/2019 05:35:31 PM
+-- Create Date: 04/27/2019 10:10:27 PM
 -- Design Name: 
--- Module Name: SQRT - Behavioral
+-- Module Name: ALU_tb - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,19 +31,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity SQRT is
+entity ALU_tb is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           result : out STD_LOGIC_VECTOR (31 downto 0);
-           CY : out STD_LOGIC;
-           OV : out STD_LOGIC;
-           CMPLX : out STD_LOGIC);
-end SQRT;
+           ALUop : in STD_LOGIC_VECTOR (7 downto 0);
+           clock : in STD_LOGIC;
+           C : out STD_LOGIC;
+           V : out STD_LOGIC;
+           E : out STD_LOGIC;
+           N : out STD_LOGIC;
+           Z : out STD_LOGIC);
+end ALU_tb;
 
-architecture Behavioral of SQRT is
+architecture Behavioral of ALU_tb is
 
 begin
 
-   
 
 end Behavioral;
