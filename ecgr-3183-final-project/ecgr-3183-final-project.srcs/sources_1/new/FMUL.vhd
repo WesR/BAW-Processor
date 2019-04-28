@@ -31,17 +31,36 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity FMUL is
+entity Fmul is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
+           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0);
            CY : out STD_LOGIC;
            OV : out STD_LOGIC);
-end FMUL;
+end Fmul;
 
-architecture Behavioral of FMUL is
+architecture Behavioral of Fmul is
+
+signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
+process(inputA, inputB)
+variable tempA, tempB, tempResult: float32;
+begin
+    tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
+    tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
+    tempResult := tempA * tempB;
+    
+    output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
 
+end process;
+
+process(clock)
+begin
+    if rising_edge(clock) then
+       result <= output_bus;
+    end if;
+end process;
 
 end Behavioral;

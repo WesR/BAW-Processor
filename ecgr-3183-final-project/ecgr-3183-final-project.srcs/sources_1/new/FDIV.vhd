@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 04/13/2019 05:13:00 PM
 -- Design Name: 
--- Module Name: FDIV - Behavioral
+-- Module Name: Fdiv - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,18 +31,39 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity FDIV is
+entity Fdiv is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
+           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0);
            CY : out STD_LOGIC;
            OV : out STD_LOGIC;
            DZ : out STD_LOGIC);
-end FDIV;
+end Fdiv;
 
-architecture Behavioral of FDIV is
+architecture Behavioral of Fdiv is
+
+signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
+process(inputA, inputB)
+variable tempA, tempB, tempResult: float32;
+begin
+    tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
+    tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
+    
+    -- need to check for division by zero
+    tempResult := tempA / tempB;
+    
+    output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
 
+end process;
+
+process(clock)
+begin
+    if rising_edge(clock) then
+       result <= output_bus;
+    end if;
+end process;
 
 end Behavioral;

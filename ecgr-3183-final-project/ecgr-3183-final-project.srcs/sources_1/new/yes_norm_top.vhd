@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/13/2019 05:09:31 PM
+-- Create Date: 04/28/2019 01:27:48 PM
 -- Design Name: 
--- Module Name: Fsub - Behavioral
+-- Module Name: yes_norm_top - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -24,44 +24,25 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
-use IEEE.NUMERIC_STD.ALL;
-use IEEE.FLOAT_PKG.ALL;
+--use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Fsub is
+entity yes_norm_top is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
+           selection : in STD_LOGIC_VECTOR (2 downto 0);
            clock : in STD_LOGIC;
-           result : out STD_LOGIC_VECTOR (31 downto 0);
-           CY : out STD_LOGIC;
-           OV : out STD_LOGIC);
-end Fsub;
+           flags_out : out STD_LOGIC_VECTOR (2 downto 0);
+           result : out STD_LOGIC_VECTOR (31 downto 0));
+end yes_norm_top;
 
-architecture Behavioral of Fsub is
-
-signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+architecture Behavioral of yes_norm_top is
 
 begin
-process(inputA, inputB)
-variable tempA, tempB, tempResult: float32;
-begin
-    tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
-    tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
-    tempResult := tempA - tempB;
-    
-    output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
 
-end process;
-
-process(clock)
-begin
-    if rising_edge(clock) then
-       result <= output_bus;
-    end if;
-end process;
 
 end Behavioral;
