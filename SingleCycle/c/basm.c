@@ -49,6 +49,45 @@ int writeInstr(char ins[10], int writeLine){
     else {strncpy(memory[writeLine], "00010110", 8); return 5;} //default to nop for safty 
 }
 
+void memoryWrite(char data[],int word, int pos, int length){
+    for (int i=0;i<length;i++){
+        memory[word][i + pos] = data[i];
+    }
+    printf("memwrite");
+}
+
+void printMem(){
+    for (int i=0;i<20;i++){
+        printf("%s\n", memory[i]);
+    }
+}
+
+void writeRegisterID(char reg[3], int pos){
+    int writePosition = PC +1;
+
+    printf("%d%d%d \n", reg[0], reg[1], reg[2]);
+    if (reg[0] != 82){
+        printf("WHAT\n");
+        return;
+    }
+    if (strcmp(reg, "R0") == 0){ memoryWrite("0000", writePosition, 8, 4); printf("BOP");      }
+    else if (strcmp(reg, "R1") == 0) {memoryWrite("0001", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R2") == 0) {memoryWrite("0010", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R3") == 0) {memoryWrite("0011", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R4") == 0) {memoryWrite("0100", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R5") == 0) {memoryWrite("0101", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R6") == 0) {memoryWrite("0110", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R7") == 0) {memoryWrite("0111", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R8") == 0) {memoryWrite("1000", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R9") == 0) {memoryWrite("1001", writePosition, 8, 4);      }
+    else if (strcmp(reg, "R10") == 0) {memoryWrite("1010", writePosition, 8, 4);     }
+    else if (strcmp(reg, "R11") == 0) {memoryWrite("1011", writePosition, 8, 4);     }
+    else if (strcmp(reg, "R12") == 0) {memoryWrite("1100", writePosition, 8, 4);     }
+    else if (strcmp(reg, "R13") == 0) {memoryWrite("1101", writePosition, 8, 4);     }
+    else if (strcmp(reg, "R14") == 0) {memoryWrite("1110", writePosition, 8, 4);     }
+    else if (strcmp(reg, "R15") == 0) {memoryWrite("1111", writePosition, 8, 4);     }
+}
+
 void convertInstruction(char line[200], int writeLine){
     //get instruction
     char instr[10];
@@ -70,6 +109,26 @@ void convertInstruction(char line[200], int writeLine){
         return;
     }
 
+    for (int i=pos; i+pos < 10; i++){
+        char strReg[3];
+        int k=0;
+        if (line[i] != 9 && line[i] !=32){
+            while(line[i] != 44){
+                //printf("%c", line[i]);
+                strReg[k] = line[i];
+                k++;
+                i++;
+            }
+            pos = i;
+
+            //printf("ASD: %d%d%d \n", strReg[0], strReg[1], strReg[2]);
+            writeRegisterID(strReg, i);
+            //printf("\n");
+            break;
+        } else {
+            instr[i] = line[i];
+        }
+    }
     /**
      * Now we do the same thing for inst 0,1,2,3,4 readign the registers shoudl be bout the same
      **/
@@ -102,5 +161,6 @@ int main(int argc, char* argv[]) {
     }
     fclose(file);
 
+    printMem();
     return 0;
 }
