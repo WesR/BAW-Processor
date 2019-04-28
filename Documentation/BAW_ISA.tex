@@ -1,4 +1,4 @@
-\documentclass[a4paper,14pt]{article}
+\documentclass[letter,14pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{caption}
@@ -6,11 +6,22 @@
 \usepackage{lscape}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{appendix}
 
 %opening
 \title{The BAW Instruction Set Manual}
-\author{Bryant Herren, Wesley Ring, Austin Waddell}
-\date{}
+\author{Bryant Herren, Austin Waddell, Wesley Ring}
+\date{\today}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{90}{1em}}}% no optional argument here, please!
 
 \begin{document}
 
@@ -104,20 +115,22 @@ All processor instructions are 32 bits wide. Table \ref{table:format_description
 Notes:
 \begin{enumerate}
     \item The Opcode is 8 bits long, allowing it to be easily read in hex format. This also allows additional instructions to be added in the future.
-    \item The remaining three bits of each instruction format are not used. This allows for the addition of specialized registers (zero register, etc.) if needed.
+    \item 
 \end{enumerate}
 
-\begin{table}
+\begin{table}[H]
 \centering
 \caption{Instruction Format Descriptions}
 \label{table:format_descriptions}
 \begin{tabular}{| l | p{7cm} | l |}
 \hline
 Format & Description & Example \\ \hline
-R (Register) & An instruction whose inputs and outputs are both registers & ADD X9, X21, X9 \\ \hline
-D (Data) & An instruction used when fetching or placing data in memory & LOAD X9, {[}X22, \#64{]} \\ \hline
-I (Immediate) & An instruction that carries specific additional data & POW X9, \#15 \\ \hline
-B (Branch) & An instruction that deals with changing the location of the PC directly & PC $\leftarrow$  M[Ri] \\ \hline
+R (Register) & An instruction whose inputs and outputs are both registers & Fadd X9, X21, X9 \\ \hline
+D (Data) & An instruction used when fetching or placing data in memory & Load X9, {[}X22, \#64{]} \\ \hline
+I (Immediate) & An instruction that carries specific additional data & Pow X9, \#15 \\ \hline
+CB (Con. Branch) & An instruction that deals with changing the location of the PC directly, but conditionally & If (Ri == 0) PC $\leftarrow$  LABEL (line) \\ \hline
+UB (Unc. Branch) & An instruction that deals with changing the location of the PC directly and unconditionally & PC $\leftarrow$  M[Ri] \\ \hline
+S (Set) & An instruction that sets a register to a specific floating point value & Ri $\leftarrow$  FPvalue \\ \hline
 \end{tabular}
 \end{table}
 
@@ -128,17 +141,16 @@ Please see Table \ref{table:instruction_formats} for specific information on the
 \setlength\tabcolsep{4pt}
 \caption{Instruction Formats}
 \label{table:instruction_formats}
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|llllllllllll|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
 \hline
-\multicolumn{1}{|r|}{Instruction Format} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{14} & \multicolumn{1}{l|}{15} & \multicolumn{1}{l|}{16} & \multicolumn{1}{l|}{17} & \multicolumn{1}{l|}{18} & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 \\ \hline
-
-R (Register) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{5}{l|}{Rm (5 bit)} & \multicolumn{7}{l|}{Empty (7 bit)} & \multicolumn{5}{l|}{Rn (5 bit)} & \multicolumn{5}{l|}{Rd (5 bit)} & \multicolumn{3}{l|}{\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Empty \\ \\ (3 bit)\end{tabular}}} \\ \cline{1-31}
-
-D (Data) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{10}{l|}{Address (9 bit)} & \multicolumn{2}{l|}{op2 (2 bit)} & \multicolumn{5}{l|}{Rn (5 bit)} & \multicolumn{5}{l|}{Rd (5 bit)} & \multicolumn{3}{l|}{} \\ \cline{1-31}
-
-I (Immediate) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{12}{l|}{Immediate Data (11 bit)} & \multicolumn{5}{l|}{Rn (5 bit)} & \multicolumn{5}{l|}{Rd (5 bit)} & \multicolumn{3}{l|}{} \\ \cline{1-31}
-
-B (Branch) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{17}{l|}{Address (16 bits)} &  \multicolumn{5}{l|}{Rd (5 bit)} & \multicolumn{3}{l|}{} \\ \hline
+Instruction Format & 31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 & 15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline
+R (Register) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{4}{l|}{Rm (4 bits)} & \multicolumn{12}{l|}{Empty (12 bits)} & \multicolumn{4}{l|}{Rn (4 bits)} & \multicolumn{4}{l|}{Rd (4 bits)} \\ \hline
+D (Data) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{4}{l|}{Rm (4 bits)} & \multicolumn{14}{l|}{Address (14 bits)} & \multicolumn{2}{l|}{op2 (2 bits)} & \multicolumn{4}{l|}{Rd (4 bits)} \\ \hline
+I (Immediate) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{4}{l|}{Rm (4 bits)} & \multicolumn{16}{l|}{Immediate Data (16 bits)} & \multicolumn{4}{l|}{Rd (4 bits)} \\ \hline
+CB (Con. Branch) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{4}{l|}{Rm (4 bits)} & \multicolumn{20}{l|}{Address (20 bits)} \\ \hline
+UB (Unc. Branch) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{4}{l|}{Empty (4 bits)} & \multicolumn{20}{l|}{Address (20 bits)} \\ \hline
+\multirow{2}{*}{S (Set)} & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{20}{l|}{Empty (20 bits)} & \multicolumn{4}{l|}{Rd (4 bits)} \\ \cline{2-33} 
+ & \multicolumn{32}{l|}{Floating Point Value (32 bits)} \\ \hline
 \end{tabular}
 \end{table}
 \end{landscape}
@@ -153,10 +165,10 @@ B (Branch) & \multicolumn{8}{l|}{Opcode (8 bits)} & \multicolumn{17}{l|}{Address
 \subsubsection{Set}
 \begin{table}[!h]
 \centering
-\caption*{SET}
+\caption*{Set}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{SET} & \multicolumn{1}{c|}{00000001} & \multicolumn{1}{c|}{I} & \DescEntry{Sets Ri to given floating point value} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  FPvalue} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Set} & \multicolumn{1}{c|}{00000001} & \multicolumn{1}{c|}{S} & \DescEntry{Sets Ri to given floating point value} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  FPvalue} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -164,7 +176,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} SET Ri, \#FPvalue
+    \item[] \textbf{ASM Example:} Set Ri, \#FPvalue
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -178,10 +190,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Load}
 \begin{table}[!h]
 \centering
-\caption*{LOD}
+\caption*{Load}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{LOD} & \multicolumn{1}{c|}{00000010} & \multicolumn{1}{c|}{D} & \DescEntry{Copies Rj from memory and into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  M[Rj]} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Load} & \multicolumn{1}{c|}{00000010} & \multicolumn{1}{c|}{D} & \DescEntry{Copies Rj from memory and into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  M[Rj]} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -189,7 +201,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} LOD Ri, Rj
+    \item[] \textbf{ASM Example:} Load Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -203,10 +215,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Store}
 \begin{table}[!h]
 \centering
-\caption*{STR}
+\caption*{Store}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{STR} & \multicolumn{1}{c|}{00000011} & \multicolumn{1}{c|}{D} & \DescEntry{Copies data from register Rj into memory} \vline & \multicolumn{1}{c|}{M[Ri] $\leftarrow$  Rj} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Store} & \multicolumn{1}{c|}{00000011} & \multicolumn{1}{c|}{D} & \DescEntry{Copies data from register Rj into memory} \vline & \multicolumn{1}{c|}{M[Ri] $\leftarrow$  Rj} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -214,7 +226,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} STR Ri, Rj
+    \item[] \textbf{ASM Example:} Store Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -229,10 +241,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Move}
 \begin{table}[!h]
 \centering
-\caption*{MOV}
+\caption*{Move}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{MOV} & \multicolumn{1}{c|}{00000100} & \multicolumn{1}{c|}{R} & \DescEntry{Moves the value of Rj to Ri, deleting the original} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Move} & \multicolumn{1}{c|}{00000100} & \multicolumn{1}{c|}{R} & \DescEntry{Moves the value of Rj to Ri, deleting the original} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -240,7 +252,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} MOV Ri, Rj
+    \item[] \textbf{ASM Example:} Move Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -254,10 +266,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Add}
 \begin{table}[!h]
 \centering
-\caption*{ADD}
+\caption*{Fadd}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{ADD} & \multicolumn{1}{c|}{00000101} & \multicolumn{1}{c|}{R} & \DescEntry{Adds Rj and Rk into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj + Rk} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fadd} & \multicolumn{1}{c|}{00000101} & \multicolumn{1}{c|}{R} & \DescEntry{Adds Rj and Rk into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj + Rk} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -265,7 +277,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} ADD Ri, Rj, Rk
+    \item[] \textbf{ASM Example:} Fadd Ri, Rj, Rk
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -281,10 +293,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Subtract}
 \begin{table}[!h]
 \centering
-\caption*{SUB}
+\caption*{Fsub}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{SUB} & \multicolumn{1}{c|}{00000110} & \multicolumn{1}{c|}{R} & \DescEntry{Subtrcts Rk from Rj into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj – Rk} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fsub} & \multicolumn{1}{c|}{00000110} & \multicolumn{1}{c|}{R} & \DescEntry{Subtrcts Rk from Rj into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj – Rk} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -292,7 +304,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} SUB Ri, Rj, Rk
+    \item[] \textbf{ASM Example:} Fsub Ri, Rj, Rk
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -310,10 +322,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Negate}
 \begin{table}[!h]
 \centering
-\caption*{NEG}
+\caption*{Fneg}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{NEG} & \multicolumn{1}{c|}{00000111} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the Opposite of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  -Rj} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fneg} & \multicolumn{1}{c|}{00000111} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the Opposite of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  -Rj} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -321,7 +333,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} NEG Ri, Rj
+    \item[] \textbf{ASM Example:} Fneg Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -335,10 +347,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Multiply}
 \begin{table}[!h]
 \centering
-\caption*{MUL}
+\caption*{Fmul}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{MUL} & \multicolumn{1}{c|}{00001000} & \multicolumn{1}{c|}{R} & \DescEntry{Multiplies Rj and Rk into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj * Rk} & \multicolumn{1}{c|}{5} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fmul} & \multicolumn{1}{c|}{00001000} & \multicolumn{1}{c|}{R} & \DescEntry{Multiplies Rj and Rk into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj * Rk} & \multicolumn{1}{c|}{5} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -346,7 +358,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} MUL Ri, Rj, Rk
+    \item[] \textbf{ASM Example:} Fmul Ri, Rj, Rk
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -362,10 +374,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Divide}
 \begin{table}[!h]
 \centering
-\caption*{DIV}
+\caption*{Fdiv}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{DIV} & \multicolumn{1}{c|}{00001001} & \multicolumn{1}{c|}{R} & \DescEntry{Divides Rj by Rk into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj / Rk} & \multicolumn{1}{c|}{8} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fdiv} & \multicolumn{1}{c|}{00001001} & \multicolumn{1}{c|}{R} & \DescEntry{Divides Rj by Rk into Ri} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj / Rk} & \multicolumn{1}{c|}{8} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -373,7 +385,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} DIV Ri, Rj, Rk
+    \item[] \textbf{ASM Example:} Fdiv Ri, Rj, Rk
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -392,10 +404,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Floor}
 \begin{table}[!h]
 \centering
-\caption*{FLR}
+\caption*{Floor}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{FLR} & \multicolumn{1}{c|}{00001010} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the floor of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\lfloor$ Rj$\rfloor$ } & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Floor} & \multicolumn{1}{c|}{00001010} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the floor of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\lfloor$ Rj$\rfloor$ } & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -403,7 +415,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} FLR Ri, Rj
+    \item[] \textbf{ASM Example:} Floor Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -417,10 +429,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Ceiling}
 \begin{table}[!h]
 \centering
-\caption*{CEL}
+\caption*{Ceil}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{CEL} & \multicolumn{1}{c|}{00001011} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the ceil of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\lceil$ Rj$\rceil$ } & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Ceil} & \multicolumn{1}{c|}{00001011} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the ceil of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\lceil$ Rj$\rceil$ } & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -428,7 +440,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} CEL Ri, Rj
+    \item[] \textbf{ASM Example:} Ceil Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -442,10 +454,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Round}
 \begin{table}[!h]
 \centering
-\caption*{RND}
+\caption*{Round}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{RND} & \multicolumn{1}{c|}{00001100} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to Rj rounded to the nearest integer} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  round(Rj)} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Round} & \multicolumn{1}{c|}{00001100} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to Rj rounded to the nearest integer} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  round(Rj)} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -453,7 +465,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} RND Ri, Rj
+    \item[] \textbf{ASM Example:} Round Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -469,10 +481,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Absolute Value}
 \begin{table}[!h]
 \centering
-\caption*{ABS}
+\caption*{Fabs}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{ABS} & \multicolumn{1}{c|}{00001101} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the absolute value of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  | Rj |} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fabs} & \multicolumn{1}{c|}{00001101} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the absolute value of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  | Rj |} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -480,7 +492,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} ABS Ri, Rj
+    \item[] \textbf{ASM Example:} Fabs Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -493,10 +505,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Minimum}
 \begin{table}[!h]
 \centering
-\caption*{MIN}
+\caption*{Min}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{MIN} & \multicolumn{1}{c|}{00001110} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the minimum value between Rj and Rk} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  min( Rj, Rk)} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Min} & \multicolumn{1}{c|}{00001110} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the minimum value between Rj and Rk} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  min( Rj, Rk)} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -504,7 +516,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} MIN Ri, Rj, Rk
+    \item[] \textbf{ASM Example:} Min Ri, Rj, Rk
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -518,10 +530,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Maximum}
 \begin{table}[!h]
 \centering
-\caption*{MAX}
+\caption*{Max}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{MAX} & \multicolumn{1}{c|}{00001111} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the maximum value between Rj and Rk} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  max( Rj, Rk)} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Max} & \multicolumn{1}{c|}{00001111} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the maximum value between Rj and Rk} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  max( Rj, Rk)} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -529,7 +541,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} MAX Ri, Rj, Rk
+    \item[] \textbf{ASM Example:} Max Ri, Rj, Rk
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -545,10 +557,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Power}
 \begin{table}[!h]
 \centering
-\caption*{POW}
+\caption*{Pow}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{POW} & \multicolumn{1}{c|}{00010000} & \multicolumn{1}{c|}{I} & \DescEntry{Sets Ri to Rj raised to some given integer power} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj\textasciicircum integer\_value} & \multicolumn{1}{c|}{6} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Pow} & \multicolumn{1}{c|}{00010000} & \multicolumn{1}{c|}{I} & \DescEntry{Sets Ri to Rj raised to some given integer power} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  Rj\textasciicircum integer\_value} & \multicolumn{1}{c|}{6} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -556,7 +568,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} POW Ri, Rj, \#integer\_value
+    \item[] \textbf{ASM Example:} Pow Ri, Rj, \#integer\_value
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -572,10 +584,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Exponent}
 \begin{table}[!h]
 \centering
-\caption*{EXP}
+\caption*{Exp}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{EXP} & \multicolumn{1}{c|}{00010001} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to Rj exponentiated} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  e\textasciicircum Rj} & \multicolumn{1}{c|}{8} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Exp} & \multicolumn{1}{c|}{00010001} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to Rj exponentiated} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  e\textasciicircum Rj} & \multicolumn{1}{c|}{8} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -583,7 +595,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} EXP Ri, Rj
+    \item[] \textbf{ASM Example:} Exp Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -597,10 +609,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Square Root}
 \begin{table}[!h]
 \centering
-\caption*{SQR}
+\caption*{Sqrt}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{SQR} & \multicolumn{1}{c|}{00010010} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the square root of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\surd$ Rj} & \multicolumn{1}{c|}{8} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Sqrt} & \multicolumn{1}{c|}{00010010} & \multicolumn{1}{c|}{R} & \DescEntry{Sets Ri to the square root of Rj} \vline & \multicolumn{1}{c|}{Ri $\leftarrow$  $\surd$ Rj} & \multicolumn{1}{c|}{8} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -608,7 +620,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} SQR Ri, Rj
+    \item[] \textbf{ASM Example:} Sqrt Ri, Rj
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -626,10 +638,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Branch (Uncond.)}
 \begin{table}[!h]
 \centering
-\caption*{BRU}
+\caption*{B}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{BRU} & \multicolumn{1}{c|}{00010011} & \multicolumn{1}{c|}{B} & \DescEntry{Loads Ri from memory into PC} \vline & \multicolumn{1}{c|}{PC $\leftarrow$  M[Ri]} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{B} & \multicolumn{1}{c|}{00010011} & \multicolumn{1}{c|}{UB} & \DescEntry{Loads Ri from memory into PC} \vline & \multicolumn{1}{c|}{PC $\leftarrow$  M[Ri]} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -637,7 +649,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} BRU Ri
+    \item[] \textbf{ASM Example:} B Ri
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -650,10 +662,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Branch Zero}
 \begin{table}[!h]
 \centering
-\caption*{BRZ}
+\caption*{BZ}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{BRZ} & \multicolumn{1}{c|}{00010100} & \multicolumn{1}{c|}{B} & \DescEntry{Sends the PC to a specific labeled line if Ri is zero} \vline & \multicolumn{1}{c|}{If (Ri == 0) PC $\leftarrow$  LABEL (line)} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{BZ} & \multicolumn{1}{c|}{00010100} & \multicolumn{1}{c|}{CB} & \DescEntry{Sends the PC to a specific labeled line if Ri is zero} \vline & \multicolumn{1}{c|}{If (Ri == 0) PC $\leftarrow$  LABEL (line)} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -661,7 +673,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} BRZ Ri, LABEL
+    \item[] \textbf{ASM Example:} BZ Ri, LABEL
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -674,10 +686,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Branch Negative}
 \begin{table}[!h]
 \centering
-\caption*{BRN}
+\caption*{BN}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{BRN} & \multicolumn{1}{c|}{00010101} & \multicolumn{1}{c|}{B} & \DescEntry{Sends the PC to a specific labeled line if Ri is negative} \vline & \multicolumn{1}{c|}{If (Ri < 0) PC $\leftarrow$  LABEL (line)} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{BN} & \multicolumn{1}{c|}{00010101} & \multicolumn{1}{c|}{CB} & \DescEntry{Sends the PC to a specific labeled line if Ri is negative} \vline & \multicolumn{1}{c|}{If (Ri < 0) PC $\leftarrow$  LABEL (line)} & \multicolumn{1}{c|}{3} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -685,7 +697,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} BRN Ri, LABEL
+    \item[] \textbf{ASM Example:} BN Ri, LABEL
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -700,10 +712,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{No-op}
 \begin{table}[!h]
 \centering
-\caption*{NOP}
+\caption*{Nop}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{NOP} & \multicolumn{1}{c|}{00010110} & \multicolumn{1}{c|}{-} & \DescEntry{No operation} \vline & \multicolumn{1}{c|}{No operation} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Nop} & \multicolumn{1}{c|}{00010110} & \multicolumn{1}{c|}{-} & \DescEntry{No operation} \vline & \multicolumn{1}{c|}{No operation} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -711,7 +723,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} NOP
+    \item[] \textbf{ASM Example:} Nop
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -724,10 +736,10 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 \subsubsection{Halt}
 \begin{table}[!h]
 \centering
-\caption*{HLT}
+\caption*{Halt}
 \begin{tabular}{llllll}
 ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
-\multicolumn{1}{|c|}{HLT} & \multicolumn{1}{c|}{00010111} & \multicolumn{1}{c|}{-} & \DescEntry{Stop program} \vline & \multicolumn{1}{c|}{Stop Program} & \multicolumn{1}{c|}{-} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Halt} & \multicolumn{1}{c|}{00010111} & \multicolumn{1}{c|}{-} & \DescEntry{Stop program} \vline & \multicolumn{1}{c|}{Stop Program} & \multicolumn{1}{c|}{-} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
 
@@ -735,7 +747,7 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
     \setlength{\parskip}{0pt}
     \setlength{\itemsep}{0pt plus 1pt}
     \setlength{\itemindent}{-4mm}
-    \item[] \textbf{ASM Example:} HLT
+    \item[] \textbf{ASM Example:} Halt
 \end{itemize}
 \begin{itemize}
     \setlength{\parskip}{0pt}
@@ -748,88 +760,142 @@ ASM & Opcode & Format & Description & Operation & ALU Cycles \\ \hline
 
 
 %========================================
-
+\newpage
 \section{Architecture}
 
 \subsection{ALU}
-\begin{center}
-\includegraphics[width=1\linewidth]{ALUDesign.png}
-\end{center}
+	
+The ALU can perform fourteen unique operations, and also pass through input A. Eleven of these operations are done in the second phase of the ALU, directly after the pre-normalization process (Fadd, for example). The remaining three operations are done in the final stage of the ALU, directly after the post-normalization process (Floor, for example). The figure below shows each phase of the ALU in order from input to result.
+	
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=1\linewidth]{ALU.png}
+	\caption{ALU Design}
+	\end{center}
+	\end{figure}
+	
+\noindent
+When the two inputs enter the ALU, their exponents are normalized to whichever input is larger. The larger input is chosen because it’s less likely to result in a loss of precision. Depending on the instruction, the two inputs may bypass the normalization process in order to save on ALU cycles (Fabs, for example).
+\noindent\newline\newline
+Next is the first stage of arithmetic where the inputs are added, multiplied, etc. The functional blocks of this section can out any combination of the following three flags: carry, overflow, and error. The figure above depicts specifically what blocks can trigger what flags. The error flag is exclusively used for domain errors, either when dividing by zero or entering the complex domain.
+ \noindent\newline\newline
+After the first stage of arithmetic, the result enters the post-normalize stage (which can be bypassed like before) and then is passed through to the result output of the ALU. This is also where the zero and negative flags are set if necessary. Alternatively, if the first stage of arithmetic is skipped (pass-through), then the second stage may be used for the Round, Floor, and Ceil functions. It's worth noting that having two stages of arithmetic allows for combination instructions to be implemented with little to no additional hardware (Fadd + Round, for example) in order to make the common case fast. This is why more Opcode bits than necessary exist.
+ \noindent\newline\newline
+The entire ALU is controlled by the Opcode control signal, which comes directly out of the instruction. See Table \ref{table:datapath_control} to determine which Opcodes correspond to which ALU functions.
+
 
 \subsection{Datapath}
-\subsubsection{Single Cycle}
-\begin{center}
-\includegraphics[width=1\linewidth]{SingleCycleArch.png}
-\end{center}
+	\subsubsection{Single Cycle}
+	Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=1\linewidth]{SingleCycleArch.png}
+	\caption{Single Cycle Architecture}
+	\end{center}
+	\end{figure}
+	\noindent
+	Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+	
+	\newpage
+	\subsubsection{Pipelined}
+	Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=1\linewidth]{PipelinedArch.png}
+	\caption{Pipelined Architecture}
+	\end{center}
+	\end{figure}
+	\noindent
+	Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
 
-\subsubsection{Pipelined}
-\subsection{controller}
 
-\begin{table}[!h]
+\subsection{Controller}
+Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+\begin{table}[H]
 \centering
-\caption*{Datapath Control (We'll document what each of the signals means later, but its the same as the book)}
-\begin{tabular}{lllllllll}
-ASM & Opcode & ALUSrc & MemtoReg & RegWrite & MemRead & MemWrite & Branch & UncodBranch \\ \hline
-\multicolumn{1}{|c|}{SET} & \multicolumn{1}{c|}{00000001} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{LOD} & \multicolumn{1}{c|}{00000010} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{STR} & \multicolumn{1}{c|}{00000011} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
+\caption{Datapath Control}
+\label{table:datapath_control}
+\begin{tabular}{lllllllllll}
+ASM & Opcode & \rot{ALUSrc} & \rot{MemtoReg} & \rot{RegWrite} & \rot{MemRead} & \rot{MemWrite} & \rot{Branch} & \rot{UncodBranch} & ALU Control Description  \\ \hline
+\multicolumn{1}{|c|}{Set} & \multicolumn{1}{c|}{00000001} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Use Adder} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Load} & \multicolumn{1}{c|}{00000010} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Use Adder} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Store} & \multicolumn{1}{c|}{00000011} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Use Adder} \TBstrut \\[1em] \hline
 
-\multicolumn{1}{|c|}{MOV} & \multicolumn{1}{c|}{00000100} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{ADD} & \multicolumn{1}{c|}{00000101} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{SUB} & \multicolumn{1}{c|}{00000110} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{NEG} & \multicolumn{1}{c|}{00000111} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MUL} & \multicolumn{1}{c|}{00001000} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{DIV} & \multicolumn{1}{c|}{00001001} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{FLR} & \multicolumn{1}{c|}{00001010} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{CEL} & \multicolumn{1}{c|}{00001011} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{RND} & \multicolumn{1}{c|}{00001100} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{ABS} & \multicolumn{1}{c|}{00001101} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MIN} & \multicolumn{1}{c|}{00001110} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MAX} & \multicolumn{1}{c|}{00001111} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{POW} & \multicolumn{1}{c|}{00010000} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{EXP} & \multicolumn{1}{c|}{00010001} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{SQR} & \multicolumn{1}{c|}{00010010} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Move} & \multicolumn{1}{c|}{00000100} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline 
+\multicolumn{1}{|c|}{Fadd} & \multicolumn{1}{c|}{00000101} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}  & \multicolumn{1}{c|}{Use Adder} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fsub} & \multicolumn{1}{c|}{00000110} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}  & \multicolumn{1}{c|}{Use Subtracter} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fneg} & \multicolumn{1}{c|}{00000111} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Negate} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fmul} & \multicolumn{1}{c|}{00001000} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Use Multiplier} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fdiv} & \multicolumn{1}{c|}{00001001} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Use Divider} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Floor} & \multicolumn{1}{c|}{00001010} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Floor Result} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Ceil} & \multicolumn{1}{c|}{00001011} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Ceil Result} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Round} & \multicolumn{1}{c|}{00001100} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Round Result} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Fabs} & \multicolumn{1}{c|}{00001101} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Take Absolute Value} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Min} & \multicolumn{1}{c|}{00001110} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Take Minimum Input} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Max} & \multicolumn{1}{c|}{00001111} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}  & \multicolumn{1}{c|}{Take Maximum Output} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Pow} & \multicolumn{1}{c|}{00010000} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}  & \multicolumn{1}{c|}{Take Power} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Exp} & \multicolumn{1}{c|}{00010001} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Exponentiate} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Sqrt} & \multicolumn{1}{c|}{00010010} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Take Square Root} \TBstrut \\[1em] \hline
 
-\multicolumn{1}{|c|}{BRU} & \multicolumn{1}{c|}{00010011} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{1} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{BRZ} & \multicolumn{1}{c|}{00010100} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{BRN} & \multicolumn{1}{c|}{00010101} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{NOP} & \multicolumn{1}{c|}{00010110} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{HLT} & \multicolumn{1}{c|}{00010111} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{B} & \multicolumn{1}{c|}{00010011} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{BZ} & \multicolumn{1}{c|}{00010100} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{BN} & \multicolumn{1}{c|}{00010101} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Nop} & \multicolumn{1}{c|}{00010110} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
+\multicolumn{1}{|c|}{Halt} & \multicolumn{1}{c|}{00010111} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
 \end{tabular}
 \end{table}
-
-\begin{table}[!h]
-\centering
-\caption*{ALU Control (ALUop)}
-\begin{tabular}{llll}
-ASM & Opcode & ALUop & Description \\ \hline
-\multicolumn{1}{|c|}{SET} & \multicolumn{1}{c|}{00000001} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{LOD} & \multicolumn{1}{c|}{00000010} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{STR} & \multicolumn{1}{c|}{00000011} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MOV} & \multicolumn{1}{c|}{00000100} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline 
-\multicolumn{1}{|c|}{ADD} & \multicolumn{1}{c|}{00000101} & \multicolumn{1}{c|}{0001} & \multicolumn{1}{c|}{Use Adder} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{SUB} & \multicolumn{1}{c|}{00000110} & \multicolumn{1}{c|}{0010} & \multicolumn{1}{c|}{Use Subtracter} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{NEG} & \multicolumn{1}{c|}{00000111} & \multicolumn{1}{c|}{0011} & \multicolumn{1}{c|}{Negate} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MUL} & \multicolumn{1}{c|}{00001000} & \multicolumn{1}{c|}{0100} & \multicolumn{1}{c|}{Use Multiplier} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{DIV} & \multicolumn{1}{c|}{00001001} & \multicolumn{1}{c|}{0101} & \multicolumn{1}{c|}{Use Divider} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{FLR} & \multicolumn{1}{c|}{00001010} & \multicolumn{1}{c|}{0110} & \multicolumn{1}{c|}{Floor Result} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{CEL} & \multicolumn{1}{c|}{00001011} & \multicolumn{1}{c|}{0111} & \multicolumn{1}{c|}{Ceil Result} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{RND} & \multicolumn{1}{c|}{00001100} & \multicolumn{1}{c|}{1000} & \multicolumn{1}{c|}{Round Result} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{ABS} & \multicolumn{1}{c|}{00001101} & \multicolumn{1}{c|}{1001} & \multicolumn{1}{c|}{Take Absolute Value} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MIN} & \multicolumn{1}{c|}{00001110} & \multicolumn{1}{c|}{1010} & \multicolumn{1}{c|}{Take Minimum Input} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{MAX} & \multicolumn{1}{c|}{00001111} & \multicolumn{1}{c|}{1011} & \multicolumn{1}{c|}{Take Maximum Input} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{POW} & \multicolumn{1}{c|}{00010000} & \multicolumn{1}{c|}{1100} & \multicolumn{1}{c|}{Take Power} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{EXP} & \multicolumn{1}{c|}{00010001} & \multicolumn{1}{c|}{1101} & \multicolumn{1}{c|}{Exponentiate} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{SQR} & \multicolumn{1}{c|}{00010010} & \multicolumn{1}{c|}{1110} & \multicolumn{1}{c|}{Take Square Root} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{BRU} & \multicolumn{1}{c|}{00010011} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{BRZ} & \multicolumn{1}{c|}{00010100} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{BRN} & \multicolumn{1}{c|}{00010101} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{NOP} & \multicolumn{1}{c|}{00010110} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\multicolumn{1}{|c|}{HLT} & \multicolumn{1}{c|}{00010111} & \multicolumn{1}{c|}{0000} & \multicolumn{1}{c|}{Pass Through} \TBstrut \\[1em] \hline
-\end{tabular}
-\end{table}
+\noindent
+Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
 
 \section{VHDL Description}
+Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
 \section{Testing}
+Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
 \section{Conclusion}
+Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+
+\newpage
+\appendix
+\appendixpage
+\addappheadtotoc
+
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=1\linewidth]{ALU.png}
+	\caption*{ALU Design}
+	\end{center}
+	\end{figure}
+
+	\begin{landscape}
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=1\linewidth]{SingleCycleArch.png}
+	\caption*{Single Cycle Architecture}
+	\end{center}
+	\end{figure}
+	\end{landscape}
+
+	\begin{landscape}
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=1\linewidth]{PipelinedArch.png}
+	\caption*{Pipelined Architecture}
+	\end{center}
+	\end{figure}
+	\end{landscape}
+
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
