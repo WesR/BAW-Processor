@@ -5,6 +5,13 @@
 #define CONST_E 2.7182818284590452354
 
 /**
+ * This file contains all the logic for the ALU.
+ * Input lines have data passed down (ex Rm or Rn).
+ * Output lines are passed by refrence (pointers aka Rd or flags)
+ **/
+
+
+/**
  * Check for floating point overflow
  **/
 void checkOverflow(float *Rd, int *overflow){
@@ -164,7 +171,10 @@ void alu_sqr(float Rm, float *Rd) {
     *Rd = sqrtf(Rm);
 }
 
-
+/**
+ * Summery: The ALU logic. 
+ * Input: alu opcode | rm, rn, *rd | Zero, Neg, Overflow, Carry, Error
+ **/
 void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int *overflow, int *carry, int *error) {
 
     //Reset all flags
@@ -237,7 +247,6 @@ void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int 
 
 /**
  * Test code
- **/
 int main(){
     float register1 = 5;
     float register2 = 15;
@@ -259,3 +268,4 @@ int main(){
     printf("sqr: %f z:%i neg:%i ovf:%i err:%i\n", register3, zero, neg, overflow, error);
     printf("\n");
 }
+**/

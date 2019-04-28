@@ -4,3 +4,4 @@ SingleCycle/vhdl/SingleCycle.runs/.jobs/vrs_config_*.xml
 *.js
 SingleCycle/vhdl/SingleCycle.sim
 SingleCycle/vhdl/SingleCycle.runs
+.vscode

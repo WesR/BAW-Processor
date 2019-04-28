@@ -1,3 +1,3 @@
-bawmake: alu.c
-	gcc alu.c -lm -o alu
-	./alu
+bawmake: alu.c cpu.c reg.c
+	gcc alu.c cpu.c reg.c -lm -o cpu
+	./cpu
