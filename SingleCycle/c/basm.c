@@ -53,7 +53,7 @@ void memoryWrite(char data[],int word, int pos, int length){
     for (int i=0;i<length;i++){
         memory[word][i + pos] = data[i];
     }
-    printf("memwrite");
+    //printf("memwrite");
 }
 
 void printMem(){
@@ -65,27 +65,27 @@ void printMem(){
 void writeRegisterID(char reg[3], int pos){
     int writePosition = PC +1;
 
-    printf("%d%d%d \n", reg[0], reg[1], reg[2]);
+    //printf("%d%d%d \n", reg[0], reg[1], reg[2]);
     if (reg[0] != 82){
-        printf("WHAT\n");
+        printf("Bad Register Parse, are they all caps?\n");
         return;
     }
-    if (strcmp(reg, "R0") == 0){ memoryWrite("0000", writePosition, 8, 4); printf("BOP");      }
-    else if (strcmp(reg, "R1") == 0) {memoryWrite("0001", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R2") == 0) {memoryWrite("0010", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R3") == 0) {memoryWrite("0011", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R4") == 0) {memoryWrite("0100", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R5") == 0) {memoryWrite("0101", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R6") == 0) {memoryWrite("0110", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R7") == 0) {memoryWrite("0111", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R8") == 0) {memoryWrite("1000", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R9") == 0) {memoryWrite("1001", writePosition, 8, 4);      }
-    else if (strcmp(reg, "R10") == 0) {memoryWrite("1010", writePosition, 8, 4);     }
-    else if (strcmp(reg, "R11") == 0) {memoryWrite("1011", writePosition, 8, 4);     }
-    else if (strcmp(reg, "R12") == 0) {memoryWrite("1100", writePosition, 8, 4);     }
-    else if (strcmp(reg, "R13") == 0) {memoryWrite("1101", writePosition, 8, 4);     }
-    else if (strcmp(reg, "R14") == 0) {memoryWrite("1110", writePosition, 8, 4);     }
-    else if (strcmp(reg, "R15") == 0) {memoryWrite("1111", writePosition, 8, 4);     }
+    if (reg[1] == 48 && reg[2] == 127 ){ memoryWrite("0000", writePosition, 8, 4);          } //R0
+    else if (reg[1] == 49 && reg[2] == 127) {memoryWrite("0001", writePosition, 8, 4);      } //R1
+    else if (reg[1] == 50 && reg[2] == 127) {memoryWrite("0010", writePosition, 8, 4);      }
+    else if (reg[1] == 51 && reg[2] == 127) {memoryWrite("0011", writePosition, 8, 4);      }
+    else if (reg[1] == 52 && reg[2] == 127) {memoryWrite("0100", writePosition, 8, 4);      }
+    else if (reg[1] == 53 && reg[2] == 127) {memoryWrite("0101", writePosition, 8, 4);      }
+    else if (reg[1] == 54 && reg[2] == 127) {memoryWrite("0110", writePosition, 8, 4);      }
+    else if (reg[1] == 55 && reg[2] == 127) {memoryWrite("0111", writePosition, 8, 4);      }
+    else if (reg[1] == 56 && reg[2] == 127) {memoryWrite("1000", writePosition, 8, 4);      }
+    else if (reg[1] == 57 && reg[2] == 127) {memoryWrite("1001", writePosition, 8, 4);      }
+    else if (reg[1] == 49 && reg[2] == 48) {memoryWrite("1010", writePosition, 8, 4);     } //R10
+    else if (reg[1] == 49 && reg[2] == 49) {memoryWrite("1011", writePosition, 8, 4);     } //R11
+    else if (reg[1] == 49 && reg[2] == 50) {memoryWrite("1100", writePosition, 8, 4);     }
+    else if (reg[1] == 49 && reg[2] == 51) {memoryWrite("1101", writePosition, 8, 4);     }
+    else if (reg[1] == 49 && reg[2] == 52) {memoryWrite("1110", writePosition, 8, 4);     }
+    else if (reg[1] == 49 && reg[2] == 53) {memoryWrite("1111", writePosition, 8, 4);     } //R15
 }
 
 void convertInstruction(char line[200], int writeLine){
@@ -109,7 +109,7 @@ void convertInstruction(char line[200], int writeLine){
         return;
     }
 
-    for (int i=pos; i+pos < 10; i++){
+    for (int i=pos; i+pos < 10; i++){//Write register 1
         char strReg[3];
         int k=0;
         if (line[i] != 9 && line[i] !=32){
@@ -128,6 +128,7 @@ void convertInstruction(char line[200], int writeLine){
         } else {
             instr[i] = line[i];
         }
+        
     }
     /**
      * Now we do the same thing for inst 0,1,2,3,4 readign the registers shoudl be bout the same
