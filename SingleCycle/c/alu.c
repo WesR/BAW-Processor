@@ -248,9 +248,9 @@ void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int 
 /**
  * Test code
 int main(){
-    float register1 = 5;
-    float register2 = 15;
-    float register3;
+    float register1 00001000011000000000000000110000
+    float register2 00001000011000000000000000110000
+    float register3;00001000011000000000000000110000
     int zero, neg, overflow, carry, error = 0;
 
     printf("\n");
