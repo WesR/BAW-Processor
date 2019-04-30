@@ -130,7 +130,8 @@ void convertInstruction(char line[200], int writeLine){
                 i++;
             }            
             if (strReg[3] != 127){//+1 because of the comma, +2 if its a three letter register 
-                pos = i+1;//R10,
+                pos = i+2;//R10,
+                printf("plop at the %d%d%d \n", strReg[0], strReg[1], strReg[2]);
             } else {
                 pos = i+1;//R1,
             }
@@ -190,6 +191,7 @@ void convertInstruction(char line[200], int writeLine){
                 if (strReg[2] == 9){
                     strReg[2] = 127;
                 }
+                printf("Please write %s\n", instr);
                 printf("ZXC: %d%d%d \n", strReg[0], strReg[1], strReg[2]);
                 writeRegisterID(strReg, 28, writeLine);//Write the register to the R2 spot
                 //printf("\n");
