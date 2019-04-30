@@ -1,7 +1,66 @@
 v 4
+file . "sim_1\new\Fadd_tb.vhd" "c9c261d11b7e3882a38a37a7d16144e7208f1dc4" "20190429044009.127":
+  entity fadd_tb at 22( 465) + 0 on 129;
+  architecture behavioral of fadd_tb at 41( 891) + 0 on 130;
+file . "sources_1\new\yes_norm_top.vhd" "b743f21393bf00e47c081b5e9069bbd23268fa09" "20190429043633.276":
+  entity yes_norm_top at 22( 470) + 0 on 125;
+  architecture behavioral of yes_norm_top at 43( 1163) + 0 on 126;
+file . "sources_1\new\Round.vhd" "8cc41c48d3ce1ba04891c5a3cdb8303dfc6d722a" "20190429043633.080":
+  entity round at 22( 463) + 0 on 121;
+  architecture behavioral of round at 40( 971) + 0 on 122;
+file . "sources_1\new\Post-Normalize.vhd" "a5cc9d495298fe882ceab5d3370c9367368c850e" "20190429043632.817":
+  entity post_normalize at 22( 472) + 0 on 117;
+  architecture behavioral of post_normalize at 40( 998) + 0 on 118;
+file . "sources_1\new\Pass_Thru.vhd" "73250cbd8ccb6d8f83e34a87f5b8f9d5917ba737" "20190429043632.592":
+  entity pass_thru at 22( 467) + 0 on 113;
+  architecture behavioral of pass_thru at 40( 983) + 0 on 114;
+file . "sources_1\new\Max.vhd" "3118f5db3c33d44b2f5a5cf40e71e305a9b9c71e" "20190429043632.146":
+  entity max at 22( 461) + 0 on 109;
+  architecture behavioral of max at 41( 1019) + 0 on 110;
+file . "sources_1\new\Fneg.vhd" "700644086f776f32e45ae19291b23101b22eb5e7" "20190429043631.288":
+  entity fneg at 22( 462) + 0 on 105;
+  architecture behavioral of fneg at 41( 1022) + 0 on 106;
+file . "sources_1\new\Floor.vhd" "58fb48c3c80228f71899ede3af680eaae6dd24ea" "20190429043630.575":
+  entity floor at 22( 463) + 0 on 101;
+  architecture behavioral of floor at 40( 971) + 0 on 102;
+file . "sources_1\new\Fadd.vhd" "3ce44f5d86d5d81419c240688f809a9b4f9eb138" "20190429043929.478":
+  entity fadd at 22( 462) + 0 on 127;
+  architecture behavioral of fadd at 48( 1189) + 0 on 128;
+file . "sources_1\new\Exp.vhd" "75cc2f41954f1e37a0a7001f88a6eec2730b71ff" "20190429043629.183":
+  entity exp at 22( 461) + 0 on 93;
+  architecture behavioral of exp at 43( 1072) + 0 on 94;
+file . "sources_1\new\ALU.vhd" "0fb9fffd5193aa4905b6d2d9011731e29f2151b3" "20190429043628.853":
+  entity alu at 22( 461) + 0 on 89;
+  architecture behavioral of alu at 47( 1224) + 0 on 90;
+file . "sources_1\new\FADD.vhd" "322e5bac3e65e7ecc624d8886a39fa6e67151c62" "20190427221425.734":
+  architecture fadd_behavioral of fadd at 48( 1189) + 0 on 58;
 file . "sim_1\new\ADD_tb.vhd" "a9debc2707dd24c1c47b52b2e9a981ad48b2fbf8" "20190427222540.163":
   entity add_tb at 22( 464) + 0 on 67;
   architecture add_tb_behavioral of add_tb at 41( 888) + 0 on 68;
-file . "sources_1\new\FADD.vhd" "322e5bac3e65e7ecc624d8886a39fa6e67151c62" "20190427221425.734":
-  entity fadd at 22( 462) + 0 on 57;
-  architecture fadd_behavioral of fadd at 48( 1189) + 0 on 58;
+file . "sources_1\new\Ceil.vhd" "dcc9fc5291ddc9f5e20d7f386307c4b7931bba94" "20190429043628.967":
+  entity ceil at 22( 462) + 0 on 91;
+  architecture behavioral of ceil at 40( 968) + 0 on 92;
+file . "sources_1\new\Fabs.vhd" "790383da6ee0e3d7aa9ccc8f395bcece8a779e80" "20190429043629.536":
+  entity fabs at 22( 462) + 0 on 95;
+  architecture behavioral of fabs at 41( 1024) + 0 on 96;
+file . "sources_1\new\Fdiv.vhd" "6214cd98fa8decb9ba676661c0f6e07f1f987a8a" "20190429043630.216":
+  entity fdiv at 22( 462) + 0 on 99;
+  architecture behavioral of fdiv at 45( 1139) + 0 on 100;
+file . "sources_1\new\Fmul.vhd" "e6b75f94c48379b0aa2a1a2965abb199066c2f4b" "20190429043630.798":
+  entity fmul at 22( 462) + 0 on 103;
+  architecture behavioral of fmul at 44( 1108) + 0 on 104;
+file . "sources_1\new\Fsub.vhd" "46b4fbb8dbfc2241ec02d282634fa9a755b4b5af" "20190429043631.775":
+  entity fsub at 22( 462) + 0 on 107;
+  architecture behavioral of fsub at 44( 1108) + 0 on 108;
+file . "sources_1\new\Min.vhd" "b4175caf926516dc02292e984a6b520b9a13991a" "20190429043632.427":
+  entity min at 22( 461) + 0 on 111;
+  architecture behavioral of min at 41( 1019) + 0 on 112;
+file . "sources_1\new\Pass_Thru_A.vhd" "da7768682dc5e35771378da46aeab6bb96646db4" "20190429043632.702":
+  entity pass_thru_a at 22( 469) + 0 on 115;
+  architecture behavioral of pass_thru_a at 40( 1012) + 0 on 116;
+file . "sources_1\new\Pre-Normalize.vhd" "dec50997d0f713d8f2acf1fcc37a7194cd5a883c" "20190429043632.997":
+  entity pre_normalize at 22( 471) + 0 on 119;
+  architecture behavioral of pre_normalize at 42( 1109) + 0 on 120;
+file . "sources_1\new\yes_norm_internal_mux.vhd" "898253a97469fa58cce39ab7e7803c2625bb3ccf" "20190429043633.195":
+  entity yes_norm_internal_flags_mux at 22( 485) + 0 on 123;
+  architecture behavioral of yes_norm_internal_flags_mux at 47( 1447) + 0 on 124;
