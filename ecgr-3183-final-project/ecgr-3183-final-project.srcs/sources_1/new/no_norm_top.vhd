@@ -2,9 +2,9 @@
 -- Company: ECGR-3183
 -- Engineer: 
 -- 
--- Create Date: 04/28/2019 01:27:48 PM
+-- Create Date: 04/29/2019 10:08:48 PM
 -- Design Name: 
--- Module Name: yes_norm_top - Behavioral
+-- Module Name: no_norm_top - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,67 +31,51 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity yes_norm_top is
+entity no_norm_top is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
            select_op : in STD_LOGIC_VECTOR (2 downto 0);
            output : out STD_LOGIC_VECTOR (31 downto 0);
-           flags_out : out STD_LOGIC_VECTOR (2 downto 0));
-end yes_norm_top;
+           flags_out : out STD_LOGIC_VECTOR(2 downto 0));
+end no_norm_top;
 
-architecture Behavioral of yes_norm_top is
+architecture Behavioral of no_norm_top is
 
-    component Pre_Normalize is
-        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
-               inputB : in STD_LOGIC_VECTOR (31 downto 0);
-               outputA : out STD_LOGIC_VECTOR (31 downto 0);
-               outputB : out STD_LOGIC_VECTOR (31 downto 0));
-    end component;
-    
-    component Fadd is
-        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
-               inputB : in STD_LOGIC_VECTOR (31 downto 0);
-               result : out STD_LOGIC_VECTOR (31 downto 0);
-               CY : out STD_LOGIC;
-               OV : out STD_LOGIC);
-    end component;
-    
-    component Fsub is
-        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
-               inputB : in STD_LOGIC_VECTOR (31 downto 0);
-               result : out STD_LOGIC_VECTOR (31 downto 0);
-               CY : out STD_LOGIC;
-               OV : out STD_LOGIC);
-    end component;
-    
-    component Fmul is
+    component Pass_Thru_A is
         Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
                inputB : in STD_LOGIC_VECTOR (31 downto 0);
                result : out STD_LOGIC_VECTOR (31 downto 0));
     end component;
     
-    component Fdiv is
+    component Fsqrt is
         Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
                inputB : in STD_LOGIC_VECTOR (31 downto 0);
                result : out STD_LOGIC_VECTOR (31 downto 0);
                E : out STD_LOGIC);
     end component;
     
-    component Pow is
+    component Fabs is
         Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
                inputB : in STD_LOGIC_VECTOR (31 downto 0);
                result : out STD_LOGIC_VECTOR (31 downto 0));
     end component;
     
-    component Exp is
+    component Fneg is
         Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
                inputB : in STD_LOGIC_VECTOR (31 downto 0);
                result : out STD_LOGIC_VECTOR (31 downto 0));
     end component;
     
-    component Post_Normalize is
-        Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
-               output : out STD_LOGIC_VECTOR (31 downto 0));
+    component Min is
+        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
+               inputB : in STD_LOGIC_VECTOR (31 downto 0);
+               result : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
+    
+    component Max is
+        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
+               inputB : in STD_LOGIC_VECTOR (31 downto 0);
+               result : out STD_LOGIC_VECTOR (31 downto 0));
     end component;
     
     component mux_8_to_1_word32 is
@@ -120,9 +104,6 @@ architecture Behavioral of yes_norm_top is
                flags_out : out STD_LOGIC_VECTOR (2 downto 0));
     end component;
     
-    signal internal_pre_norm_A : STD_LOGIC_VECTOR(31 downto 0);
-    signal internal_pre_norm_B : STD_LOGIC_VECTOR(31 downto 0);
-    
     signal internal_word32_0 : STD_LOGIC_VECTOR(31 downto 0);
     signal internal_word32_1 : STD_LOGIC_VECTOR(31 downto 0);
     signal internal_word32_2 : STD_LOGIC_VECTOR(31 downto 0);
@@ -130,46 +111,37 @@ architecture Behavioral of yes_norm_top is
     signal internal_word32_4 : STD_LOGIC_VECTOR(31 downto 0);
     signal internal_word32_5 : STD_LOGIC_VECTOR(31 downto 0);
     
-    signal internal_flags_0 : STD_LOGIC_VECTOR(2 downto 0); -- Flags signal for Fadd
-    signal internal_flags_1 : STD_LOGIC_VECTOR(2 downto 0); -- Flags signal for Fsub
+    signal internal_flags_1 : STD_LOGIC_VECTOR(2 downto 0); -- Flags signal for Fsqrt
     
-    signal internal_flags_3 : STD_LOGIC_VECTOR(2 downto 0); -- Flags signal for Fdiv
 begin
-    -- port mappings
-    box_Pre_Norm: Pre_Normalize port map(inputA => inputA, inputB => inputB, outputA => internal_pre_norm_A, outputB => internal_pre_norm_B);
-    
-    box_Fadd: Fadd port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_0, 
-                                CY => internal_flags_0(2), OV => internal_flags_0(1));  
-    box_Fsub: Fsub port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_1, 
-                                CY => internal_flags_1(2), OV => internal_flags_1(1));
-    box_Fmul: Fmul port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_2);
-    box_Fdiv: Fdiv port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_3, E => internal_flags_3(0));
-    box_Pow: Pow port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_4);
-    box_Exp: Exp port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_5);
-    
-    box_Post_Norm: Post_Normalize port map(input => inputA, output => internal_pre_norm_A);
+    -- port mappings    
+    box_Pass_Thru_A: Pass_Thru_A port map(inputA => inputA, inputB => inputB, result => internal_word32_0);
+    box_Fsqrt: Fsqrt port map(inputA => inputA, inputB => inputB, result => internal_word32_1, E => internal_flags_1(0));
+    box_Fabs: Fabs port map(inputA => inputA, inputB => inputB, result => internal_word32_2);
+    box_Fneg: Fneg port map(inputA => inputA, inputB => inputB, result => internal_word32_3);
+    box_Min: Min port map(inputA => inputA, inputB => inputB, result => internal_word32_4);
+    box_Max: Max port map(inputA => inputA, inputB => inputB, result => internal_word32_5);
     
     box_mux_word32_output: mux_8_to_1_word32 port map(selection => select_op, 
-                                        input_0 => internal_word32_0, -- Fadd
-                                        input_1 => internal_word32_1, -- Fsub
-                                        input_2 => internal_word32_2, -- Fmul
-                                        input_3 => internal_word32_3, -- Fdiv
-                                        input_4 => internal_word32_4, -- Pow
-                                        input_5 => internal_word32_5, -- Exp
+                                        input_0 => internal_word32_0, -- Pass_Thru_A
+                                        input_1 => internal_word32_1, -- Fsqrt
+                                        input_2 => internal_word32_2, -- Fabs
+                                        input_3 => internal_word32_3, -- Fneg
+                                        input_4 => internal_word32_4, -- Min
+                                        input_5 => internal_word32_5, -- Max
                                         input_6 => (others => '0'), -- Unused
                                         input_7 => (others => '0'), -- Unused
                                         output => output);
                                         
     box_mux_flags_output: mux_8_to_1_flags port map(selection => select_op, 
-                                        flags_0 => internal_flags_0, -- Map for Fadd
-                                        flags_1 => internal_flags_1, -- Map for Fsub
+                                        flags_0 => (others => '0'), -- Unused
+                                        flags_1 => internal_flags_1, -- Map for Fsqrt
                                         flags_2 => (others => '0'), -- Unused
-                                        flags_3 => internal_flags_3, -- Map for Fdiv
+                                        flags_3 => (others => '0'), -- Unused
                                         flags_4 => (others => '0'), -- Unused
                                         flags_5 => (others => '0'), -- Unused
                                         flags_6 => (others => '0'), -- Unused
                                         flags_7 => (others => '0'), -- Unused
                                         flags_out => flags_out);
-
 
 end Behavioral;

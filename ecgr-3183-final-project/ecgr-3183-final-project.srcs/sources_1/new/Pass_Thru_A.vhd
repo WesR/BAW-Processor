@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/27/2019 10:56:52 PM
+-- Create Date: 04/13/2019 05:37:45 PM
 -- Design Name: 
--- Module Name: Post-Normalize - Behavioral
+-- Module Name: Pass_Thru_A - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,15 +31,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Post_Normalize is
-    Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
-           output : out STD_LOGIC_VECTOR (31 downto 0));
-end Post_Normalize;
+entity Pass_Thru_A is
+    Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
+           inputB : in STD_LOGIC_VECTOR (31 downto 0);
+           result : out STD_LOGIC_VECTOR (31 downto 0));
+end Pass_Thru_A;
 
-architecture Behavioral of Post_Normalize is
+architecture Behavioral of Pass_Thru_A is
 
 begin
 
-    output <= input;
+    result <= inputA;
 
 end Behavioral;

@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/27/2019 10:56:52 PM
+-- Create Date: 04/30/2019 01:09:34 AM
 -- Design Name: 
--- Module Name: Post-Normalize - Behavioral
+-- Module Name: mux_2_to_1_flags - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,15 +31,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Post_Normalize is
-    Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
-           output : out STD_LOGIC_VECTOR (31 downto 0));
-end Post_Normalize;
+entity mux_2_to_1_flags is
+    Port ( select_bit : in STD_LOGIC;
+           flags_0 : in STD_LOGIC_VECTOR (2 downto 0);
+           flags_1 : in STD_LOGIC_VECTOR (2 downto 0);
+           flags_out : out STD_LOGIC_VECTOR (2 downto 0));
+end mux_2_to_1_flags;
 
-architecture Behavioral of Post_Normalize is
+architecture Behavioral of mux_2_to_1_flags is
 
 begin
 
-    output <= input;
 
 end Behavioral;

@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/27/2019 10:56:52 PM
+-- Create Date: 04/13/2019 05:35:31 PM
 -- Design Name: 
--- Module Name: Pre-Normalize - Behavioral
+-- Module Name: Fsqrt - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -24,25 +24,41 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
+library IEEE_PROPOSED;
+use IEEE_PROPOSED.FLOAT_PKG.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Pre_Normalize is
+entity Fsqrt is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           outputA : out STD_LOGIC_VECTOR (31 downto 0);
-           outputB : out STD_LOGIC_VECTOR (31 downto 0));
-end Pre_Normalize;
+           result : out STD_LOGIC_VECTOR (31 downto 0);
+           E : out STD_LOGIC);
+end Fsqrt;
 
-architecture Behavioral of Pre_Normalize is
+architecture Behavioral of Fsqrt is
+
+signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
 
-    outputA <= inputA;
-    outputB <= inputB;
+process(inputA)
+variable root : float32;
+begin
+   root := sqrt(abs(to_float(inputA, exponent_width => 8, fraction_width => 23)));
+   
+   output_bus <= STD_LOGIC_VECTOR(to_slv(root));
+   
+   if inputA(31) = '1' then
+      E <= '1';
+   else 
+      E <= '0';
+   end if;
+
+end process;
 
 end Behavioral;
