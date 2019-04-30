@@ -5,3 +5,4 @@ SingleCycle/vhdl/SingleCycle.runs/.jobs/vrs_config_*.xml
 SingleCycle/vhdl/SingleCycle.sim
 SingleCycle/vhdl/SingleCycle.runs
 .vscode
+SingleCycle/c/input.bin

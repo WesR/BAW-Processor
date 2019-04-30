@@ -168,6 +168,16 @@ def printFullMem():
     for c in range(0, len(dataMem)):
         print(dataMem[c])
 
+def print2Bin():
+    dabin = open("input.bin", "w")
+
+    for k, v in mem.items():
+        dabin.write(str(v)+"\n")
+    dabin.write("================================\n")
+    for k, v in dataMem.items():
+        dabin.write(str(v)+"\n")
+    dabin.close()
+
 if __name__ == '__main__':
     instrLocation = 0
     with open(sys.argv[1]) as f:
@@ -183,4 +193,5 @@ if __name__ == '__main__':
                 programMem(instrLocation, line.split())
                 #print(line.split())
                 instrLocation+=1
-    printFullMem()
+    #printFullMem()
+    print2Bin()
