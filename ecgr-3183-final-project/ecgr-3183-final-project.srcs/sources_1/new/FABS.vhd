@@ -34,7 +34,6 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity Fabs is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0));
 end Fabs;
 
@@ -44,10 +43,8 @@ begin
 
 process
 begin
-   if rising_edge(clock) then
-       result(31) <= '0';
-       result(30 downto 0) <= inputA(30 downto 0);
-   end if;
+     result(31) <= '0';
+     result(30 downto 0) <= inputA(30 downto 0);
 end process;
 
 end Behavioral;

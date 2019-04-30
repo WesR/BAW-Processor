@@ -25,7 +25,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
-use IEEE.FLOAT_PKG.ALL;
+library IEEE_PROPOSED;
+use IEEE_PROPOSED.FLOAT_PKG.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -35,15 +36,20 @@ use IEEE.FLOAT_PKG.ALL;
 entity Pow is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
-           result : out STD_LOGIC_VECTOR (31 downto 0);
-           CY : out STD_LOGIC;
-           OV : out STD_LOGIC);
+           result : out STD_LOGIC_VECTOR (31 downto 0));
 end Pow;
 
 architecture Behavioral of Pow is
 
+signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+
 begin
+   process(inputA, inputB)
+   begin
+   
+   
+   end process;
+
 
 
 end Behavioral;

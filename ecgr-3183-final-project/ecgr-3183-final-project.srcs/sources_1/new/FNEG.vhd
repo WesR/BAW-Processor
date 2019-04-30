@@ -34,7 +34,6 @@ use IEEE.NUMERIC_STD.ALL;
 entity Fneg is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0));
 end Fneg;
 
@@ -43,17 +42,12 @@ architecture Behavioral of Fneg is
 signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
-process
+process(inputA)
 begin
     output_bus(31) <= NOT(inputA(31));
     output_bus(30 downto 0) <= inputA(30 downto 0);
-end process;
-
-process(clock)
-begin
-   if rising_edge(clock) then
-      result <= output_bus;
-   end if;
+    
+    result <= output_bus;
 end process;
 
 end Behavioral;

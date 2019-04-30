@@ -27,7 +27,9 @@ use STD.TEXTIO.ALL;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
-use IEEE.FLOAT_PKG.ALL;
+library IEEE_PROPOSED;
+use IEEE_PROPOSED.FLOAT_PKG.ALL;
+
 --use IEEE.FIXED_PKG.ALL;
 --use IEEE.FIXED_FLOAT_TYPES.ALL;
 
@@ -39,39 +41,29 @@ use IEEE.FLOAT_PKG.ALL;
 entity Fadd is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0);
            CY : out STD_LOGIC;
            OV : out STD_LOGIC);
 end Fadd;
 
 architecture Behavioral of Fadd is
-
-signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
-
+    signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 begin
-process(inputA, inputB)
-variable tempA, tempB, tempResult: float32;
-    variable l: line;
-begin
-    tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
-    tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
-    tempResult := tempA + tempB;
+    process(inputA, inputB)
+        variable tempA, tempB, tempResult: float32;
+        variable l: line;
+    begin
+        tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
+        tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
+        tempResult := tempA + tempB;
+        
+        --write(l, to_real(tempResult));
+        --writeline (output, l);
     
-    write(l, to_real(tempResult));
-    writeline (output, l);
-
-    output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
-
-end process;
-
-process(clock)
-begin
-    if rising_edge(clock) then
-       result <= output_bus;
-    end if;
-    --wait for 20 ns;
-end process;
-
+        output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
+        
+        result <= output_bus;
+    
+    end process;
 
 end Behavioral;

@@ -34,7 +34,6 @@ use IEEE.NUMERIC_STD.ALL;
 entity Max is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
            result : out STD_LOGIC_VECTOR (31 downto 0));
 end Max;
 
@@ -98,15 +97,8 @@ begin
             end if;
         end if;
     end if;
+    result <= output_bus;
 
 end process;
-
-process(clock)
-begin
-    if rising_edge(clock) then
-       result <= output_bus;
-    end if;
-end process;
-
 
 end Behavioral;

@@ -57,8 +57,8 @@ begin
         tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
         tempResult := tempA + tempB;
         
-        write(l, to_real(tempResult));
-        writeline (output, l);
+        --write(l, to_real(tempResult));
+        --writeline (output, l);
     
         output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
         
