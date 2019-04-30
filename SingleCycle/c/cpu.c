@@ -2,8 +2,16 @@
 #include <string.h>
 #include "reg.h"
 #include "alu.h"
+#include "mem.h"
 
+
+/**
+ * Fetch Decode eXicute Memory Writeback
+ * 
+ **/
 int main(){
+    loadBin();
+    printf("INS 0: %s", getInstruction(0));
     int zero, neg, overflow, carry, error = 0;//Flag lines
 
     *getRegRef("0000") = 15;//how to load a register by calling getRegRef

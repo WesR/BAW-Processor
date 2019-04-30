@@ -3,9 +3,13 @@ import sys
 mem = dict()
 dataMem = dict()
 memOffset = 0
+
 '''
-Some register converter
+    BASM: BAW Assembler
+    It take'a da source, and it make'a it runnable
 '''
+
+#Converts register char's to bits
 def convertReg2Bin(reg):
     if (reg == 'R0'):
         return "0000"
@@ -40,10 +44,10 @@ def convertReg2Bin(reg):
     if (reg == 'R15'):
         return "1111"
 
-'''
-defs to write each instruction type
-'''
 
+'''
+    defs to write each instruction type
+'''
 def writeTypeRegister(writePos, line):
     mem[writePos] += convertReg2Bin(line[2].strip(','))
     mem[writePos] += '000000000000'
@@ -78,6 +82,7 @@ def writeTypeSet(writePos, line):
     mem[writePos] += '00000000000000000000'
     mem[writePos+1] = str(line[2].strip(',').strip('#'))
 
+#The main func that process instruction mem
 def programMem(writePos, line):
     global mem
     global memOffset
@@ -156,9 +161,11 @@ def programMem(writePos, line):
     else:
         mem[writePos] = '00010110' + '000000000000000000000000'
 
+#The func that process function mem
 def programData(line):
     dataMem[len(dataMem)] = line.replace("<", "").split('>')[0] + ':' + line.replace("<", "").split('>')[1]
 
+#Print Bot memories
 def printFullMem():
     global mem
     print("Instr Memory")
@@ -168,6 +175,7 @@ def printFullMem():
     for c in range(0, len(dataMem)):
         print(dataMem[c])
 
+#Write the data to a easy to import "bin" file
 def print2Bin():
     dabin = open("input.bin", "w")
 

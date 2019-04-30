@@ -6,3 +6,4 @@ SingleCycle/vhdl/SingleCycle.sim
 SingleCycle/vhdl/SingleCycle.runs
 .vscode
 SingleCycle/c/input.bin
+SingleCycle/c/a.out
