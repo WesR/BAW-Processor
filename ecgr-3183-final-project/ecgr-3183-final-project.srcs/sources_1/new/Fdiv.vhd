@@ -41,23 +41,21 @@ entity Fdiv is
 end Fdiv;
 
 architecture Behavioral of Fdiv is
-
-signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
-
+    signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 begin
-process(inputA, inputB)
-variable tempA, tempB, tempResult: float32;
-begin
-    tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
-    tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
+    process(inputA, inputB)
+        variable tempA, tempB, tempResult: float32;
+    begin
+        tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
+        tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
+        
+        -- need to check for division by zero
+        tempResult := tempA / tempB;
+        
+        output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
+        
+        result <= output_bus;
     
-    -- need to check for division by zero
-    tempResult := tempA / tempB;
-    
-    output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
-    
-    result <= output_bus;
-
-end process;
+    end process;
 
 end Behavioral;

@@ -52,20 +52,29 @@ architecture Behavioral of ALU is
                inputB : in STD_LOGIC_VECTOR (31 downto 0);
                op_select : in STD_LOGIC_VECTOR (3 downto 0);
                output : out STD_LOGIC_VECTOR (31 downto 0);
-               flags_out : out STD_LOGIC_VECTOR (2 downto 0));
+               flags_out : out STD_LOGIC_VECTOR (2 downto 0)); -- (2) is Y, (1) is V, (0) is E
     end component;
     
     component second_stage_top is
         Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
                control_select : in STD_LOGIC_VECTOR (1 downto 0);
                output : out STD_LOGIC_VECTOR (31 downto 0);
-               Z : out STD_LOGIC;
-               N : out STD_LOGIC);
+               flags_out: out STD_LOGIC_VECTOR(1 downto 0));  -- (1) is N, (0) is Z
     end component;
     
+    signal internal_sig_op_select: STD_LOGIC_VECTOR(3 downto 0);
+    signal internal_sig_control_select: STD_LOGIC_VECTOR(1 downto 0);
     signal internal_word32_stage_1_result: STD_LOGIC_VECTOR(31 downto 0);
 
 begin
-
+    --
+    internal_sig_op_select <= ALUop(5 downto 2);
+    internal_sig_control_select <= ALUop(1 downto 0);
+    
+    -- port mappings    
+    box_first_stage: first_stage_top port map(inputA => inputA, inputB => inputB, op_select => internal_sig_op_select, output => internal_word32_stage_1_result, 
+                                            flags_out(2) => C, flags_out(1) => V, flags_out(0) => E);
+    box_second_stage: second_stage_top port map(input => internal_word32_stage_1_result, control_select => internal_sig_control_select, output => result, 
+                                            flags_out(1) => N, flags_out(0) => Z);
 
 end Behavioral;

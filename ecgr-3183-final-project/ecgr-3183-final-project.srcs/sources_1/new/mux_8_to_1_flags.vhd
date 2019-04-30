@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
--- Company: 
+-- Company: ECGR-3183
 -- Engineer: 
 -- 
 -- Create Date: 04/28/2019 12:51:21 PM
@@ -41,16 +41,13 @@ entity mux_8_to_1_flags is
            flags_5 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
            flags_6 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
            flags_7 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
-           flags_out : out STD_LOGIC_VECTOR (2 downto 0));
+           flags_out : out STD_LOGIC_VECTOR (2 downto 0) := (others => '0'));
 end mux_8_to_1_flags;
 
 architecture Behavioral of mux_8_to_1_flags is
-
-signal selection_sig : unsigned(2 downto 0); -- (2) is CY, (1) is OV, (0) is E
-
+    signal selection_sig : unsigned(2 downto 0);
 begin
     selection_sig <= unsigned(selection);
-
            
     flags_out <= flags_0 when (selection_sig = "000") else
                  flags_1 when (selection_sig = "001") else
@@ -61,7 +58,6 @@ begin
                  flags_6 when (selection_sig = "110") else
                  flags_7 when (selection_sig = "111") else
                  (others => '0'); -- set flags to '0' by default
-
 
 end Behavioral;
 

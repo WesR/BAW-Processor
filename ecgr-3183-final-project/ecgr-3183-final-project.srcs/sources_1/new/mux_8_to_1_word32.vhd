@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
--- Company: 
+-- Company: ECGR-3183
 -- Engineer: 
 -- 
 -- Create Date: 04/29/2019 11:23:20 PM
@@ -48,14 +48,15 @@ architecture Behavioral of mux_8_to_1_word32 is
     signal selection_sig : unsigned(2 downto 0);
 begin
     selection_sig <= unsigned(selection);
+    
     output <= input_0 when (selection_sig = "000") else
-        input_1 when (selection_sig = "001") else
-        input_2 when (selection_sig = "010") else
-        input_3 when (selection_sig = "011") else
-        input_4 when (selection_sig = "100") else
-        input_5 when (selection_sig = "101") else
-        input_6 when (selection_sig = "110") else
-        input_7 when (selection_sig = "111") else
-        (others => '0'); -- indicate error
+              input_1 when (selection_sig = "001") else
+              input_2 when (selection_sig = "010") else
+              input_3 when (selection_sig = "011") else
+              input_4 when (selection_sig = "100") else
+              input_5 when (selection_sig = "101") else
+              input_6 when (selection_sig = "110") else
+              input_7 when (selection_sig = "111") else
+              (others => '0'); -- indicate error
 
 end Behavioral;

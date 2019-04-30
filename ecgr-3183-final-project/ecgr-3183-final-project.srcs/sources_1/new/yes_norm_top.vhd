@@ -170,6 +170,5 @@ begin
                                         flags_6 => (others => '0'), -- Unused
                                         flags_7 => (others => '0'), -- Unused
                                         flags_out => flags_out);
-
-
+                                        
 end Behavioral;

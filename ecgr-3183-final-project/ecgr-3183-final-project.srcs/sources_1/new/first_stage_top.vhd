@@ -36,18 +36,10 @@ entity first_stage_top is
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
            op_select : in STD_LOGIC_VECTOR (3 downto 0);
            output : out STD_LOGIC_VECTOR (31 downto 0);
-           flags_out : out STD_LOGIC_VECTOR (2 downto 0));
+           flags_out : out STD_LOGIC_VECTOR (2 downto 0)); -- (2) is CY, (1) is OV, (0) is E
 end first_stage_top;
 
 architecture Behavioral of first_stage_top is
-    
-    component yes_norm_top is
-        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
-               inputB : in STD_LOGIC_VECTOR (31 downto 0);
-               select_op : in STD_LOGIC_VECTOR (2 downto 0);
-               output : out STD_LOGIC_VECTOR (31 downto 0);
-               flags_out : out STD_LOGIC_VECTOR (2 downto 0));
-    end component;
     
     component no_norm_top is
         Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
@@ -55,6 +47,14 @@ architecture Behavioral of first_stage_top is
                select_op : in STD_LOGIC_VECTOR (2 downto 0);
                output : out STD_LOGIC_VECTOR (31 downto 0);
                flags_out : out STD_LOGIC_VECTOR(2 downto 0));
+    end component;
+    
+    component yes_norm_top is
+        Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
+               inputB : in STD_LOGIC_VECTOR (31 downto 0);
+               select_op : in STD_LOGIC_VECTOR (2 downto 0);
+               output : out STD_LOGIC_VECTOR (31 downto 0);
+               flags_out : out STD_LOGIC_VECTOR (2 downto 0));
     end component;
     
     component mux_2_to_1_word32 is

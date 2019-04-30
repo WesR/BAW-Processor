@@ -33,14 +33,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Pass_Thru is
     Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
-           output : out STD_LOGIC_VECTOR (31 downto 0));
+           output : out STD_LOGIC_VECTOR (31 downto 0);
+           flags_out : out STD_LOGIC_VECTOR(1 downto 0));
 end Pass_Thru;
 
 architecture Behavioral of Pass_Thru is
 
 begin
 
-output <= input;
+    output <= input;
 
 end Behavioral;

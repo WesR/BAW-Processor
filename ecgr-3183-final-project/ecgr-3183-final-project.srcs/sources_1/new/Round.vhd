@@ -33,19 +33,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Round is
     Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
-           clock : in STD_LOGIC;
-           output : out STD_LOGIC_VECTOR (31 downto 0));
+           output : out STD_LOGIC_VECTOR (31 downto 0);
+           flags_out : out STD_LOGIC_VECTOR(1 downto 0));
 end Round;
 
 architecture Behavioral of Round is
 
 begin
 
-process(clock)
-begin
-    if rising_edge(clock) then
-        output <= input;
-    end if;
-end process;
+    output <= input;
 
 end Behavioral;
