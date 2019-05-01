@@ -64,7 +64,20 @@ architecture Behavioral of ALU_tb is
     signal sig_non_zero: STD_LOGIC;
     signal sig_zero: STD_LOGIC;
     
-    type result_storage is array (positive range <>) of float32;
+    type t_opcode_storage is array (0 to 11) of STD_LOGIC_VECTOR(7 downto 0);
+    constant test_ops: t_opcode_storage :=  (x"00", -- Pass_Thru
+                                             x"01", -- Fsqrt
+                                             x"02", -- Fabs
+                                             x"03", -- Fneg
+                                             x"04", -- Min
+                                             x"05", -- Max
+                                             x"08", -- Fadd
+                                             x"09", -- Fsub
+                                             x"0A", -- Fmul
+                                             x"0B", -- Fdiv
+                                             x"0C", -- Pow
+                                             x"0D" -- Exp
+                                             );
     
 begin
     
@@ -75,27 +88,35 @@ begin
     process
     begin
         clock <= '0';
-        wait for 100 ns;
+        wait for 50 ns;
         clock <= '1';
-        wait for 100 ns;
+        wait for 50 ns;
     end process;
     
     -- tests
     process(clock)
                                                 -- -87.625
-        constant var_a : float32 := to_float(real(-87.625), exponent_width => 8, fraction_width => 23);
-        constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
+--        constant var_a : float32 := to_float(real(-87.625), exponent_width => 8, fraction_width => 23);
+--        constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
+        constant var_a : float32 := to_float(real(2.0), exponent_width => 8, fraction_width => 23);
+        constant var_b : float32 := to_float(real(3.0), exponent_width => 8, fraction_width => 23);
+        variable counter: integer := 0;
+        
+        --array
     begin
-        if rising_edge(clock) then
+
+        
+        if (rising_edge(clock) and (counter < 12)) then
             sig_input_a <= to_slv(var_a);
             sig_input_b <= to_slv(var_b);
-            sig_ALUop <= "00101000"; -- multiply
+            --sig_ALUop <= "00101000"; -- multiply (OLD)
+            --sig_ALUop <= "00001010"; -- multiply
+            --sig_ALUop <= x"0A"; -- multiply
+            
+            sig_ALUop <= test_ops(counter);
+            counter := counter + 1;
+            
         end if;
-        
-        
---        sig_input_a <= to_slv(var_a);
---        sig_input_b <= to_slv(var_b);
---        sig_ALUop <= "00100000"; -- add
     
     end process;
 

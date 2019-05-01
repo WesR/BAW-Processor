@@ -40,8 +40,37 @@ entity Exp is
 end Exp;
 
 architecture Behavioral of Exp is
-
+    constant E_CONSTANT: float32 := to_float(real(2.7182818), 8, 23); -- constant 'e' to 7 decimal places
 begin
+    process(inputA)
+        variable base: float32 := E_CONSTANT;
+        variable exponent: integer;
+        variable counter: integer := 0;
+    begin
+        exponent := to_integer(arg => (to_float(inputA, 8, 23)));
+        
+        if (exponent = 0) then
+            base := to_float(real(1), 8, 23);
+        
+        -- positive exponents
+        elsif (exponent > 0) then
+            while counter < (exponent - 1) loop
+                base := base * base;
+                counter := counter + 1;
+            end loop;
+        
+        -- negative exponents
+        else
+            while counter > (exponent + 1) loop
+                base := base / base;
+                counter := counter - 1;
+            end loop;
+        end if;
+        counter := 0;
+        
+        result <= to_slv(base);
+    
+    end process;
 
 
 end Behavioral;
