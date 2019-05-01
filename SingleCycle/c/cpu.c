@@ -19,7 +19,7 @@ int strbin2i( char* s) {
 void singleCycle(){
     int PC = 0;
     int zero, neg, overflow, carry, error = 0;//Flag lines
-    printDataMem();
+    
     do {
         printf("\nPC: %d\n", PC);
         //Fetch stage
@@ -175,6 +175,7 @@ void singleCycle(){
 int main(){
     loadBin();
     
+    printDataMem();
     //printf("was%d|", strbin2i("1"));
     singleCycle();
     //printRegisters();

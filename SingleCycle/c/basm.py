@@ -163,7 +163,7 @@ def programMem(writePos, line):
 
 #The func that process function mem
 def programData(line):
-    dataMem[len(dataMem)] = line.replace("<", "").split('>')[0] + ':' + line.replace("<", "").split('>')[1]
+    dataMem[len(dataMem)] = line.replace("<", "").split('>')[0] + ' ' + line.replace("<", "").split('>')[1]
 
 #Print Bot memories
 def printFullMem():
