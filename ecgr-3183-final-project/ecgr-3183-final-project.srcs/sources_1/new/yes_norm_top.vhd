@@ -130,6 +130,8 @@ architecture Behavioral of yes_norm_top is
     signal internal_word32_4 : STD_LOGIC_VECTOR(31 downto 0);
     signal internal_word32_5 : STD_LOGIC_VECTOR(31 downto 0);
     
+    signal internal_word32_result : STD_LOGIC_VECTOR(31 downto 0);
+    
     signal internal_flags_0 : STD_LOGIC_VECTOR(2 downto 0); -- Flags signal for Fadd
     signal internal_flags_1 : STD_LOGIC_VECTOR(2 downto 0); -- Flags signal for Fsub
     
@@ -147,8 +149,6 @@ begin
     box_Pow: Pow port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_4);
     box_Exp: Exp port map(inputA => internal_pre_norm_a, inputB => internal_pre_norm_b, result => internal_word32_5);
     
-    box_Post_Norm: Post_Normalize port map(input => inputA, output => internal_pre_norm_A);
-    
     box_mux_word32_output: mux_8_to_1_word32 port map(selection => select_op, 
                                         input_0 => internal_word32_0, -- Fadd
                                         input_1 => internal_word32_1, -- Fsub
@@ -158,7 +158,7 @@ begin
                                         input_5 => internal_word32_5, -- Exp
                                         input_6 => (others => '0'), -- Unused
                                         input_7 => (others => '0'), -- Unused
-                                        output => output);
+                                        output => internal_word32_result);
                                         
     box_mux_flags_output: mux_8_to_1_flags port map(selection => select_op, 
                                         flags_0 => internal_flags_0, -- Map for Fadd
@@ -170,5 +170,7 @@ begin
                                         flags_6 => (others => '0'), -- Unused
                                         flags_7 => (others => '0'), -- Unused
                                         flags_out => flags_out);
+                                        
+    box_Post_Norm: Post_Normalize port map(input => internal_word32_result, output => output);
                                         
 end Behavioral;

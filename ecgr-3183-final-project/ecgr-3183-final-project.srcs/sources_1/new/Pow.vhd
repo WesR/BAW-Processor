@@ -41,15 +41,41 @@ end Pow;
 
 architecture Behavioral of Pow is
 
---signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
-
 begin
-   process(inputA, inputB)
-   begin
-   
-   
-   end process;
-
-
+    process(inputA, inputB)
+        variable base: float32;
+        variable exponent: integer;
+        variable counter: integer := 0;
+    begin
+        base := to_float(inputA, 8, 23);
+        exponent := to_integer(arg => (to_float(inputB, 8, 23)));
+        
+        -- check if base is 0
+        if (base = to_float(real(0.0), 8, 23)) then
+            base := base;
+        
+        -- check if exponent is 0
+        elsif (exponent = 0) then
+            base := to_float(real(1), 8, 23);
+        
+        -- positive exponents
+        elsif (exponent > 0) then
+            while counter < (exponent - 1) loop
+                base := base * base;
+                counter := counter + 1;
+            end loop;
+        
+        -- negative exponents
+        else
+            while counter > (exponent + 1) loop
+                base := base / base;
+                counter := counter - 1;
+            end loop;
+        end if;
+        counter := 0;
+        
+        result <= to_slv(base);
+    
+    end process;
 
 end Behavioral;

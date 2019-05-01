@@ -5,6 +5,7 @@ Using 2 slave threads.
 Starting static elaboration
 WARNING: [VRFC 10-1625] value in initialization depends on signal aluop [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ALU.vhd:65]
 WARNING: [VRFC 10-1625] value in initialization depends on signal aluop [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ALU.vhd:66]
+WARNING: [VRFC 10-1625] value in initialization depends on signal selection [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/mux_8_to_1_flags.vhd:48]
 WARNING: [VRFC 10-1537] value -1 is out of target constraint range 0 to 2147483647 [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/imports/distributable/float_pkg_c.vhd:2985]
 WARNING: [VRFC 10-1537] value -1 is out of target constraint range 0 to 2147483647 [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/imports/distributable/float_pkg_c.vhd:3530]
 Completed static elaboration

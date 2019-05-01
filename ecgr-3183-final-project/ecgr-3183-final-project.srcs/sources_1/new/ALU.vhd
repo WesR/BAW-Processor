@@ -68,13 +68,11 @@ architecture Behavioral of ALU is
 
 begin
     --
-    --internal_sig_op_select <= ALUop(5 downto 2);
-    --internal_sig_control_select <= ALUop(1 downto 0);
     
     -- port mappings    
-    box_first_stage: first_stage_top port map(inputA => inputA, inputB => inputB, op_select => internal_sig_op_select, output => internal_word32_stage_1_result, 
+    box_first_stage: first_stage_top port map(inputA => inputA, inputB => inputB, op_select => ALUop(3 downto 0), output => internal_word32_stage_1_result, 
                                             flags_out(2) => C, flags_out(1) => V, flags_out(0) => E);
-    box_second_stage: second_stage_top port map(input => internal_word32_stage_1_result, control_select => internal_sig_control_select, output => result, 
+    box_second_stage: second_stage_top port map(input => internal_word32_stage_1_result, control_select => ALUop(5 downto 4), output => result, 
                                             flags_out(1) => N, flags_out(0) => Z);
 
 end Behavioral;

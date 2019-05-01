@@ -39,11 +39,11 @@ entity mux_2_to_1_word32 is
 end mux_2_to_1_word32;
 
 architecture Behavioral of mux_2_to_1_word32 is
-    signal selection_sig : STD_LOGIC := select_bit;
+    --signal selection_sig : STD_LOGIC := select_bit;
 begin
     --selection_sig <= to_bit(select_bit);
-    output <= input_0 when (selection_sig = '0') else
-        input_1 when (selection_sig = '1') else
-        (others => '0'); -- indicate error
+    output <= input_0 when (select_bit = '0') else
+        input_1 when (select_bit = '1') else
+        (others => '-'); -- indicate error
 
 end Behavioral;
