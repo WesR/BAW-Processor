@@ -5,5 +5,6 @@ void loadBin();
 void writeData(int location, float value);
 float getData(int location);
 char *getInstruction(int location);
+float getInstructionFloat(int location);
 
 #endif

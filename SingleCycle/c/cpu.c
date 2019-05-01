@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "reg.h"
 #include "alu.h"
@@ -18,7 +19,8 @@ int strbin2i( char* s) {
 void singleCycle(){
     int PC = 0;
     int zero, neg, overflow, carry, error = 0;//Flag lines
-    //do {
+    do {
+        printf("\nPC: %d\n", PC);
         //Fetch stage
         char optcode[9];
         memcpy(optcode, &getInstruction(PC)[0], 8);
@@ -71,14 +73,21 @@ void singleCycle(){
             memcpy(Op, &getInstruction(PC)[26], 2);
             char Rd[5];
             memcpy(Rd, &getInstruction(PC)[28], 4);
-            Rm[5] = '\0';
-            Op[5] = '\0';
-            Rd[5] = '\0';
+            Rm[4] = '\0';
+            Op[2] = '\0';
+            Rd[4] = '\0';
             //d = mem[rm]
-            *getRegRef(Rd) = getData((int)getReg(Rm));
+            
+            //printf("||%s||", getInstruction(PC));
+            printf("~~%f~~", getReg(Rm));
+            
+            printRegisters();
+            setReg(Rd, getData((int)getReg(Rm)));
+            //*getRegRef(Rd) = getData((int)getReg(Rm));
+            printRegisters();
         }
 
-        if (strcmp(optcode, "00000010") == 0){//Store
+        if (strcmp(optcode, "00000011") == 0){//Store
             char Rm[5];
             memcpy(Rm, &getInstruction(PC)[8], 4);
             char Op[3];
@@ -88,8 +97,18 @@ void singleCycle(){
             Rm[5] = '\0';
             Op[5] = '\0';
             Rd[5] = '\0';
-
             
+            writeData(getReg(Rd), getReg(Rm));//Writes into location Rd, valuein Rm
+        }
+        
+        if (strcmp(optcode, "00000001") == 0){//Set
+            char Rm[5];
+            memcpy(Rm, &getInstruction(PC)[8], 4);
+            Rm[5] = '\0';
+
+            setReg(Rm, getInstructionFloat(PC+1));
+            //printf("LL:%fLL", getInstructionFloat(PC+1));
+            PC++;//We also need to pass over the data
         }
 
         //Decode stage
@@ -97,7 +116,7 @@ void singleCycle(){
         // if set load and + 1
         // if branch take it
         PC++;
-    //} while (2>1); //current op = 0 );
+    } while (2>1); //current op = 0 );
     
 }
 
