@@ -5,16 +5,6 @@
 #include "alu.h"
 #include "mem.h"
 
-int strbin2i( char* s) {
-    int n = 0;
-    for (int i=strlen(s); i > 1; i--){
-        printf("|%d|", i);
-        if (s[i] == '1'){
-            n+=i*2;
-        }
-    }
-    return n;
-}
 
 void singleCycle(){
     int PC = 0;
