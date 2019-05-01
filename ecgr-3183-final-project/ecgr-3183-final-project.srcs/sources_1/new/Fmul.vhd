@@ -76,7 +76,7 @@ begin
               -- Quick multiply by power of 2
                elsif tempB(-1 downto -23) = ztest(-1 downto -23) then
                    tempA(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0) - 127;
-               elsif tempA(22 downto 0) = ztest(22 downto 0) then
+               elsif tempA(-1 downto -23) = ztest(-1 downto -23) then
                    tempB(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0) - 127;  
                  
                --Do normal multiply

@@ -62,14 +62,14 @@ architecture Behavioral of ALU is
                flags_out: out STD_LOGIC_VECTOR(1 downto 0));  -- (1) is N, (0) is Z
     end component;
     
-    signal internal_sig_op_select: STD_LOGIC_VECTOR(3 downto 0);
-    signal internal_sig_control_select: STD_LOGIC_VECTOR(1 downto 0);
+    signal internal_sig_op_select: STD_LOGIC_VECTOR(3 downto 0) := ALUop(5 downto 2);
+    signal internal_sig_control_select: STD_LOGIC_VECTOR(1 downto 0) := ALUop(1 downto 0);
     signal internal_word32_stage_1_result: STD_LOGIC_VECTOR(31 downto 0);
 
 begin
     --
-    internal_sig_op_select <= ALUop(5 downto 2);
-    internal_sig_control_select <= ALUop(1 downto 0);
+    --internal_sig_op_select <= ALUop(5 downto 2);
+    --internal_sig_control_select <= ALUop(1 downto 0);
     
     -- port mappings    
     box_first_stage: first_stage_top port map(inputA => inputA, inputB => inputB, op_select => internal_sig_op_select, output => internal_word32_stage_1_result, 

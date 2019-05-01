@@ -1,2 +1,26 @@
 Vivado Simulator 2018.2
 Time resolution is 1 ps
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd
+Error: :float_pkg:CLASSFP: Floating point number detected with a bad range
+Time: 0 ps  Iteration: 0  Process: /ALU_tb/box_ALU/box_first_stage/box_Yes_Norm_Top/box_Fmul/line__45  File: D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd

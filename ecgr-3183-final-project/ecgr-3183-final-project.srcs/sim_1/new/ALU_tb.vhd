@@ -54,9 +54,23 @@ architecture Behavioral of ALU_tb is
     signal clock : STD_LOGIC := '-';
     signal finished : STD_LOGIC := '0';
     
+    signal sig_input_a: STD_LOGIC_VECTOR(31 downto 0);
+    signal sig_input_b: STD_LOGIC_VECTOR(31 downto 0);
+    signal sig_ALUop: STD_LOGIC_VECTOR(7 downto 0);
+    signal sig_result: STD_LOGIC_VECTOR(31 downto 0);
+    signal sig_carry: STD_LOGIC;
+    signal sig_overflow: STD_LOGIC;
+    signal sig_error: STD_LOGIC;
+    signal sig_non_zero: STD_LOGIC;
+    signal sig_zero: STD_LOGIC;
+    
     type result_storage is array (positive range <>) of float32;
     
 begin
+    
+    box_ALU: ALU port map(inputA => sig_input_a, inputB => sig_input_b, ALUop => sig_ALUop, result => sig_result, 
+                        C => sig_carry, V => sig_overflow, E => sig_error, N => sig_non_zero, Z => sig_zero);
+    
     -- clock generator
     process
     begin
@@ -67,11 +81,20 @@ begin
     end process;
     
     -- tests
-    process(clock)
-        constant var_a : float32 := to_float(real(0), exponent_width => 8, fraction_width => 23);
+    process(clock'delay 1 ps)
+        constant var_a : float32 := to_float(real(87.625), exponent_width => 8, fraction_width => 23);
         constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
     begin
+        if rising_edge(clock)
+            sig_input_a <= to_slv(var_a);
+            sig_input_b <= to_slv(var_b);
+            sig_ALUop <= "00101000"; -- multiply
+        end process;
         
+        
+        sig_input_a <= to_slv(var_a);
+        sig_input_b <= to_slv(var_b);
+        sig_ALUop <= "00100000"; -- add
     
     end process;
 
