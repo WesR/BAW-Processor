@@ -45,9 +45,9 @@ entity mux_8_to_1_flags is
 end mux_8_to_1_flags;
 
 architecture Behavioral of mux_8_to_1_flags is
-    signal selection_sig : unsigned(2 downto 0);
+    signal selection_sig : unsigned(2 downto 0) := unsigned(selection);
 begin
-    selection_sig <= unsigned(selection);
+    --selection_sig <= unsigned(selection);
            
     flags_out <= flags_0 when (selection_sig = "000") else
                  flags_1 when (selection_sig = "001") else

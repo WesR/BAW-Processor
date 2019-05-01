@@ -52,7 +52,7 @@ architecture Behavioral of ALU is
                inputB : in STD_LOGIC_VECTOR (31 downto 0);
                op_select : in STD_LOGIC_VECTOR (3 downto 0);
                output : out STD_LOGIC_VECTOR (31 downto 0);
-               flags_out : out STD_LOGIC_VECTOR (2 downto 0)); -- (2) is Y, (1) is V, (0) is E
+               flags_out : out STD_LOGIC_VECTOR (2 downto 0)); -- (2) is C, (1) is V, (0) is E
     end component;
     
     component second_stage_top is

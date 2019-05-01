@@ -54,8 +54,8 @@ architecture Behavioral of ALU_tb is
     signal clock : STD_LOGIC := '-';
     signal finished : STD_LOGIC := '0';
     
-    signal sig_input_a: STD_LOGIC_VECTOR(31 downto 0);
-    signal sig_input_b: STD_LOGIC_VECTOR(31 downto 0);
+    signal sig_input_a: STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+    signal sig_input_b: STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal sig_ALUop: STD_LOGIC_VECTOR(7 downto 0);
     signal sig_result: STD_LOGIC_VECTOR(31 downto 0);
     signal sig_carry: STD_LOGIC;
@@ -81,20 +81,21 @@ begin
     end process;
     
     -- tests
-    process(clock'delay 1 ps)
-        constant var_a : float32 := to_float(real(87.625), exponent_width => 8, fraction_width => 23);
+    process(clock)
+                                                -- -87.625
+        constant var_a : float32 := to_float(real(2), exponent_width => 8, fraction_width => 23);
         constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
     begin
-        if rising_edge(clock)
+        if rising_edge(clock) then
             sig_input_a <= to_slv(var_a);
             sig_input_b <= to_slv(var_b);
             sig_ALUop <= "00101000"; -- multiply
-        end process;
+        end if;
         
         
-        sig_input_a <= to_slv(var_a);
-        sig_input_b <= to_slv(var_b);
-        sig_ALUop <= "00100000"; -- add
+--        sig_input_a <= to_slv(var_a);
+--        sig_input_b <= to_slv(var_b);
+--        sig_ALUop <= "00100000"; -- add
     
     end process;
 

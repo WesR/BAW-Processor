@@ -39,9 +39,9 @@ entity mux_2_to_1_flags is
 end mux_2_to_1_flags;
 
 architecture Behavioral of mux_2_to_1_flags is
-    signal selection_sig : bit;
+    signal selection_sig : STD_LOGIC := select_bit;
 begin
-    selection_sig <= to_bit(select_bit);
+    --selection_sig <= to_bit(select_bit);
     flags_out <= flags_0 when (selection_sig = '0') else
         flags_1 when (selection_sig = '1') else
         (others => '0'); -- indicate error

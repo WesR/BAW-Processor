@@ -39,15 +39,15 @@ end Fneg;
 
 architecture Behavioral of Fneg is
 
-signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+--signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
 process(inputA)
 begin
-    output_bus(31) <= NOT(inputA(31));
-    output_bus(30 downto 0) <= inputA(30 downto 0);
+    result(31) <= NOT(inputA(31));
+    result(30 downto 0) <= inputA(30 downto 0);
     
-    result <= output_bus;
+   -- result(31 downto 0) <= output_bus(31 downto 0);
 end process;
 
 end Behavioral;

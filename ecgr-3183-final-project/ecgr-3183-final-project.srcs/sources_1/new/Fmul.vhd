@@ -40,11 +40,11 @@ entity Fmul is
 end Fmul;
 
 architecture Behavioral of Fmul is
-    signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+   -- signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 begin
     process(inputA, inputB)
         variable tempA, tempB, tempResult: float32;
-                -- 0
+               -- 0
                constant ztest: float32 := "00000000000000000000000000000000";
                -- 1
                constant ptest: float32 := "00111111100000000000000000000000";
@@ -66,27 +66,28 @@ begin
                    tempResult := tempA;
                
                --Qucik multiply by -1
-               elsif tempA(8 downto -23) = ntest then
-                   tempB(8) := '1';
+               elsif tempA = ntest then
+                   tempB(8) := NOT(tempB(8));
                    tempResult:= tempB;
-               elsif tempB(8 downto -23) = ntest then
-                   tempA(8) := '1';
+               elsif tempB = ntest then
+                   tempA(8) := NOT(tempA(8));
                    tempResult := tempA;
                    
               -- Quick multiply by power of 2
                elsif tempB(-1 downto -23) = ztest(-1 downto -23) then
-                   tempA(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0) - 127;
+                   tempA(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0);
+                   tempResult := tempA;
                elsif tempA(-1 downto -23) = ztest(-1 downto -23) then
-                   tempB(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0) - 127;  
-                 
+                   tempB(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0);  
+                    tempResult := tempB;
                --Do normal multiply
                else
-                   tempResult := tempA * tempB;
+                   --tempResult := tempA * tempB;
                end if;
         
-        output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
+        result <= STD_LOGIC_VECTOR(to_slv(tempResult));
         
-        result <= output_bus;
+        --result <= output_bus;
     
     end process;
 

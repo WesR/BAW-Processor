@@ -45,9 +45,9 @@ entity mux_8_to_1_word32 is
 end mux_8_to_1_word32;
 
 architecture Behavioral of mux_8_to_1_word32 is
-    signal selection_sig : unsigned(2 downto 0);
+    signal selection_sig : unsigned(2 downto 0) := unsigned(selection);
 begin
-    selection_sig <= unsigned(selection);
+    --selection_sig <= unsigned(selection);
     
     output <= input_0 when (selection_sig = "000") else
               input_1 when (selection_sig = "001") else
