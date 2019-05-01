@@ -4,6 +4,16 @@
 #include "alu.h"
 #include "mem.h"
 
+int strbin2i( char* s) {
+    int n = 0;
+    for (int i=strlen(s); i > 1; i--){
+        printf("|%d|", i);
+        if (s[i] == '1'){
+            n+=i*2;
+        }
+    }
+    return n;
+}
 
 void singleCycle(){
     int PC = 0;
@@ -14,6 +24,15 @@ void singleCycle(){
         memcpy(optcode, &getInstruction(PC)[0], 8);
         optcode[8] = '\0';
         printf("operation %s\n", optcode);
+
+        if (strcmp(optcode, "00010110") == 0){//nop
+            printf("NOP");
+        }
+
+        if (strcmp(optcode, "00010111") == 0){//nop
+            printf("HALT");
+            //exit(0);
+        }
 
         if (strcmp(optcode, "00000110") == 0//sub
         || strcmp(optcode, "00000111") == 0//neg
@@ -44,10 +63,40 @@ void singleCycle(){
 
             printf("Registers: %s,%s,%s", Rm, Rn, Rd);
         }
+
+        if (strcmp(optcode, "00000010") == 0){//Load
+            char Rm[5];
+            memcpy(Rm, &getInstruction(PC)[8], 4);
+            char Op[3];
+            memcpy(Op, &getInstruction(PC)[26], 2);
+            char Rd[5];
+            memcpy(Rd, &getInstruction(PC)[28], 4);
+            Rm[5] = '\0';
+            Op[5] = '\0';
+            Rd[5] = '\0';
+            //d = mem[rm]
+            *getRegRef(Rd) = getData((int)getReg(Rm));
+        }
+
+        if (strcmp(optcode, "00000010") == 0){//Store
+            char Rm[5];
+            memcpy(Rm, &getInstruction(PC)[8], 4);
+            char Op[3];
+            memcpy(Op, &getInstruction(PC)[26], 2);
+            char Rd[5];
+            memcpy(Rd, &getInstruction(PC)[28], 4);
+            Rm[5] = '\0';
+            Op[5] = '\0';
+            Rd[5] = '\0';
+
+            
+        }
+
         //Decode stage
         //if I or branch type decode it
         // if set load and + 1
         // if branch take it
+        PC++;
     //} while (2>1); //current op = 0 );
     
 }
@@ -59,7 +108,9 @@ void singleCycle(){
 int main(){
     loadBin();
     
+    //printf("was%d|", strbin2i("1"));
     singleCycle();
+    printRegisters();
 
     /*
     printf("INS 0: %s", getInstruction(0));

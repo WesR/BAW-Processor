@@ -59,3 +59,10 @@ float *getRegRef(char regID[4]){
     else if (strcmp(regID, "1111") == 0) {  return &registers[15];    }
 
 }
+
+void printRegisters(){
+    printf("Registers:");
+    for (int i=0; i < 15; i++){
+        printf("%d: %f\n", i, registers[i]);
+    }
+}

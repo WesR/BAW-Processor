@@ -3,5 +3,6 @@
 
 float getReg(char regID[4]);
 float *getRegRef(char regID[4]);
+void printRegisters();
 
 #endif
