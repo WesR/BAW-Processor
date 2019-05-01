@@ -19,7 +19,7 @@ int strbin2i( char* s) {
 void singleCycle(){
     int PC = 0;
     int zero, neg, overflow, carry, error = 0;//Flag lines
-    do {
+    //do {
         printf("\nPC: %d\n", PC);
         //Fetch stage
         char optcode[9];
@@ -116,7 +116,7 @@ void singleCycle(){
         // if set load and + 1
         // if branch take it
         PC++;
-    } while (2>1); //current op = 0 );
+    //} while (2>1); //current op = 0 );
     
 }
 

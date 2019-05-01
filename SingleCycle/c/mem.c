@@ -65,9 +65,33 @@ void loadBin(){
     fclose(file);
 }
 
+void printMem(){
+    /*
+    printf("Memory:\n");
+    for (int i=0; i < memorySize; i++){
+        if (memory[i] != NULL){
+            printf("%d: %f\n", i, memory[i]);
+        }
+    }*/
+}
+
+void printDataMem(){
+    printf("Data Memory:\n");
+    for (int i=0; i < memorySize; i++){
+        if (dataMemory[i] != 0){
+            printf("%d: %f\n", i, dataMemory[i]);
+        }
+    }
+}
+
 /*
 int main(){
     loadBin();
+
+    writeData(100, 12.22);
+    writeData(50, 183.12);
+    writeData(24, 93.1212);
+    printDataMem();
     printf("INS: %s", getInstruction(0));
     printf("\n");
 }*/
