@@ -20,7 +20,7 @@ void singleCycle(){
     int PC = 0;
     int zero, neg, overflow, carry, error = 0;//Flag lines
     printDataMem();
-    //do {
+    do {
         printf("\nPC: %d\n", PC);
         //Fetch stage
         char optcode[9];
@@ -129,12 +129,42 @@ void singleCycle(){
             printf("Branched to PC = %d\n", PC);
         }
 
+        if (strcmp(optcode, "00010100") == 0){//Branch Zero
+            char Loc[20];
+            memcpy(Loc, &getInstruction(PC)[8], 24);
+            char Rm[5];
+            memcpy(Rm, &getInstruction(PC)[8], 4);
+            Loc[19] = '\0';
+            Rm[4] = '\0';
+
+            //printf("PC = %d\n", PC);
+            if (getReg(Rm) == 0){
+                PC = atoi(Loc);
+            }
+            printf("Branched to PC = %d\n", PC);
+        }
+
+        if (strcmp(optcode, "00010101") == 0){//Branch Zero
+            char Loc[20];
+            memcpy(Loc, &getInstruction(PC)[8], 24);
+            char Rm[5];
+            memcpy(Rm, &getInstruction(PC)[8], 4);
+            Loc[19] = '\0';
+            Rm[4] = '\0';
+
+            //printf("PC = %d\n", PC);
+            if (getReg(Rm) < 0){
+                PC = atoi(Loc);
+            }
+            printf("Branched to PC = %d\n", PC);
+        }
+
         //Decode stage
         //if I or branch type decode it
         // if set load and + 1
         // if branch take it
         PC++;
-    //} while (2>1); //current op = 0 );
+    } while (2>1); //current op = 0 );
     
 }
 
