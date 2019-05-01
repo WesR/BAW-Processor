@@ -83,7 +83,7 @@ begin
     -- tests
     process(clock)
                                                 -- -87.625
-        constant var_a : float32 := to_float(real(2), exponent_width => 8, fraction_width => 23);
+        constant var_a : float32 := to_float(real(-87.625), exponent_width => 8, fraction_width => 23);
         constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
     begin
         if rising_edge(clock) then

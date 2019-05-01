@@ -41,14 +41,14 @@ entity Fsqrt is
 end Fsqrt;
 
 architecture Behavioral of Fsqrt is
-    signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+    --signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 begin
     process(inputA)
         variable root : float32;
     begin
        root := sqrt(abs(to_float(inputA, exponent_width => 8, fraction_width => 23)));
        
-       output_bus <= STD_LOGIC_VECTOR(to_slv(root));
+       result <= STD_LOGIC_VECTOR(to_slv(root));
        
        if inputA(31) = '1' then
           E <= '1';

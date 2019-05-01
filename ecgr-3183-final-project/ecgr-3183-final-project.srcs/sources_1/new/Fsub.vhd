@@ -42,7 +42,7 @@ entity Fsub is
 end Fsub;
 
 architecture Behavioral of Fsub is
-    signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+    --signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 begin
     process(inputA, inputB)
         variable tempA, tempB, tempResult: float32;
@@ -51,9 +51,9 @@ begin
         tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
         tempResult := tempA - tempB;
         
-        output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
+        result <= STD_LOGIC_VECTOR(to_slv(tempResult));
         
-        result <= output_bus;
+        --result <= output_bus;
     
     end process;
 

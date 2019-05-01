@@ -47,7 +47,7 @@ entity Fadd is
 end Fadd;
 
 architecture Behavioral of Fadd is
-    signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+  --  signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 begin
     process(inputA, inputB)
         variable tempA, tempB, tempResult: float32;
@@ -60,9 +60,9 @@ begin
         --write(l, to_real(tempResult));
         --writeline (output, l);
     
-        output_bus <= STD_LOGIC_VECTOR(to_slv(tempResult));
+        result <= STD_LOGIC_VECTOR(to_slv(tempResult));
         
-        result <= output_bus;
+        --result <= output_bus;
     
     end process;
 

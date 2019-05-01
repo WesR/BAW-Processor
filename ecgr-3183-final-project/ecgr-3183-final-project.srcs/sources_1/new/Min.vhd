@@ -39,7 +39,7 @@ end Min;
 
 architecture Behavioral of Min is
 
-signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+--signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 signal exponent_A, exponent_B : unsigned(7 downto 0);
 signal mantissa_A, mantissa_B : unsigned(22 downto 0);
 
@@ -49,9 +49,9 @@ process(inputA, inputB)
 begin
     -- compare sign bits first
     if inputA(31) = '0' and inputB(31) = '1' then
-       output_bus <= inputB;
+       result <= inputB;
     elsif inputA(31) = '1' and inputB(31) = '0' then
-       output_bus <= inputA;
+       result <= inputA;
        
     -- if sign bits are the same, compare the exponents (positive)
     elsif inputA(31) = '0' and inputB(31) = '0' then
@@ -59,9 +59,9 @@ begin
         exponent_B <= unsigned(inputB(30 downto 23));
         
         if exponent_A > exponent_B then
-           output_bus <= inputB;
+           result <= inputB;
         elsif exponent_A < exponent_B then
-           output_bus <= inputA;
+           result <= inputA;
            
         -- if exponent bits are the same, compare the mantissas (positive)
         else
@@ -69,9 +69,9 @@ begin
             mantissa_B <= unsigned(inputB(22 downto 0));
             
             if mantissa_A > mantissa_B then
-               output_bus <= inputB;
+               result <= inputB;
             else
-               output_bus <= inputA;
+               result <= inputA;
             end if;
         end if;
         
@@ -81,9 +81,9 @@ begin
         exponent_B <= unsigned(inputB(30 downto 23));
         
         if exponent_A > exponent_B then
-           output_bus <= inputA;
+           result <= inputA;
         elsif exponent_A < exponent_B then
-           output_bus <= inputB;
+           result <= inputB;
            
         -- if exponent bits are the same, compare the mantissas (negative)
         else
@@ -91,13 +91,13 @@ begin
             mantissa_B <= unsigned(inputB(22 downto 0));
             
             if mantissa_A > mantissa_B then
-               output_bus <= inputA;
+               result <= inputA;
             else
-               output_bus <= inputB;
+               result <= inputB;
             end if;
         end if;
     end if;
-    result <= output_bus;
+    --result <= output_bus;
     
 end process;
 

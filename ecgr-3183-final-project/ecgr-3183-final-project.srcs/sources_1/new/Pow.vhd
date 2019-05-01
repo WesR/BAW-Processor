@@ -41,7 +41,7 @@ end Pow;
 
 architecture Behavioral of Pow is
 
-signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
+--signal output_bus : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
    process(inputA, inputB)

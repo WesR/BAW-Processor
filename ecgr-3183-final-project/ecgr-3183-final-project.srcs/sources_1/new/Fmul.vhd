@@ -50,13 +50,22 @@ begin
                constant ptest: float32 := "00111111100000000000000000000000";
                -- -1
                constant ntest: float32 := "10111111100000000000000000000000";
+               -- exponents
+               variable expA: unsigned(7 downto 0);
+               variable expB: unsigned(7 downto 0);
+               variable expR: unsigned(7 downto 0);
+               variable expS: unsigned(7 downto 0);
                 
            begin
                tempA := to_float(inputA, exponent_width => 8, fraction_width => 23);
                tempB := to_float(inputB, exponent_width => 8, fraction_width => 23);
-                              
+               expA := unsigned(tempA(7 downto 0));
+               expB := unsigned(tempB(7 downto 0));
+               expR := expA + expB;    
+               
+               
                --Quick multiply by 0
-               if (tempA OR tempB) = ztest then
+               if (tempA(7 downto -23) OR tempB(7 downto -23)) = ztest(7 downto -23) then
                    tempResult := ztest;
                
                --Quick multiply by 1
@@ -75,14 +84,15 @@ begin
                    
               -- Quick multiply by power of 2
                elsif tempB(-1 downto -23) = ztest(-1 downto -23) then
-                   tempA(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0);
-                   tempResult := tempA;
+--                   tempA(7 downto 0) := expR(7 downto 0);
+--                   tempResult := tempA;
                elsif tempA(-1 downto -23) = ztest(-1 downto -23) then
-                   tempB(7 downto 0) := tempA(7 downto 0) + tempB(7 downto 0);  
-                    tempResult := tempB;
+--                   tempB(7 downto 0) := expR(7 downto 0);
+--                   tempResult := tempB;
+              
                --Do normal multiply
                else
-                   --tempResult := tempA * tempB;
+                   tempResult := tempA * tempB;
                end if;
         
         result <= STD_LOGIC_VECTOR(to_slv(tempResult));
