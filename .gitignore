@@ -7,3 +7,6 @@ SingleCycle/vhdl/SingleCycle.runs
 .vscode
 SingleCycle/c/input.bin
 SingleCycle/c/a.out
+ecgr-3183-final-project/vivado.jou
+ecgr-3183-final-project/vivado.log
+ecgr-3183-final-project/vivado_pid28788.str
