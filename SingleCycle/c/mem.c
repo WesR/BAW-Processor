@@ -35,6 +35,7 @@ float getData(int location){
  * Inputs: int location, float value
  **/
 void writeData(int location, float value){
+    //printf("MemWrite %d, %f\n", location, value);
     dataMemory[location] = value;
 }
 

@@ -156,7 +156,7 @@ def programMem(writePos, line):
     elif (line[0] == "BN"):
         mem[writePos] = '00010101'
         writeTypeCBranch(writePos, line)
-    elif (line[0] == "HLT"):
+    elif (line[0] == "HALT"):
         mem[writePos] = '00010111' + '000000000000000000000000'
     else:
         mem[writePos] = '00010110' + '000000000000000000000000'

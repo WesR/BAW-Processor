@@ -20,7 +20,7 @@ void singleCycle(){
     int PC = 0;
     int zero, neg, overflow, carry, error = 0;//Flag lines
     printDataMem();
-    do {
+    //do {
         printf("\nPC: %d\n", PC);
         //Fetch stage
         char optcode[9];
@@ -33,8 +33,9 @@ void singleCycle(){
         }
 
         if (strcmp(optcode, "00010111") == 0){//nop
-            printf("HALT");
-            //exit(0);
+            printf("HALT\n");
+            printRegisters();
+            exit(0);
         }
 
         if (strcmp(optcode, "00000110") == 0//sub
@@ -68,6 +69,8 @@ void singleCycle(){
         }
 
         if (strcmp(optcode, "00000010") == 0){//Load
+            //setReg("0000", 100);
+            //writeData(getReg("0000"), 13.37);
             char Rm[5];
             memcpy(Rm, &getInstruction(PC)[8], 4);
             char Op[3];
@@ -80,12 +83,12 @@ void singleCycle(){
             //d = mem[rm]
             
             //printf("||%s||", getInstruction(PC));
-            printf("~~%f~~", getReg(Rm));
+            //printf("~~%f~~", getReg(Rm));
             
-            printRegisters();
+            //printRegisters();
             setReg(Rd, getData((int)getReg(Rm)));
             //*getRegRef(Rd) = getData((int)getReg(Rm));
-            printRegisters();
+            //printRegisters();
         }
 
         if (strcmp(optcode, "00000011") == 0){//Store
@@ -119,7 +122,7 @@ void singleCycle(){
         // if set load and + 1
         // if branch take it
         PC++;
-    } while (2>1); //current op = 0 );
+    //} while (2>1); //current op = 0 );
     
 }
 
@@ -132,7 +135,7 @@ int main(){
     
     //printf("was%d|", strbin2i("1"));
     singleCycle();
-    printRegisters();
+    //printRegisters();
 
     /*
     printf("INS 0: %s", getInstruction(0));
