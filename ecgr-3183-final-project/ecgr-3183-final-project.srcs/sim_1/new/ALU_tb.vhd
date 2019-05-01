@@ -68,7 +68,7 @@ begin
     
     -- tests
     process(clock)
-        constant var_a : float32 := to_float(real(58.9), exponent_width => 8, fraction_width => 23);
+        constant var_a : float32 := to_float(real(0), exponent_width => 8, fraction_width => 23);
         constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
     begin
         
