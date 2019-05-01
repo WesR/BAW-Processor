@@ -111,7 +111,7 @@ void singleCycle(){
             char Rm[5];
             memcpy(Rm, &getInstruction(PC)[8], 4);
             Rm[4] = '\0';
-
+            printf("FLFLFLFLFLF: %f\n", getInstructionFloat(PC+1));
             setReg(Rm, getInstructionFloat(PC+1));
             //setReg(Rm, 100.0);
             //printf("LL:%fLL\n", getInstructionFloat(PC+1));

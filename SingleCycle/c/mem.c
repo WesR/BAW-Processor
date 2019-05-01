@@ -19,7 +19,7 @@ char *getInstruction(int location){
 }
 
 float getInstructionFloat(int location){
-    return (float)atoi(strdup(memory[location]));
+    return atof(strdup(memory[location]));
 }
 
 /**
