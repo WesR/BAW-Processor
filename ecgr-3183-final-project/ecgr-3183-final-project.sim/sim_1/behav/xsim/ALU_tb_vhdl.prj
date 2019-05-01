@@ -1,0 +1,40 @@
+# compile vhdl design source files
+vhdl ieee_proposed  \
+"../../../../ecgr-3183-final-project.srcs/sources_1/imports/distributable/fixed_float_types_c.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/imports/distributable/fixed_pkg_c.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/imports/distributable/float_pkg_c.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/ALU.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Ceil.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Exp.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fabs.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fadd.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fdiv.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Floor.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fmul.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fneg.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fsqrt.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Fsub.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Max.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Min.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Pass_Thru.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Pass_Thru_A.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Post-Normalize.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Pow.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Pre-Normalize.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Round.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/first_stage_top.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/mux_2_to_1_flags.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/mux_2_to_1_word32.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/mux_4_to_1_flags.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/mux_4_to_1_word32.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/mux_8_to_1_flags.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/mux_8_to_1_word32.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/no_norm_top.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/second_stage_top.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/yes_norm_top.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sim_1/new/ALU_tb.vhd" \
+
+# Do not sort compile order
+nosort

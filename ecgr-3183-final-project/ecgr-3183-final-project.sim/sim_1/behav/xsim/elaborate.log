@@ -1,7 +1,52 @@
 Vivado Simulator 2018.2
 Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
-Running: D:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 5a5a0f3fee454548a2368b3fdc3bcab3 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot ADD_tb_behav xil_defaultlib.ADD_tb -log elaborate.log 
+Running: D:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 5a5a0f3fee454548a2368b3fdc3bcab3 --incr --debug typical --relax --mt 2 -L ieee_proposed -L xil_defaultlib -L secureip --snapshot ALU_tb_behav xil_defaultlib.ALU_tb -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
+WARNING: [VRFC 10-1625] value in initialization depends on signal aluop [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ALU.vhd:65]
+WARNING: [VRFC 10-1625] value in initialization depends on signal aluop [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ALU.vhd:66]
+WARNING: [VRFC 10-1537] value -1 is out of target constraint range 0 to 2147483647 [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/imports/distributable/float_pkg_c.vhd:2985]
+WARNING: [VRFC 10-1537] value -1 is out of target constraint range 0 to 2147483647 [D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/imports/distributable/float_pkg_c.vhd:3530]
 Completed static elaboration
-ERROR: [XSIM 43-4187] File "/wrk/xhdhdnobkup2/mounicav/xsimsource/xsim_HEAD/data/vhdl/src/ieee_2008/float_pkg.vhdl" Line 45 : The "Vhdl 2008 Package Instantiation Declaration" is not supported yet for simulation.
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package ieee_proposed.fixed_float_types
+Compiling package ieee_proposed.fixed_pkg
+Compiling package ieee.math_real
+Compiling package ieee_proposed.float_pkg
+Compiling architecture behavioral of entity xil_defaultlib.Pass_Thru_A [pass_thru_a_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fsqrt [fsqrt_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fabs [fabs_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fneg [fneg_default]
+Compiling architecture behavioral of entity xil_defaultlib.Min [min_default]
+Compiling architecture behavioral of entity xil_defaultlib.Max [max_default]
+Compiling architecture behavioral of entity xil_defaultlib.mux_8_to_1_word32 [mux_8_to_1_word32_default]
+Compiling architecture behavioral of entity xil_defaultlib.mux_8_to_1_flags [mux_8_to_1_flags_default]
+Compiling architecture behavioral of entity xil_defaultlib.no_norm_top [no_norm_top_default]
+Compiling architecture behavioral of entity xil_defaultlib.Pre_Normalize [pre_normalize_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fadd [fadd_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fsub [fsub_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fmul [fmul_default]
+Compiling architecture behavioral of entity xil_defaultlib.Fdiv [fdiv_default]
+Compiling architecture behavioral of entity xil_defaultlib.Pow [pow_default]
+Compiling architecture behavioral of entity xil_defaultlib.Exp [exp_default]
+Compiling architecture behavioral of entity xil_defaultlib.Post_Normalize [post_normalize_default]
+Compiling architecture behavioral of entity xil_defaultlib.yes_norm_top [yes_norm_top_default]
+Compiling architecture behavioral of entity xil_defaultlib.mux_2_to_1_word32 [mux_2_to_1_word32_default]
+Compiling architecture behavioral of entity xil_defaultlib.mux_2_to_1_flags [mux_2_to_1_flags_default]
+Compiling architecture behavioral of entity xil_defaultlib.first_stage_top [first_stage_top_default]
+Compiling architecture behavioral of entity xil_defaultlib.Pass_Thru [pass_thru_default]
+Compiling architecture behavioral of entity xil_defaultlib.Floor [floor_default]
+Compiling architecture behavioral of entity xil_defaultlib.Ceil [ceil_default]
+Compiling architecture behavioral of entity xil_defaultlib.Round [round_default]
+Compiling architecture behavioral of entity xil_defaultlib.mux_4_to_1_word32 [mux_4_to_1_word32_default]
+Compiling architecture behavioral of entity xil_defaultlib.mux_4_to_1_flags [mux_4_to_1_flags_default]
+Compiling architecture behavioral of entity xil_defaultlib.second_stage_top [second_stage_top_default]
+Compiling architecture behavioral of entity xil_defaultlib.ALU [alu_default]
+Compiling architecture behavioral of entity xil_defaultlib.alu_tb
+Built simulation snapshot ALU_tb_behav

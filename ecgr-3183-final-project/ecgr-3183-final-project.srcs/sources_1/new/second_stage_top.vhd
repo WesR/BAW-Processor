@@ -87,10 +87,10 @@ architecture Behavioral of second_stage_top is
     signal internal_word32_2 : STD_LOGIC_VECTOR(31 downto 0);
     signal internal_word32_3 : STD_LOGIC_VECTOR(31 downto 0);
     
-    signal internal_flags_0 : STD_LOGIC_VECTOR(2 downto 0);
-    signal internal_flags_1 : STD_LOGIC_VECTOR(2 downto 0);
-    signal internal_flags_2 : STD_LOGIC_VECTOR(2 downto 0);
-    signal internal_flags_3 : STD_LOGIC_VECTOR(2 downto 0);
+    signal internal_flags_0 : STD_LOGIC_VECTOR(1 downto 0);
+    signal internal_flags_1 : STD_LOGIC_VECTOR(1 downto 0);
+    signal internal_flags_2 : STD_LOGIC_VECTOR(1 downto 0);
+    signal internal_flags_3 : STD_LOGIC_VECTOR(1 downto 0);
     
 begin
     -- port mappings    

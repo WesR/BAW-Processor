@@ -1,8 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd" into library xil_defaultlib
-INFO: [VRFC 10-307] analyzing entity ADD
-ERROR: [VRFC 10-1472] type error near inputa ; expected type unresolved_sfixed [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd:53]
-ERROR: [VRFC 10-837] illegal named association in array index [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd:53]
-ERROR: [VRFC 10-1472] type error near inputb ; expected type unresolved_sfixed [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd:54]
-ERROR: [VRFC 10-837] illegal named association in array index [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd:54]
-ERROR: [VRFC 10-1504] unit behavioral ignored due to previous errors [D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd:45]
-INFO: [VRFC 10-240] VHDL file D:/Xilinx/Projects/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ADD.vhd ignored due to errors
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/Xilinx/Projects/BAW-Processor/ecgr-3183-final-project/ecgr-3183-final-project.srcs/sources_1/new/ALU.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity ALU

@@ -43,6 +43,7 @@ begin
 
 process
 begin
+     wait for 1 ps;
      result(31) <= '0';
      result(30 downto 0) <= inputA(30 downto 0);
 end process;
