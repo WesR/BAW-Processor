@@ -18,6 +18,10 @@ char *getInstruction(int location){
     return strdup(memory[location]);
 }
 
+float getInstructionFloat(int location){
+    return (float)atoi(strdup(memory[location]));
+}
+
 /**
  * Summary: Get data from a memory location
  * Inputs: int location
@@ -54,6 +58,7 @@ void loadBin(){
             loadData = 1;
         } else if (loadData == 0){//Load the instructions
             strcpy(memory[instWriteIndex], line);
+            memory[instWriteIndex][32] = '\0';
             instWriteIndex++;
         }
     }

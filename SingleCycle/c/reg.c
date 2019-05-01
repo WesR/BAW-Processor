@@ -57,5 +57,31 @@ float *getRegRef(char regID[4]){
     else if (strcmp(regID, "1101") == 0) {  return &registers[13];    }
     else if (strcmp(regID, "1110") == 0) {  return &registers[14];    }
     else if (strcmp(regID, "1111") == 0) {  return &registers[15];    }
+}
 
+void setReg(char regID[4], float val){
+
+    if (strcmp(regID, "0000") == 0) {  registers[0] = val;   }
+    else if (strcmp(regID, "0001") == 0) {  registers[1] = val;    }
+    else if (strcmp(regID, "0010") == 0) {  registers[2] = val;    }
+    else if (strcmp(regID, "0011") == 0) {  registers[3] = val;    }
+    else if (strcmp(regID, "0100") == 0) {  registers[4] = val;    }
+    else if (strcmp(regID, "0101") == 0) {  registers[5] = val;    }
+    else if (strcmp(regID, "0110") == 0) {  registers[6] = val;    }
+    else if (strcmp(regID, "0111") == 0) {  registers[7] = val;    }
+    else if (strcmp(regID, "1000") == 0) {  registers[8] = val;    }
+    else if (strcmp(regID, "1001") == 0) {  registers[9] = val;    }
+    else if (strcmp(regID, "1010") == 0) {  registers[10] = val;    }
+    else if (strcmp(regID, "1011") == 0) {  registers[11] = val;    }
+    else if (strcmp(regID, "1100") == 0) {  registers[12] = val;    }
+    else if (strcmp(regID, "1101") == 0) {  registers[13] = val;    }
+    else if (strcmp(regID, "1110") == 0) {  registers[14] = val;    }
+    else if (strcmp(regID, "1111") == 0) {  registers[15] = val;    }
+}
+
+void printRegisters(){
+    printf("Registers:");
+    for (int i=0; i < 15; i++){
+        printf("%d: %f\n", i, registers[i]);
+    }
 }
