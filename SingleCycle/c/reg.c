@@ -59,9 +59,12 @@ float *getRegRef(char regID[4]){
     else if (strcmp(regID, "1111") == 0) {  return &registers[15];    }
 }
 
-void setReg(char regID[4], float val){
+void setReg(char regID[5], float val){
+    //printf("reg: %s || fv: %f\n", regID, val);
+    //printf("");
+    //printf("fuc: %d\n", strcmp(regID, "0000"));
 
-    if (strcmp(regID, "0000") == 0) {  registers[0] = val;   }
+    if (strcmp(regID, "0000") == 0) {  registers[0] = val;         }
     else if (strcmp(regID, "0001") == 0) {  registers[1] = val;    }
     else if (strcmp(regID, "0010") == 0) {  registers[2] = val;    }
     else if (strcmp(regID, "0011") == 0) {  registers[3] = val;    }
@@ -80,7 +83,7 @@ void setReg(char regID[4], float val){
 }
 
 void printRegisters(){
-    printf("Registers:");
+    printf("Registers\n");
     for (int i=0; i < 15; i++){
         printf("%d: %f\n", i, registers[i]);
     }

@@ -19,7 +19,8 @@ int strbin2i( char* s) {
 void singleCycle(){
     int PC = 0;
     int zero, neg, overflow, carry, error = 0;//Flag lines
-    //do {
+    printDataMem();
+    do {
         printf("\nPC: %d\n", PC);
         //Fetch stage
         char optcode[9];
@@ -57,9 +58,9 @@ void singleCycle(){
             memcpy(Rn, &getInstruction(PC)[24], 4);
             char Rd[5];
             memcpy(Rd, &getInstruction(PC)[28], 4);
-            Rm[5] = '\0';
-            Rn[5] = '\0';
-            Rd[5] = '\0';
+            Rm[4] = '\0';
+            Rn[4] = '\0';
+            Rd[4] = '\0';
             
             alu(optcode, getReg(Rm), getReg(Rn), getRegRef(Rd), &zero, &neg, &overflow, &carry, &error);
 
@@ -94,9 +95,9 @@ void singleCycle(){
             memcpy(Op, &getInstruction(PC)[26], 2);
             char Rd[5];
             memcpy(Rd, &getInstruction(PC)[28], 4);
-            Rm[5] = '\0';
-            Op[5] = '\0';
-            Rd[5] = '\0';
+            Rm[4] = '\0';
+            Op[2] = '\0';
+            Rd[4] = '\0';
             
             writeData(getReg(Rd), getReg(Rm));//Writes into location Rd, valuein Rm
         }
@@ -104,11 +105,13 @@ void singleCycle(){
         if (strcmp(optcode, "00000001") == 0){//Set
             char Rm[5];
             memcpy(Rm, &getInstruction(PC)[8], 4);
-            Rm[5] = '\0';
+            Rm[4] = '\0';
 
             setReg(Rm, getInstructionFloat(PC+1));
-            //printf("LL:%fLL", getInstructionFloat(PC+1));
+            //setReg(Rm, 100.0);
+            //printf("LL:%fLL\n", getInstructionFloat(PC+1));
             PC++;//We also need to pass over the data
+            //printRegisters();
         }
 
         //Decode stage
@@ -116,7 +119,7 @@ void singleCycle(){
         // if set load and + 1
         // if branch take it
         PC++;
-    //} while (2>1); //current op = 0 );
+    } while (2>1); //current op = 0 );
     
 }
 
