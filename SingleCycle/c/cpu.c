@@ -52,6 +52,7 @@ void singleCycle(){
         || strcmp(optcode, "00010000") == 0//pow
         || strcmp(optcode, "00010001") == 0//exp
         || strcmp(optcode, "00010010") == 0//sqr
+        || strcmp(optcode, "00000100") == 0//Move (if this breaks, it might be beacuse we just let the alu else catch it)
         ){//We have an R type operation
             char Rm[5];
             memcpy(Rm, &getInstruction(PC)[8], 4);
@@ -63,8 +64,9 @@ void singleCycle(){
             Rn[4] = '\0';
             Rd[4] = '\0';
             
-            alu(optcode, getReg(Rm), getReg(Rn), getRegRef(Rd), &zero, &neg, &overflow, &carry, &error);
+            //setReg("0000", 1212);
 
+            alu(optcode, getReg(Rm), getReg(Rn), getRegRef(Rd), &zero, &neg, &overflow, &carry, &error);
             printf("Registers: %s,%s,%s", Rm, Rn, Rd);
         }
 
