@@ -175,7 +175,7 @@ void alu_sqr(float Rm, float *Rd) {
  * Summery: The ALU logic. 
  * Input: alu opcode | rm, rn, *rd | Zero, Neg, Overflow, Carry, Error
  **/
-void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int *overflow, int *carry, int *error) {
+void alu(char aluop[8], float Rm, float Rn, float *Rd, int *zero, int *neg, int *overflow, int *carry, int *error) {
 
     //Reset all flags
     *zero = 0;
@@ -185,23 +185,21 @@ void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int 
     *error = 0;
 
     //Operations
-    if (strcmp(aluop, "0000") == 0){
-        alu_pass(Rm, Rd);
-    } else if (strcmp(aluop, "0001") == 0) {
+    if (strcmp(aluop, "00000101") == 0) {
         alu_add(Rm, Rn, Rd);
         checkOverflow(Rd, overflow);
         checkCarry(Rd, carry);
-    } else if (strcmp(aluop, "0010") == 0) {
+    } else if (strcmp(aluop, "00000110") == 0) {
         alu_sub(Rm, Rn, Rd);
         checkOverflow(Rd, overflow);
         checkCarry(Rd, carry);
-    } else if (strcmp(aluop, "0011") == 0) {
+    } else if (strcmp(aluop, "00000111") == 0) {
         alu_neg(Rm, Rd);
-    } else if (strcmp(aluop, "0100") == 0) {
+    } else if (strcmp(aluop, "00001000") == 0) {
         alu_mul(Rm, Rn, Rd);
         checkOverflow(Rd, overflow);
         checkCarry(Rd, carry);
-    } else if (strcmp(aluop, "0101") == 0) {
+    } else if (strcmp(aluop, "00001001") == 0) {
         if (Rn == 0){ 
             *error = 1;
         } else {       
@@ -209,27 +207,27 @@ void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int 
             checkOverflow(Rd, overflow);
             checkCarry(Rd, carry);
         }
-    } else if (strcmp(aluop, "0110") == 0) {
+    } else if (strcmp(aluop, "00001010") == 0) {
         alu_flr(Rm, Rd);
-    } else if (strcmp(aluop, "0111") == 0) {
+    } else if (strcmp(aluop, "00001011") == 0) {
         alu_cel(Rm, Rd);
-    } else if (strcmp(aluop, "1000") == 0) {
+    } else if (strcmp(aluop, "00001100") == 0) {
         alu_rnd(Rm, Rd);
-    } else if (strcmp(aluop, "1001") == 0) {
+    } else if (strcmp(aluop, "00001101") == 0) {
         alu_abs(Rm, Rd);
-    } else if (strcmp(aluop, "1010") == 0) {
+    } else if (strcmp(aluop, "00001110") == 0) {
         alu_min(Rm, Rn, Rd);
-    } else if (strcmp(aluop, "1011") == 0) {
+    } else if (strcmp(aluop, "00001111") == 0) {
         alu_max(Rm, Rn, Rd);
-    } else if (strcmp(aluop, "1100") == 0) {
+    } else if (strcmp(aluop, "00010000") == 0) {
         alu_pow(Rm, Rn, Rd);
         checkOverflow(Rd, overflow);
         checkCarry(Rd, carry);
-    } else if (strcmp(aluop, "1101") == 0) {
+    } else if (strcmp(aluop, "00010001") == 0) {
         alu_exp(Rm, Rd);
         checkOverflow(Rd, overflow);
         checkCarry(Rd, carry);
-    } else if (strcmp(aluop, "1110") == 0) {
+    } else if (strcmp(aluop, "00010010") == 0) {
         if (Rm < 0){ 
             *error = 1;
         } else {
@@ -237,6 +235,8 @@ void alu(char aluop[4], float Rm, float Rn, float *Rd, int *zero, int *neg, int 
             checkOverflow(Rd, overflow);
             checkCarry(Rd, carry);
         }
+    } else {//if (strcmp(aluop, "00000000") == 0){
+        alu_pass(Rm, Rd);
     }
     
     //Set flags
