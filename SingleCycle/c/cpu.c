@@ -119,6 +119,16 @@ void singleCycle(){
             //printRegisters();
         }
 
+        if (strcmp(optcode, "00010011") == 0){//Unc Branch
+            char Loc[20];
+            memcpy(Loc, &getInstruction(PC)[8], 24);
+            Loc[19] = '\0';
+
+            //printf("PC = %d\n", PC);
+            PC = atoi(Loc);
+            printf("Branched to PC = %d\n", PC);
+        }
+
         //Decode stage
         //if I or branch type decode it
         // if set load and + 1
