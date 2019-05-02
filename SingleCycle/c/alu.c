@@ -83,7 +83,7 @@ void alu_mul(float Rm, float Rn, float *Rd) {
  * Inputs: Rm, Rn, Rd (destination) 
  **/
 void alu_div(float Rm, float Rn, float *Rd) {
-    *Rd = Rn / Rm;
+    *Rd = Rm / Rn;
     printf("ALU DIV\n");
 }
 
