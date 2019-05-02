@@ -46,14 +46,13 @@ architecture Behavioral of Register_File is
     type reg_file is array (0 to 15) of STD_LOGIC_VECTOR(31 downto 0);
     signal internal_registers: reg_file;
 begin
-    process(clock)
-    
+    process(Rm, Rn, Rd)
     begin
-        if rising_edge(clock) then
-            Read_Data_1 <= internal_registers(to_integer(unsigned(Rm)));
-            Read_Data_2 <= internal_registers(to_integer(unsigned(Rn)));
-        end if;
+        -- pass values stored at specified register addresses (Rm, Rn) to corresponding data outputs
+        Read_Data_1 <= internal_registers(to_integer(unsigned(Rm)));
+        Read_Data_2 <= internal_registers(to_integer(unsigned(Rn)));
         
+        -- if RegWrite is enabled, store Write_Data at appropriate register address (Rd)
         if (RegWrite = '1') then
             internal_registers(to_integer(unsigned(Rd))) <= Write_Data;
             
@@ -67,8 +66,35 @@ begin
                 Read_Data_2 <= Write_Data;
             end if;
             
-        end if;
-    
+        end if; -- end of check RegWrite
+
     end process;
 
 end Behavioral;
+
+--process(clock)
+--    begin
+--        if rising_edge(clock) then
+            
+--            -- pass values stored at specified register addresses (Rm, Rn) to corresponding data outputs
+--            Read_Data_1 <= internal_registers(to_integer(unsigned(Rm)));
+--            Read_Data_2 <= internal_registers(to_integer(unsigned(Rn)));
+            
+--            -- if RegWrite is enabled, store Write_Data at appropriate register address (Rd)
+--            if (RegWrite = '1') then
+--                internal_registers(to_integer(unsigned(Rd))) <= Write_Data;
+                
+--                -- check if input register 1 address (Rm) is the same as write register address (Rd)
+--                if (Rm = Rd) then
+--                    Read_Data_1 <= Write_Data;
+--                end if;
+                
+--                -- check if input register 2 address (Rn) is the same as write register address (Rd)
+--                if (Rn = Rd) then
+--                    Read_Data_2 <= Write_Data;
+--                end if;
+                
+--            end if; -- end of check RegWrite
+--        end if;
+
+--    end process;
