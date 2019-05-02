@@ -19,12 +19,14 @@ void singleCycle(){
         printf("operation %s\n", optcode);
 
         if (strcmp(optcode, "00010110") == 0){//nop
-            printf("NOP");
+            printf("NOP\n");
         }
 
         if (strcmp(optcode, "00010111") == 0){//nop
-            printf("HALT\n");
+            printf("HALT\n\n");
             printRegisters();
+            printf("\n");
+            printDataMem();
             exit(0);
         }
 
@@ -57,7 +59,8 @@ void singleCycle(){
             //setReg("0000", 1212);
 
             alu(optcode, getReg(Rm), getReg(Rn), getRegRef(Rd), &zero, &neg, &overflow, &carry, &error);
-            printf("Registers: %s,%s,%s", Rm, Rn, Rd);
+            printf("Registers: %s,%s,%s\n", Rm, Rn, Rd);
+            printf("ALU Flags: zero:%i neg:%i overf:%i carry:%i error%i\n", zero, neg, overflow, carry, error);
         }
 
         if (strcmp(optcode, "00000010") == 0){//Load
@@ -76,7 +79,7 @@ void singleCycle(){
             
             //printf("||%s||", getInstruction(PC));
             //printf("~~%f~~", getReg(Rm));
-            
+            printf("LOAD: %s : %f\n", Rd, getData((int)getReg(Rm)));
             //printRegisters();
             setReg(Rd, getData((int)getReg(Rm)));
             //*getRegRef(Rd) = getData((int)getReg(Rm));
@@ -93,7 +96,7 @@ void singleCycle(){
             Rm[4] = '\0';
             Op[2] = '\0';
             Rd[4] = '\0';
-            
+            printf("STORE\n");
             writeData(getReg(Rd), getReg(Rm));//Writes into location Rd, valuein Rm
         }
         
@@ -101,7 +104,7 @@ void singleCycle(){
             char Rm[5];
             memcpy(Rm, &getInstruction(PC)[8], 4);
             Rm[4] = '\0';
-            printf("FLFLFLFLFLF: %f\n", getInstructionFloat(PC+1));
+            printf("Value Set: %f\n", getInstructionFloat(PC+1));
             setReg(Rm, getInstructionFloat(PC+1));
             //setReg(Rm, 100.0);
             //printf("LL:%fLL\n", getInstructionFloat(PC+1));
@@ -131,10 +134,10 @@ void singleCycle(){
             if (getReg(Rm) == 0){
                 PC = atoi(Loc);
             }
-            printf("Branched to PC = %d\n", PC);
+            printf("Branched Zero to PC = %d\n", PC);
         }
 
-        if (strcmp(optcode, "00010101") == 0){//Branch Zero
+        if (strcmp(optcode, "00010101") == 0){//Branch Neg
             char Loc[20];
             memcpy(Loc, &getInstruction(PC)[8], 24);
             char Rm[5];
@@ -146,7 +149,7 @@ void singleCycle(){
             if (getReg(Rm) < 0){
                 PC = atoi(Loc);
             }
-            printf("Branched to PC = %d\n", PC);
+            printf("Branched Negative to PC = %d\n", PC);
         }
 
         //Decode stage

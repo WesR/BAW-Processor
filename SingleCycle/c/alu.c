@@ -43,6 +43,7 @@ void alu_pass(float Rm, float *Rd) {
  **/
 void alu_add(float Rm, float Rn, float *Rd) {
     *Rd = Rm + Rn;
+    printf("ALU ADD\n");
 }
 
 /**
@@ -52,6 +53,7 @@ void alu_add(float Rm, float Rn, float *Rd) {
  **/
 void alu_sub(float Rm, float Rn, float *Rd) {
     *Rd = Rm - Rn;
+    printf("ALU SUB\n");
 }
 
 /**
@@ -62,6 +64,7 @@ void alu_sub(float Rm, float Rn, float *Rd) {
 void alu_neg(float Rm, float *Rd) {
     float neg1 = -1;
     *Rd = Rm * neg1;
+    printf("ALU NEG\n");
 }
 
 /**
@@ -71,6 +74,7 @@ void alu_neg(float Rm, float *Rd) {
  **/
 void alu_mul(float Rm, float Rn, float *Rd) {
     *Rd = Rm * Rn;
+    printf("ALU MUL\n");
 }
 
 /**
@@ -79,7 +83,8 @@ void alu_mul(float Rm, float Rn, float *Rd) {
  * Inputs: Rm, Rn, Rd (destination) 
  **/
 void alu_div(float Rm, float Rn, float *Rd) {
-    *Rd = Rm / Rn;
+    *Rd = Rn / Rm;
+    printf("ALU DIV\n");
 }
 
 /**
@@ -89,6 +94,7 @@ void alu_div(float Rm, float Rn, float *Rd) {
  **/
 void alu_flr(float Rm, float *Rd) {
     *Rd = floorf(Rm);
+    printf("ALU FLOOR\n");
 }
 
 /**
@@ -98,6 +104,7 @@ void alu_flr(float Rm, float *Rd) {
  **/
 void alu_cel(float Rm, float *Rd) {
     *Rd = ceilf(Rm);
+    printf("ALU CEIL\n");
 }
 
 /**
@@ -107,6 +114,7 @@ void alu_cel(float Rm, float *Rd) {
  **/
 void alu_rnd(float Rm, float *Rd) {
     *Rd = roundf(Rm);
+    printf("ALU ROUND\n");
 }
 
 /**
@@ -116,6 +124,7 @@ void alu_rnd(float Rm, float *Rd) {
  **/
 void alu_abs(float Rm, float *Rd) {
     *Rd = fabsf(Rm);
+    printf("ALU ABS\n");
 }
 
 /**
@@ -129,6 +138,7 @@ void alu_min(float Rm, float Rn, float *Rd) {
     } else {
         *Rd = Rn;
     }
+    printf("ALU MIN\n");
 }
 
 /**
@@ -142,6 +152,7 @@ void alu_max(float Rm, float Rn, float *Rd) {
     } else {
         *Rd = Rn;
     }
+    printf("ALU MAX\n");
 }
 
 /**
@@ -151,6 +162,7 @@ void alu_max(float Rm, float Rn, float *Rd) {
  **/
 void alu_pow(float Rm, int power, float *Rd) {
     *Rd = powf(Rm, power);
+    printf("ALU POW\n");
 }
 
 /**
@@ -160,6 +172,7 @@ void alu_pow(float Rm, int power, float *Rd) {
  **/
 void alu_exp(float Rm, float *Rd) {
     *Rd = powf(CONST_E, Rm);
+    printf("ALU EXP\n");
 }
 
 /**
@@ -169,6 +182,7 @@ void alu_exp(float Rm, float *Rd) {
  **/
 void alu_sqr(float Rm, float *Rd) {
     *Rd = sqrtf(Rm);
+    printf("ALU SQRT\n");
 }
 
 /**

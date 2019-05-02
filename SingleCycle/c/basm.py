@@ -105,7 +105,7 @@ def programMem(writePos, line):
     elif (line[0] == "MOVE"):
         mem[writePos] = '00000100'
         writeTypeRegister(writePos, line)
-    elif (line[0] == "FADD"):
+    elif (line[0] == "ADD"):
         mem[writePos] = '00000101'
         writeTypeRegister(writePos, line)
     elif (line[0] == "FSUB"):
