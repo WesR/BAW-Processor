@@ -95,29 +95,29 @@ architecture Behavioral of yes_norm_top is
     end component;
     
     component mux_8_to_1_word32 is
-        Port ( selection : in STD_LOGIC_VECTOR (2 downto 0);
-               input_0 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_1 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_2 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_3 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_4 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_5 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_6 : in STD_LOGIC_VECTOR (31 downto 0);
-               input_7 : in STD_LOGIC_VECTOR (31 downto 0);
-               output : out STD_LOGIC_VECTOR (31 downto 0));
+        Port ( selection : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               input_0 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_1 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_2 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_3 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_4 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_5 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_6 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               input_7 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+               output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
     end component;
     
     component mux_8_to_1_flags is
-        Port ( selection : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_0 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_1 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_2 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_3 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_4 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_5 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_6 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_7 : in STD_LOGIC_VECTOR (2 downto 0);
-               flags_out : out STD_LOGIC_VECTOR (2 downto 0));
+        Port ( selection : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_0 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_1 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_2 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_3 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_4 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_5 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_6 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_7 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+               flags_out : out STD_LOGIC_VECTOR (2 downto 0) := (others => '0'));
     end component;
     
     signal internal_pre_norm_A : STD_LOGIC_VECTOR(31 downto 0);

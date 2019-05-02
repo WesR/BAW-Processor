@@ -32,10 +32,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_2_to_1_flags is
-    Port ( select_bit : in STD_LOGIC;
-           flags_0 : in STD_LOGIC_VECTOR (2 downto 0);
-           flags_1 : in STD_LOGIC_VECTOR (2 downto 0);
-           flags_out : out STD_LOGIC_VECTOR (2 downto 0) := (others => '-'));
+    Port ( select_bit : in STD_LOGIC := '0';
+           flags_0 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+           flags_1 : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+           flags_out : out STD_LOGIC_VECTOR (2 downto 0));
 end mux_2_to_1_flags;
 
 architecture Behavioral of mux_2_to_1_flags is

@@ -32,11 +32,11 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_4_to_1_word32 is
-    Port ( selection : in STD_LOGIC_VECTOR (1 downto 0);
-           input_0 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_1 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_2 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_3 : in STD_LOGIC_VECTOR (31 downto 0);
+    Port ( selection : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+           input_0 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_1 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_2 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_3 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
            output : out STD_LOGIC_VECTOR (31 downto 0));
 end mux_4_to_1_word32;
 

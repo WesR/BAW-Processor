@@ -32,9 +32,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_2_to_1_word32 is
-    Port ( select_bit : in STD_LOGIC;
-           input_0 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_1 : in STD_LOGIC_VECTOR (31 downto 0);
+    Port ( select_bit : in STD_LOGIC := '0';
+           input_0 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_1 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
            output : out STD_LOGIC_VECTOR (31 downto 0));
 end mux_2_to_1_word32;
 
@@ -44,6 +44,6 @@ begin
     --selection_sig <= to_bit(select_bit);
     output <= input_0 when (select_bit = '0') else
         input_1 when (select_bit = '1') else
-        (others => '-'); -- indicate error
+        (others => '0'); -- indicate error
 
 end Behavioral;

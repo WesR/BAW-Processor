@@ -32,16 +32,16 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_8_to_1_word32 is
-    Port ( selection : in STD_LOGIC_VECTOR (2 downto 0);
-           input_0 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_1 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_2 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_3 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_4 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_5 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_6 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_7 : in STD_LOGIC_VECTOR (31 downto 0);
-           output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '-'));
+    Port ( selection : in STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+           input_0 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_1 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_2 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_3 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_4 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_5 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_6 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           input_7 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+           output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
 end mux_8_to_1_word32;
 
 architecture Behavioral of mux_8_to_1_word32 is

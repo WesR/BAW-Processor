@@ -32,11 +32,11 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_4_to_1_flags is
-    Port ( selection : in STD_LOGIC_VECTOR (1 downto 0);
-           flags_0 : in STD_LOGIC_VECTOR (1 downto 0);
-           flags_1 : in STD_LOGIC_VECTOR (1 downto 0);
-           flags_2 : in STD_LOGIC_VECTOR (1 downto 0);
-           flags_3 : in STD_LOGIC_VECTOR (1 downto 0);
+    Port ( selection : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+           flags_0 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+           flags_1 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+           flags_2 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+           flags_3 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
            flags_out : out STD_LOGIC_VECTOR (1 downto 0));
 end mux_4_to_1_flags;
 
