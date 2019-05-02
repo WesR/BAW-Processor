@@ -44,7 +44,8 @@ architecture Behavioral of SingleCycleArch is
     end component;
     
     component PC is
-        Port ( input : in STD_LOGIC_VECTOR (19 downto 0);
+        Port ( PCWrite : in STD_LOGIC := '0';
+               input : in STD_LOGIC_VECTOR (19 downto 0);
                output : out STD_LOGIC_VECTOR (19 downto 0));
     end component;
     
