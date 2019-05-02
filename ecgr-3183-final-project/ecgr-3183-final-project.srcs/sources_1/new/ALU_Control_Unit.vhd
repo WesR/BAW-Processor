@@ -22,8 +22,9 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-library OPCODE_LIB;
-use OPCODE_LIB.ALU_ops.ALL;
+library opcode_lib;
+use opcode_lib.processor_ops.all;
+use opcode_lib.ALU_ops.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -43,19 +44,21 @@ architecture Behavioral of ALU_Control_Unit is
 
 begin
 
-    process(input)
-        variable first_stage_op: STD_LOGIC_VECTOR(3 downto 0);
-        variable second_stage_op: STD_LOGIC_VECTOR(1 downto 0);
-    begin
-    output <= input_0 when (input = "") else
-              input_1 when (selection = "001") else
-              input_2 when (selection = "010") else
-              input_3 when (selection = "011") else
-              input_4 when (selection = "100") else
-              input_5 when (selection = "101") else
-              input_6 when (selection = "110") else
-              input_7 when (selection = "111") else
-              (others => '-'); -- indicate error
-    end process;
+    output <= get_ALU_code_slv(get_asm_code(input));
 
+--    process(input)
+--        variable first_stage_op: STD_LOGIC_VECTOR(3 downto 0);
+--        variable second_stage_op: STD_LOGIC_VECTOR(1 downto 0);
+--    begin
+--    output <= input_0 when (input = "") else
+--              input_1 when (selection = "001") else
+--              input_2 when (selection = "010") else
+--              input_3 when (selection = "011") else
+--              input_4 when (selection = "100") else
+--              input_5 when (selection = "101") else
+--              input_6 when (selection = "110") else
+--              input_7 when (selection = "111") else
+--              (others => '-'); -- indicate error
+--    end process;
+    
 end Behavioral;

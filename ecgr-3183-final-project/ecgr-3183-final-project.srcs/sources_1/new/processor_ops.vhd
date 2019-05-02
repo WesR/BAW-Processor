@@ -22,7 +22,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library opcode_lib;
-use opcode_lib.ALU_ops.all;
+use opcode_lib.shared_ops_types.asm_code;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -35,30 +35,29 @@ use opcode_lib.ALU_ops.all;
 
 package processor_ops is
 
-  
-  type asm_code is (Set,
-                    Load,
-                    Store,
-                    Move,
-                    Fadd,
-                    Fsub,
-                    Fneg,
-                    Fmul,
-                    Fdiv,
-                    Floor,
-                    Ceil,
-                    Round,
-                    Fabs,
-                    Min,
-                    Max,
-                    Pow,
-                    Exp,
-                    Sqrt,
-                    B,
-                    BZ,
-                    BN,
-                    Nop,
-                    Halt);
+--  type asm_code is (Set,
+--                    Load,
+--                    Store,
+--                    Move,
+--                    Fadd,
+--                    Fsub,
+--                    Fneg,
+--                    Fmul,
+--                    Fdiv,
+--                    Floor,
+--                    Ceil,
+--                    Round,
+--                    Fabs,
+--                    Min,
+--                    Max,
+--                    Pow,
+--                    Exp,
+--                    Sqrt,
+--                    B,
+--                    BZ,
+--                    BN,
+--                    Nop,
+--                    Halt);
                     
     function get_asm_slv ( arg : asm_code) return STD_LOGIC_VECTOR;
     function get_asm_code ( arg : STD_LOGIC_VECTOR(7 downto 0)) return asm_code;

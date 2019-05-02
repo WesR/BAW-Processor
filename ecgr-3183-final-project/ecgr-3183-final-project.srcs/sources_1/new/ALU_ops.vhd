@@ -23,7 +23,9 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 library opcode_lib;
-use opcode_lib.processor_ops.all;
+use opcode_lib.shared_ops_types.first_stage_code;
+use opcode_lib.shared_ops_types.second_stage_code;
+use opcode_lib.shared_ops_types.asm_code;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -36,23 +38,23 @@ use opcode_lib.processor_ops.all;
 
 package ALU_ops is
   
-    type first_stage_code is (Pass_Thru_A,
-                            Fsqrt,
-                            Fabs,
-                            Fneg,
-                            Min,
-                            Max,
-                            Fadd,
-                            Fsub,
-                            Fmul,
-                            Fdiv,
-                            Pow,
-                            Exp);
+--    type first_stage_code is (Pass_Thru_A,
+--                            Fsqrt,
+--                            Fabs,
+--                            Fneg,
+--                            Min,
+--                            Max,
+--                            Fadd,
+--                            Fsub,
+--                            Fmul,
+--                            Fdiv,
+--                            Pow,
+--                            Exp);
     
-    type second_stage_code is (Pass_Thru,
-                             Floor,
-                             Ceil,
-                             Round);
+--    type second_stage_code is (Pass_Thru,
+--                             Floor,
+--                             Ceil,
+--                             Round);
                              
     function get_first_stage_slv ( arg : first_stage_code) return STD_LOGIC_VECTOR;
     function get_second_stage_slv ( arg : second_stage_code) return STD_LOGIC_VECTOR;
@@ -109,10 +111,18 @@ function get_ALU_code_slv ( arg : asm_code) return STD_LOGIC_VECTOR is
         variable temp_slv: STD_LOGIC_VECTOR(7 downto 0);
         begin
             case arg is
-                when Set => temp_slv := x"01";
-                when Load => temp_slv := x"02";
-                when Store => temp_slv := x"03";
-                when Move => temp_slv := x"04";
+                when Set => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Fadd);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when Load => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Fadd);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when Store => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Fadd);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when Move => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
                 when Fadd => 
                     temp_slv(3 downto 0) := get_first_stage_slv(Fadd);
                     temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
@@ -155,12 +165,24 @@ function get_ALU_code_slv ( arg : asm_code) return STD_LOGIC_VECTOR is
                 when Sqrt => 
                     temp_slv(3 downto 0) := get_first_stage_slv(Fsqrt);
                     temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
-                when B => temp_slv := x"13";
-                when BZ => temp_slv := x"14";
-                when BN => temp_slv := x"15";
-                when Nop => temp_slv := x"16";
-                when Halt => temp_slv := x"17";
-                when others => temp_slv := x"17";   
+                when B => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when BZ =>
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when BN =>
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when Nop => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when Halt => 
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);
+                when others =>
+                    temp_slv(3 downto 0) := get_first_stage_slv(Pass_Thru_A);
+                    temp_slv(5 downto 4) := get_second_stage_slv(Pass_Thru);  
             end case;
             return temp_slv;
         end function get_ALU_code_slv;
