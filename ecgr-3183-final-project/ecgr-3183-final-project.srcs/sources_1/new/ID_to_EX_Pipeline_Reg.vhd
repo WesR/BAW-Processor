@@ -33,12 +33,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity ID_to_EX_Pipeline_Reg is
     Port ( clock : in STD_LOGIC;
-           opcode_in : in STD_LOGIC_VECTOR (7 downto 0);
-           opcode_out : out STD_LOGIC_VECTOR (7 downto 0);
-           RegWrite_in : in STD_LOGIC;
-           RegWrite_out : out STD_LOGIC;
-           MemtoReg_in : in STD_LOGIC;
-           MemtoReg_out : out STD_LOGIC;
+           WB_in : in STD_LOGIC_VECTOR (9 downto 0);
+           WB_out : out STD_LOGIC_VECTOR (9 downto 0);
+           M_in : in STD_LOGIC_VECTOR (1 downto 0);
+           M_out : in STD_LOGIC_VECTOR (1 downto 0);
            ALUSrc_in : in STD_LOGIC;
            ALUSrc_out : out STD_LOGIC;
            PC_Address_in : in STD_LOGIC_VECTOR (19 downto 0);

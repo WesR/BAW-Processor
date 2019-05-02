@@ -42,7 +42,7 @@ entity Stage_IF is
 end Stage_IF;
 
 architecture Behavioral of Stage_IF is
-     component mux_PC_input is
+   component mux_PC_input is
        Port ( PCSrc : in STD_LOGIC;
               input_0 : in STD_LOGIC_VECTOR (19 downto 0);
               input_1 : in STD_LOGIC_VECTOR (19 downto 0);
