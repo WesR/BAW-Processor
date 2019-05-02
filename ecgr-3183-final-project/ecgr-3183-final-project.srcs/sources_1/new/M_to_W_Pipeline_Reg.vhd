@@ -33,6 +33,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity M_to_W_Pipeline_Reg is
     Port ( clock : in STD_LOGIC;
+           opcode_in : in STD_LOGIC_VECTOR (7 downto 0);
+           opcode_out : out STD_LOGIC_VECTOR (7 downto 0);
+           RegWrite_in : in STD_LOGIC;
+           RegWrite_out : out STD_LOGIC;
+           MemtoReg_in : in STD_LOGIC;
+           MemtoReg_out : out STD_LOGIC;
+           Execution_Result_in : in STD_LOGIC_VECTOR (31 downto 0);
+           Execution_Result_out : out STD_LOGIC_VECTOR (31 downto 0);
            Data_Read_in : in STD_LOGIC_VECTOR (31 downto 0);
            Data_Read_out : out STD_LOGIC_VECTOR (31 downto 0);
            Rd_in : in STD_LOGIC_VECTOR (3 downto 0);
@@ -43,5 +51,17 @@ architecture Behavioral of M_to_W_Pipeline_Reg is
 
 begin
 
+    process(clock)
+    begin
+        if rising_edge(clock) then
+            
+            opcode_out <= opcode_in;
+            RegWrite_out <= RegWrite_in;
+            MemtoReg_out <= MemtoReg_in;
+            Execution_Result_out <= Execution_Result_in;
+            Data_Read_out <= Data_Read_in;
+            Rd_out <= Rd_in;
+        end if;
+    end process;
 
 end Behavioral;
