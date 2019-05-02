@@ -1,10 +1,10 @@
 ----------------------------------------------------------------------------------
--- Company: ECGR-3183
+-- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/30/2019 01:09:34 AM
+-- Create Date: 05/01/2019 05:31:18 PM
 -- Design Name: 
--- Module Name: mux_2_to_1_word32 - Behavioral
+-- Module Name: Register_File - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,19 +31,19 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity mux_2_to_1_word32 is
-    Port ( select_bit : in STD_LOGIC;
-           input_0 : in STD_LOGIC_VECTOR (31 downto 0);
-           input_1 : in STD_LOGIC_VECTOR (31 downto 0);
-           output : out STD_LOGIC_VECTOR (31 downto 0));
-end mux_2_to_1_word32;
+entity Register_File is
+    Port ( RegWrite : in STD_LOGIC;
+           Rm : in STD_LOGIC_VECTOR (3 downto 0);
+           Rn : in STD_LOGIC_VECTOR (3 downto 0);
+           Rd : in STD_LOGIC_VECTOR (3 downto 0);
+           Write_Data : in STD_LOGIC_VECTOR (31 downto 0);
+           Read_Data_1 : out STD_LOGIC_VECTOR (31 downto 0);
+           Read_Data_2 : out STD_LOGIC_VECTOR (31 downto 0));
+end Register_File;
 
-architecture Behavioral of mux_2_to_1_word32 is
-    --signal selection_sig : STD_LOGIC := select_bit;
+architecture Behavioral of Register_File is
+
 begin
-    --selection_sig <= to_bit(select_bit);
-    output <= input_0 when (select_bit = '0') else
-        input_1 when (select_bit = '1') else
-        (others => '-'); -- indicate error
+
 
 end Behavioral;

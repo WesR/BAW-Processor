@@ -41,14 +41,14 @@ entity mux_4_to_1_word32 is
 end mux_4_to_1_word32;
 
 architecture Behavioral of mux_4_to_1_word32 is
-    signal selection_sig : unsigned(1 downto 0);
+    --signal selection_sig : unsigned(1 downto 0);
 begin
-    selection_sig <= unsigned(selection);
+    --selection_sig <= unsigned(selection);
     
-    output <= input_0 when (selection_sig = "00") else
-              input_1 when (selection_sig = "01") else
-              input_2 when (selection_sig = "10") else
-              input_3 when (selection_sig = "11") else
+    output <= input_0 when (selection = "00") else
+              input_1 when (selection = "01") else
+              input_2 when (selection = "10") else
+              input_3 when (selection = "11") else
               (others => '0'); -- indicate error
 
 end Behavioral;

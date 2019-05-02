@@ -41,14 +41,14 @@ entity mux_4_to_1_flags is
 end mux_4_to_1_flags;
 
 architecture Behavioral of mux_4_to_1_flags is
-    signal selection_sig : unsigned(1 downto 0);
+    --signal selection_sig : unsigned(1 downto 0);
 begin
-    selection_sig <= unsigned(selection);
+    --selection_sig <= unsigned(selection);
            
-    flags_out <= flags_0 when (selection_sig = "00") else
-                 flags_1 when (selection_sig = "01") else
-                 flags_2 when (selection_sig = "10") else
-                 flags_3 when (selection_sig = "11") else
+    flags_out <= flags_0 when (selection = "00") else
+                 flags_1 when (selection = "01") else
+                 flags_2 when (selection = "10") else
+                 flags_3 when (selection = "11") else
                  (others => '0'); -- set flags to '0' by default
 
 end Behavioral;
