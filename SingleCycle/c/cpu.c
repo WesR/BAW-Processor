@@ -157,6 +157,7 @@ void singleCycle(){
         // if set load and + 1
         // if branch take it
         PC++;
+        printRegisters();
     } while (2>1); //current op = 0 );
     
 }
