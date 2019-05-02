@@ -32,7 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_PC_input is
-    Port ( selection : in STD_LOGIC;
+    Port ( PCSrc : in STD_LOGIC;
            input_0 : in STD_LOGIC_VECTOR (19 downto 0);
            input_1 : in STD_LOGIC_VECTOR (19 downto 0);
            output : out STD_LOGIC_VECTOR (19 downto 0));
@@ -41,8 +41,8 @@ end mux_PC_input;
 architecture Behavioral of mux_PC_input is
 
 begin
-    output <= input_0 when (selection = '0') else
-        input_1 when (selection = '1') else
+    output <= input_0 when (PCSrc = '0') else
+        input_1 when (PCSrc = '1') else
         (others => '-'); -- indicate error
 
 end Behavioral;
