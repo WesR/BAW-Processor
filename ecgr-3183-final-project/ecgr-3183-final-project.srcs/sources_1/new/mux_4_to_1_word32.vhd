@@ -37,7 +37,7 @@ entity mux_4_to_1_word32 is
            input_1 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
            input_2 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
            input_3 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
-           output : out STD_LOGIC_VECTOR (31 downto 0));
+           output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
 end mux_4_to_1_word32;
 
 architecture Behavioral of mux_4_to_1_word32 is

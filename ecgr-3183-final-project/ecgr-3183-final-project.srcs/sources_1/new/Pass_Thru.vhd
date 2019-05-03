@@ -43,22 +43,9 @@ architecture Behavioral of Pass_Thru is
     constant zero_val: float32 := to_float(real(0), exponent_width => 8, fraction_width => 23);
 begin
 
-    
-    process(input)
-        variable internal_word32_value: float32;
-    begin
-        output <= input;
-        internal_word32_value := to_float(input, exponent_width => 8, fraction_width => 23);
-        if (internal_word32_value = zero_val) then
-            flags_out(1) <= '0'; -- N
-            flags_out(0) <= '1'; -- Z
-        else
-            flags_out(1) <= '1'; -- N
-            flags_out(0) <= '0'; -- Z
-        end if;
-    
-    end process;
-    
-    
+    output <= input;
+    flags_out <= "01" when (to_float(input, exponent_width => 8, fraction_width => 23) = zero_val) else
+            "10" when (to_float(input, exponent_width => 8, fraction_width => 23) < zero_val) else
+            "00"; -- format flags_out(N, Z)
 
 end Behavioral;

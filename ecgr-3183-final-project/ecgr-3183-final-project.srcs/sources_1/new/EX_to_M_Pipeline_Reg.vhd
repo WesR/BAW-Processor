@@ -51,8 +51,8 @@ entity EX_to_M_Pipeline_Reg is
            Branch_Address_out : out STD_LOGIC_VECTOR (19 downto 0);
            Zero_in : in STD_LOGIC;
            Zero_out : out STD_LOGIC;
-           Nonzero_in : in STD_LOGIC;
-           Nonzero_out : out STD_LOGIC;
+           Negative_in : in STD_LOGIC;
+           Negative_out : out STD_LOGIC;
            ALUResult_in : in STD_LOGIC_VECTOR (31 downto 0);
            ALUResult_out : out STD_LOGIC_VECTOR (31 downto 0);
            Read_Data_2_in : in STD_LOGIC_VECTOR (31 downto 0);
@@ -64,6 +64,24 @@ end EX_to_M_Pipeline_Reg;
 architecture Behavioral of EX_to_M_Pipeline_Reg is
 
 begin
-
+    process(clock)
+    begin
+        if rising_edge(clock) then
+            
+            opcode_out <= opcode_in;
+            RegWrite_out <= RegWrite_in;
+            MemtoReg_out <= MemtoReg_in;
+            MemRead_out <= MemRead_in;
+            MemWrite_out <= MemWrite_in;
+            Branch_out <= Branch_in;
+            UncondBranch_out <= UncondBranch_in;
+            Branch_Address_out <= Branch_Address_in;
+            Zero_out <= Zero_in;
+            Negative_out <= Negative_in;
+            ALUResult_out <= ALUResult_in;
+            Read_Data_2_out <= Read_Data_2_in;
+            Rd_out <= Rd_in;
+        end if;
+    end process;
 
 end Behavioral;

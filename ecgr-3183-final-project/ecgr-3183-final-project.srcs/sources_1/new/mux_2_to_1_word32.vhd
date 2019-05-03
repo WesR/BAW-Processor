@@ -35,7 +35,7 @@ entity mux_2_to_1_word32 is
     Port ( select_bit : in STD_LOGIC := '0';
            input_0 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
            input_1 : in STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
-           output : out STD_LOGIC_VECTOR (31 downto 0));
+           output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
 end mux_2_to_1_word32;
 
 architecture Behavioral of mux_2_to_1_word32 is

@@ -1,0 +1,12 @@
+# compile vhdl design source files
+vhdl ieee_proposed  \
+"../../../../ecgr-3183-final-project.srcs/sources_1/imports/distributable/fixed_float_types_c.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/imports/distributable/fixed_pkg_c.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sources_1/imports/distributable/float_pkg_c.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../../ecgr-3183-final-project.srcs/sources_1/new/Register_File.vhd" \
+"../../../../ecgr-3183-final-project.srcs/sim_1/new/Register_File_tb.vhd" \
+
+# Do not sort compile order
+nosort

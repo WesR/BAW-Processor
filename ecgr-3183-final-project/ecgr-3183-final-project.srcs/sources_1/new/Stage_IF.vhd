@@ -38,7 +38,7 @@ entity Stage_IF is
            Branch_Address_in : in STD_LOGIC_VECTOR (19 downto 0);
            PC_Address_out : out STD_LOGIC_VECTOR (19 downto 0);
            Instruction_out : out STD_LOGIC_VECTOR (31 downto 0);
-           FPValue_out : out STD_LOGIC_VECTOR (31 downto 0));
+           FPValue_out : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
 end Stage_IF;
 
 architecture Behavioral of Stage_IF is

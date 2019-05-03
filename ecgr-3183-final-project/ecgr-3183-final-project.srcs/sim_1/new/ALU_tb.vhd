@@ -61,7 +61,7 @@ architecture Behavioral of ALU_tb is
     signal sig_carry: STD_LOGIC;
     signal sig_overflow: STD_LOGIC;
     signal sig_error: STD_LOGIC;
-    signal sig_non_zero: STD_LOGIC;
+    signal sig_negative: STD_LOGIC;
     signal sig_zero: STD_LOGIC;
     
     type t_opcode_storage is array (0 to 11) of STD_LOGIC_VECTOR(7 downto 0);
@@ -82,7 +82,7 @@ architecture Behavioral of ALU_tb is
 begin
     
     box_ALU: ALU port map(inputA => sig_input_a, inputB => sig_input_b, ALUop => sig_ALUop, result => sig_result, 
-                        C => sig_carry, V => sig_overflow, E => sig_error, N => sig_non_zero, Z => sig_zero);
+                        C => sig_carry, V => sig_overflow, E => sig_error, N => sig_negative, Z => sig_zero);
     
     -- clock generator
     process
@@ -96,10 +96,10 @@ begin
     -- tests
     process(clock)
                                                 -- -87.625
---        constant var_a : float32 := to_float(real(-87.625), exponent_width => 8, fraction_width => 23);
---        constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
-        constant var_a : float32 := to_float(real(2.0), exponent_width => 8, fraction_width => 23);
-        constant var_b : float32 := to_float(real(3.0), exponent_width => 8, fraction_width => 23);
+        constant var_a : float32 := to_float(real(-87.625), exponent_width => 8, fraction_width => 23);
+        constant var_b : float32 := to_float(real(-7.25), exponent_width => 8, fraction_width => 23);
+--        constant var_a : float32 := to_float(real(2.0), exponent_width => 8, fraction_width => 23);
+--        constant var_b : float32 := to_float(real(3.0), exponent_width => 8, fraction_width => 23);
         variable counter: integer := 0;
         
         --array

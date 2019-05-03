@@ -70,7 +70,7 @@ architecture Behavioral of second_stage_top is
                input_1 : in STD_LOGIC_VECTOR (31 downto 0);
                input_2 : in STD_LOGIC_VECTOR (31 downto 0);
                input_3 : in STD_LOGIC_VECTOR (31 downto 0);
-               output : out STD_LOGIC_VECTOR (31 downto 0));
+               output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
     end component;
     
     component mux_4_to_1_flags is
@@ -79,7 +79,7 @@ architecture Behavioral of second_stage_top is
                flags_1 : in STD_LOGIC_VECTOR (1 downto 0);
                flags_2 : in STD_LOGIC_VECTOR (1 downto 0);
                flags_3 : in STD_LOGIC_VECTOR (1 downto 0);
-               flags_out : out STD_LOGIC_VECTOR (1 downto 0));
+               flags_out : out STD_LOGIC_VECTOR (1 downto 0) := (others => '0'));
     end component;
     
     signal internal_word32_0 : STD_LOGIC_VECTOR(31 downto 0);

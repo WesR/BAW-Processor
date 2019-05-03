@@ -43,20 +43,12 @@ architecture Behavioral of Round is
     constant zero_val: float32 := to_float(real(0), exponent_width => 8, fraction_width => 23);
 begin
 
-
-process(input)
-    variable internal_word32_value: float32;
-begin
-    output <= input;
-    internal_word32_value := to_float(input, exponent_width => 8, fraction_width => 23);
-    if (internal_word32_value = zero_val) then
-        flags_out(1) <= '0'; -- N
-        flags_out(0) <= '1'; -- Z
-    else
-        flags_out(1) <= '1'; -- N
-        flags_out(0) <= '0'; -- Z
-    end if;
-
-end process;
+    output <= input; --add((to_float(input, 8, 23)), zero_val, round_style => round_neginf); 
+                     -- plan was to add zero to input and change round style for Floor, Ceiling, and Round operations,
+                     -- but could not get the add function in ieee_proposed.float_pkg to work, i.e.
+                     --         add((to_float(input, 8, 23)), zero_val, round_style => round_neginf);       --
+    flags_out <= "01" when (to_float(input, exponent_width => 8, fraction_width => 23) = zero_val) else
+            "10" when (to_float(input, exponent_width => 8, fraction_width => 23) < zero_val) else
+            "00"; -- format flags_out(N, Z)
 
 end Behavioral;

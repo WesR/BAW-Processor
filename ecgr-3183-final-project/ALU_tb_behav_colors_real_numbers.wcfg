@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1000000001fs"></ZoomEndTime>
-      <Cursor1Time time="244863000fs"></Cursor1Time>
+      <ZoomStartTime time="489781022fs"></ZoomStartTime>
+      <ZoomEndTime time="1342043796fs"></ZoomEndTime>
+      <Cursor1Time time="1200000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="150"></NameColumnWidth>
-      <ValueColumnWidth column_width="82"></ValueColumnWidth>
+      <ValueColumnWidth column_width="113"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/ALU_tb/clock" type="logic">
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
@@ -65,24 +65,16 @@
       <obj_property name="CustomSignalColor">#FF0080</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
-   <wvobject fp_name="/ALU_tb/sig_carry" type="logic">
-      <obj_property name="ElementShortName">sig_carry</obj_property>
-      <obj_property name="ObjectShortName">sig_carry</obj_property>
-   </wvobject>
-   <wvobject fp_name="/ALU_tb/sig_overflow" type="logic">
-      <obj_property name="ElementShortName">sig_overflow</obj_property>
-      <obj_property name="ObjectShortName">sig_overflow</obj_property>
-   </wvobject>
    <wvobject fp_name="/ALU_tb/sig_error" type="logic">
       <obj_property name="ElementShortName">sig_error</obj_property>
       <obj_property name="ObjectShortName">sig_error</obj_property>
    </wvobject>
-   <wvobject fp_name="/ALU_tb/sig_non_zero" type="logic">
-      <obj_property name="ElementShortName">sig_non_zero</obj_property>
-      <obj_property name="ObjectShortName">sig_non_zero</obj_property>
-   </wvobject>
    <wvobject fp_name="/ALU_tb/sig_zero" type="logic">
       <obj_property name="ElementShortName">sig_zero</obj_property>
       <obj_property name="ObjectShortName">sig_zero</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ALU_tb/sig_negative" type="logic">
+      <obj_property name="ElementShortName">sig_negative</obj_property>
+      <obj_property name="ObjectShortName">sig_negative</obj_property>
    </wvobject>
 </wave_config>

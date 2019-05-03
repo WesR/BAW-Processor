@@ -14,3 +14,6 @@ ecgr-3183-final-project/ecgr-3183-final-project.cache/wt/java_command_handlers.w
 ecgr-3183-final-project/ecgr-3183-final-project.cache/wt/project.wpc
 ecgr-3183-final-project/ecgr-3183-final-project.cache/wt/webtalk_pa.xml
 SingleCycle/c/a.out
+ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/Register_File_tb.vhd
+ecgr-3183-final-project/ecgr-3183-final-project.srcs/sim_1/new/ALU_tb.vhd
+*.vdb

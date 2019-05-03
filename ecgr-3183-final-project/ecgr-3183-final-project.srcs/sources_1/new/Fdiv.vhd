@@ -37,7 +37,7 @@ entity Fdiv is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
            result : out STD_LOGIC_VECTOR (31 downto 0);
-           E : out STD_LOGIC);
+           E : out STD_LOGIC := '0');
 end Fdiv;
 
 architecture Behavioral of Fdiv is

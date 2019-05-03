@@ -25,6 +25,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
+library IEEE_PROPOSED;
+use IEEE_PROPOSED.FLOAT_PKG.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -41,16 +43,21 @@ entity Data_Memory is
 end Data_Memory;
 
 architecture Behavioral of Data_Memory is
-    type data_memory_file is array (0 to 16383) of STD_LOGIC_VECTOR(31 downto 0);
+    type data_memory_file is array (0 to 1024) of STD_LOGIC_VECTOR(31 downto 0);
     signal data_mem: data_memory_file;
 begin
-    process(Address)
+    process(clock)
     begin
         -- if RegWrite is enabled, store Write_Data at appropriate register address (Rd)
         if (MemWrite = '1') then
             data_mem(to_integer(unsigned(Address))) <= Write_Data;
         elsif (MemRead = '1') then
             Data_Read <= data_mem(to_integer(unsigned(Address)));
+            
+            if(to_integer(unsigned(Address)) = 100) then
+                Data_Read <= to_slv(to_float(real(3.14159), 8, 23));
+            end if;
+            
         else
             Data_Read <= (others => '0');
         end if;

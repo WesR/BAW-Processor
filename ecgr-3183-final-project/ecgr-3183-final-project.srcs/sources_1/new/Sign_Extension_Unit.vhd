@@ -35,7 +35,7 @@ use IEEE_PROPOSED.FLOAT_PKG.ALL;
 
 entity Sign_Extension_Unit is
     Port ( input : in STD_LOGIC_VECTOR (15 downto 0);
-           output : out STD_LOGIC_VECTOR (31 downto 0) := (others => 'X'));
+           output : out STD_LOGIC_VECTOR (31 downto 0) := (others => '0'));
 end Sign_Extension_Unit;
 
 architecture Behavioral of Sign_Extension_Unit is

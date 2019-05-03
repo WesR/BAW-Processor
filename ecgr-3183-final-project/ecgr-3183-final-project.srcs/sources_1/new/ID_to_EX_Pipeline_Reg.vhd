@@ -33,10 +33,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity ID_to_EX_Pipeline_Reg is
     Port ( clock : in STD_LOGIC;
-           WB_in : in STD_LOGIC_VECTOR (9 downto 0);
-           WB_out : out STD_LOGIC_VECTOR (9 downto 0);
-           M_in : in STD_LOGIC_VECTOR (1 downto 0);
-           M_out : in STD_LOGIC_VECTOR (1 downto 0);
+           opcode_in : in STD_LOGIC_VECTOR (7 downto 0);
+           opcode_out : out STD_LOGIC_VECTOR (7 downto 0);
+           RegWrite_in : in STD_LOGIC;
+           RegWrite_out : out STD_LOGIC;
+           MemtoReg_in : in STD_LOGIC;
+           MemtoReg_out : out STD_LOGIC;
+           MemRead_in : in STD_LOGIC;
+           MemRead_out : out STD_LOGIC;
+           MemWrite_in : in STD_LOGIC;
+           MemWrite_out : out STD_LOGIC;
+           Branch_in : in STD_LOGIC;
+           Branch_out : out STD_LOGIC;
+           UncondBranch_in : in STD_LOGIC;
+           UncondBranch_out : out STD_LOGIC;
            ALUSrc_in : in STD_LOGIC;
            ALUSrc_out : out STD_LOGIC;
            PC_Address_in : in STD_LOGIC_VECTOR (19 downto 0);
@@ -60,6 +70,27 @@ end ID_to_EX_Pipeline_Reg;
 architecture Behavioral of ID_to_EX_Pipeline_Reg is
 
 begin
-
+    process(clock)
+    begin
+        if rising_edge(clock) then
+            
+            opcode_out <= opcode_in;
+            RegWrite_out <= RegWrite_in;
+            MemtoReg_out <= MemtoReg_in;
+            MemRead_out <= MemRead_in;
+            MemWrite_out <= MemWrite_in;
+            Branch_out <= Branch_in;
+            UncondBranch_out <= UncondBranch_in;
+            ALUSrc_out <= ALUSrc_in;
+            PC_Address_out <= PC_Address_in;
+            Branch_Address_out <= Branch_Address_in;
+            Read_Data_1_out <= Read_Data_1_in;
+            Read_Data_2_out <= Read_Data_2_in;
+            Sign_Extended_out <= Sign_Extended_in;
+            Rd_out <= Rd_in;
+            Rn_out <= Rn_in;
+            Rm_out <= Rm_in;
+        end if;
+    end process;
 
 end Behavioral;

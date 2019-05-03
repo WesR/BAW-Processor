@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
--- Company: 
+-- Company: ECGR-3183
 -- Engineer: 
 -- 
 -- Create Date: 05/02/2019 03:53:19 AM
@@ -48,12 +48,10 @@ entity Main_Control_Unit_Single_Cycle is
 end Main_Control_Unit_Single_Cycle;
 
 architecture Behavioral of Main_Control_Unit_Single_Cycle is
---            svariable temp_slv: STD_LOGIC_VECTOR(7 downto 0);
---variable temp_opcode: asm_code;
+
 begin
 
-
-    process--(opcode)
+    process(opcode)
         variable temp_slv: STD_LOGIC_VECTOR(7 downto 0);
         variable temp_opcode: asm_code;
     begin
@@ -81,7 +79,6 @@ begin
         UncondBranch <= temp_slv(0);
         
         --wait for 1 ns;
-    
     end process;
 
 end Behavioral;

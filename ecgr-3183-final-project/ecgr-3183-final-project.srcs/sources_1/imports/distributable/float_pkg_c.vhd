@@ -153,7 +153,7 @@ package float_pkg is
 
   function add (
     l, r                 : UNRESOLVED_float;  -- floating point input
-    constant round_style : round_type := float_round_style;  -- rounding option
+    round_style : round_type := float_round_style;  -- rounding option
     constant guard       : NATURAL    := float_guard_bits;  -- number of guard bits
     constant check_error : BOOLEAN    := float_check_error;  -- check for errors
     constant denormalize : BOOLEAN    := float_denormalize)  -- Use IEEE extended FP
@@ -1877,7 +1877,7 @@ package body float_pkg is
   -- Addition, adds two floating point numbers
   function add (
     l, r                 : UNRESOLVED_float;  -- floating point input
-    constant round_style : round_type := float_round_style;  -- rounding option
+    round_style : round_type := float_round_style;  -- rounding option
     constant guard       : NATURAL    := float_guard_bits;  -- number of guard bits
     constant check_error : BOOLEAN    := float_check_error;  -- check for errors
     constant denormalize : BOOLEAN    := float_denormalize)  -- Use IEEE extended FP

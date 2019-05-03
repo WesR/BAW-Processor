@@ -37,8 +37,8 @@ entity Fsub is
     Port ( inputA : in STD_LOGIC_VECTOR (31 downto 0);
            inputB : in STD_LOGIC_VECTOR (31 downto 0);
            result : out STD_LOGIC_VECTOR (31 downto 0);
-           CY : out STD_LOGIC;
-           OV : out STD_LOGIC);
+           CY : out STD_LOGIC := '0';
+           OV : out STD_LOGIC := '0');
 end Fsub;
 
 architecture Behavioral of Fsub is

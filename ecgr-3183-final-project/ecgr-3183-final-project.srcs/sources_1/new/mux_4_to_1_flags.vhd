@@ -37,7 +37,7 @@ entity mux_4_to_1_flags is
            flags_1 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
            flags_2 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
            flags_3 : in STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
-           flags_out : out STD_LOGIC_VECTOR (1 downto 0));
+           flags_out : out STD_LOGIC_VECTOR (1 downto 0) := (others => '0'));
 end mux_4_to_1_flags;
 
 architecture Behavioral of mux_4_to_1_flags is

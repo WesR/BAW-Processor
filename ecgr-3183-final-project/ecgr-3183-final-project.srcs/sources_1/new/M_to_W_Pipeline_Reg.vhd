@@ -50,7 +50,6 @@ end M_to_W_Pipeline_Reg;
 architecture Behavioral of M_to_W_Pipeline_Reg is
 
 begin
-
     process(clock)
     begin
         if rising_edge(clock) then
