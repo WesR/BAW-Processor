@@ -1,10 +1,10 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: Austin W.
+-- Engineer: 
 -- 
--- Create Date: 05/01/2019 01:44:57 AM
+-- Create Date: 05/03/2019 08:56:54 AM
 -- Design Name: 
--- Module Name: second_stage_tb - Behavioral
+-- Module Name: Stage_ID - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,14 +31,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity second_stage_tb is
-    Port ( input : in STD_LOGIC_VECTOR (31 downto 0);
-           control_select : in STD_LOGIC_VECTOR (1 downto 0);
-           output : out STD_LOGIC_VECTOR (31 downto 0);
-           flags_out : out STD_LOGIC_VECTOR (1 downto 0));
-end second_stage_tb;
+entity Stage_ID is
+    Port ( clock : in STD_LOGIC;
+           Instruction_in : in STD_LOGIC_VECTOR (31 downto 0);
+           Read__Data_1 : out STD_LOGIC_VECTOR (31 downto 0);
+           Read_Data_2 : out STD_LOGIC_VECTOR (31 downto 0));
+end Stage_ID;
 
-architecture Behavioral of second_stage_tb is
+architecture Behavioral of Stage_ID is
 
 begin
 

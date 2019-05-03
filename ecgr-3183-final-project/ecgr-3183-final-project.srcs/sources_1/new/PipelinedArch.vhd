@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: ECGR-3183
--- Engineer: 
+-- Engineer: Austin W.
 -- 
 -- Create Date: 05/02/2019 04:57:46 AM
 -- Design Name: 
@@ -51,12 +51,10 @@ architecture Behavioral of PipelinedArch is
     signal PCSrc: STD_LOGIC;
     signal PCWrite: STD_LOGIC;
 
-    signal PCSrc: STD_LOGIC;
-    signal PCSrc: STD_LOGIC;
-    
+    signal Branch_Address_in: STD_LOGIC_VECTOR(19 downto 0);
 begin
     -- port mappings
-    box_Fetch: Stage_IF port map(clock => clock, PCSrc => PCSrc, PCWrite => PCWrite);
+    --box_Fetch: Stage_IF port map(clock => clock, PCSrc => PCSrc, PCWrite => PCWrite);
     
     process
     begin
@@ -64,6 +62,6 @@ begin
         wait for 50 ns;
         system_clock <= '1';
         wait for 50 ns;
-    end if;
+    end process;
 
 end Behavioral;
