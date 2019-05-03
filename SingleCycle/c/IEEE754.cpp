@@ -37,7 +37,7 @@ int IEEE754::to_int(bitset<8> input)
     }
     return total;
 }
-
+//test
 int IEEE754::to_int(bitset<23> input) 
 {
     int total = 0;
@@ -102,6 +102,91 @@ float IEEE754::getfloat()
     return output;
 }
 
+void IEEE754::makeAbs()
+{
+    s = 0;
+    FPval[31] = 0;
+    return;
+}
+
+void IEEE754::makeNeg()
+{
+    s = ~(FPval[31]);
+    FPval[31] = ~(FPval[31]);
+    return;
+}
+
+void IEEE754::getFloor()
+{
+    int delta;
+    delta = 23 - (to_int(e) - 126);
+    //cout << delta;
+    if (delta >= 23)
+    {
+        FPval = 0x00000000;
+        s = FPval[31];
+        for (int i = 7; i >= 0; i--)
+            e[i] = FPval[i + 23];
+        for (int i = 22; i >= 0; i--)
+            m[i] = FPval[i];
+        return;
+    }
+    for (int i = delta; i >= 0; i--)
+    {
+        m[i] = 0;
+        FPval[i] = 0;
+    }
+    return;
+}
+
+void IEEE754::getCeil()
+{
+    bitset<23> ceilAdd = 0x00000;
+    int delta;
+    bitset<25> Cin = 0x00000;
+    bitset<25> Sum = 0x00000;
+    bitset<25> newM = 0x00000;
+    
+    delta = 23 - (to_int(e) - 126);
+    ceilAdd[delta+1] = 1;
+    for (int i = delta; i >= 0; i--)
+    {
+        m[i] = 0;
+        FPval[i] = 0;
+    }
+    //add 1
+    for (int i=22; i>=0; i--)
+    {
+        newM[i] = m[i];
+    }
+    for (int i = 0; i <= 24; i++)
+    {
+        Cin[i+1] = (ceilAdd[i] & newM[i]) | (ceilAdd[i] & Cin[i]) | (newM[i] & Cin[i]);
+        Sum[i] = ((Cin[i]) ^ (ceilAdd[i])) ^ (newM[i]);
+    }
+    //write
+    for (int i = 22; i >= 0; i--)
+    {
+        FPval[i] = Sum[i];
+        m[i] = Sum[i];
+    }
+    return;
+}
+
+void IEEE754::getRound()
+{
+    int delta;
+    delta = 23 - (to_int(e) - 126);
+    if (m[delta] == 0) 
+    {
+        getFloor();
+    } else if (m[delta] == 1) {
+        getCeil();
+    }
+    
+    return;
+}
+
 void IEEE754::print()
 {
     cout << FPval << endl;
@@ -138,12 +223,14 @@ IEEE754 IEEE754::operator+(IEEE754 next)
         new_e_int = to_int(next.e) + dif;
         new_e_set = new_e_int;
         cout << new_e_set << " ";
+        
         new_m_set = next.m>>dif;
         new_m_set[23-dif] = 1;
         for (int i = 0; i <= 22; i++)
             add_m_set[i] = m[i];
         add_m_set[23] = 1;
-        cout << m << " " << dif << " " << new_m_set << endl;;
+        
+        cout << m << " " << dif << " " << new_m_set << endl;
     } 
     else if ((unbiasA - unbiasB) < 0)
     {

@@ -19,10 +19,16 @@ class IEEE754 {
         void print();
         float getfloat();
         
+        void makeAbs();
+        void makeNeg();
+        
+        void getFloor();
+        void getCeil();
+        void getRound();
+        
         IEEE754 operator=(IEEE754 next);
         IEEE754 operator+(IEEE754 next);
         //IEEE754 operator-(IEEE754 next);
-        
     private:
         bitset<32> FPval;
         bool s;

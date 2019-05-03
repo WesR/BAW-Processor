@@ -5,13 +5,15 @@ using namespace std;
 
 int main()
 {
-    IEEE754 test(500), test2(50), testR;
-    //test.print();
-    //cout << test.getfloat() << endl;
-    //cout << endl;
-    //cout << endl;
-    testR = test + test2;
-    //testR.print();
+    IEEE754 test(50.3), test2(50), testR;
+    
+    cout << test.getfloat() << endl;
+    
+    test.print();
+    cout << endl;
+    test.getRound();
+    
+    testR = test;
     cout << testR.getfloat() << endl;
     return 0;
 }
